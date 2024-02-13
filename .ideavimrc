@@ -9,6 +9,15 @@ set scrolloff=5
 " Do incremental searching.
 set incsearch
 set surround
+set clipboard=unnamed
+inoremap ii <Esc>
+
+nnoremap \e :e ~/.ideavimrc<CR>
+nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+noremap H ^
+noremap ^ H
+noremap L $
+noremap $ L
 
 " Don't use Ex mode, use Q for formatting.
 "map Q gq
@@ -32,5 +41,6 @@ set surround
 
 "" Map \b to toggle the breakpoint on the current line
 "map \b <Action>(ToggleLineBreakpoint)
+
 
 " Find more examples here: https://jb.gg/share-ideavimrc
