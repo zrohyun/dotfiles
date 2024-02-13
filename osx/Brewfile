@@ -53,7 +53,7 @@ brew "krew"
 brew "helm"
 brew "trash-cli"
 brew "lazygit"
-brew "mackup"
+brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "jesseduffield/lazydocker/lazydocker"
 brew "daipeihust/tap/im-select"
 
@@ -101,9 +101,11 @@ cask "tabby"
 cask "wireshark"
 cask "sourcetree"
 cask "github"
+cask "bartender"
+cask "contexts"
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
-# cask 'dash' #
+# cask "dash" #
 
 mas "Goodnotes", id: 1444383602
 mas "KakaoTalk", id: 869223134
@@ -111,3 +113,4 @@ mas "Microsoft Remote Desktop", id: 1295203466
 mas "Notability", id: 360593530
 mas "Amphetamine", id: 937984704
 mas "RunCat", id: 1429033973
+mas "Xmenu", id: 419332741

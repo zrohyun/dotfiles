@@ -88,6 +88,13 @@ plugins=(
     fzf
     asdf
     z
+    macos
+    brew
+    ripgrep
+    colorize 
+    composer 
+    docker 
+    docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
