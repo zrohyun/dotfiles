@@ -1,0 +1,29 @@
+{
+    "redhat.telemetry.enabled": true,
+    "terminal.integrated.env.osx": {
+        "FIG_NEW_SESSION": "1"
+    },
+    "workbench.colorTheme": "Default Light+",
+    "remote.tunnels.access.preventSleep": true,
+    "remote.SSH.defaultExtensions": [
+        "gitpod.gitpod-remote-ssh"
+    ],
+    "cloudcode.kubeconfigs": [
+        {
+            "name": "/Users/ncsoft/.kube/config",
+            "configPath": "/Users/ncsoft/.kube/config"
+        }
+    ],
+    "cloudcode.active-kubeconfig": "/Users/ncsoft/.kube/config",
+    "window.titleBarStyle": "custom",
+    "dogu.enabled": true,
+    "dogu.baseUrl": "http://KDL-02.korea.ncsoft.corp:5000/v1/engines/codegen",
+    "dogu.temperature": 0.1,
+    "dogu.inlineCompletion": false,
+    "fauxpilot.server": "http://KDL-02.korea.ncsoft.corp:5000/v1/engines/codegen",
+    "remote.SSH.remotePlatform": {
+        "coder-vscode--asdmin--test-work": "linux"
+    },
+    "editor.accessibilitySupport": "off",
+    "fauxpilot.enabled": false,
+}

@@ -1,0 +1,113 @@
+###########################################################################################
+## Mac 초기 세팅 할때 xcode-select 사용 or Homebrew 사용
+#1. xcode-select
+#`$ xcode-select --install && git --version # Command Line Developer tools는 git 포함 여러 툴이 포함되어 있음.`
+#2. Homebrew
+#`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git && git --version`
+#
+#
+### Reference
+#- [맥에서 명령어 라인 도구(Command Line Tools) 설치하는 방법](https://www.lainyzine.com/ko/article/how-to-install-command-line-tools-on-macos/)
+#- [MacOS에서 Git 설치하는 방법](https://www.lainyzine.com/ko/article/how-to-install-latest-version-of-git-on-macos/)
+###########################################################################################
+
+# tap
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "homebrew/cask-fonts"
+tap "buo/cask-upgrade"
+
+# brew
+brew "zsh"
+brew "mas"
+brew "code-server"
+brew "docker"
+brew "docker-compose"
+brew "colima"
+brew "minikube"
+brew "tmux"
+brew "tree"
+brew "telnet"
+brew "wget"
+brew "trash-cli"
+brew "neovim"
+brew "bat"
+brew "tig"
+brew "lazygit"
+brew "git"
+brew "tldr"
+brew "neofetch"
+brew "ripgrep"
+brew "btop"
+brew "exa"
+brew "fasd"
+brew "fd"
+brew "fzf"
+brew "htop"
+brew "jq"
+brew "k9s"
+brew "btop"
+brew "kubectx"
+brew "krew"
+brew "helm"
+brew "trash-cli"
+brew "lazygit"
+brew "mackup"
+brew "jesseduffield/lazydocker/lazydocker"
+brew "daipeihust/tap/im-select"
+
+
+# cask
+cask "devtoys"
+cask "visual-studio-code"
+cask "anydesk"
+cask "arc"
+cask "appcleaner"
+cask "brave-browser"
+cask "docker"
+cask "firefox"
+cask "google-chrome"
+cask "heynote"
+cask "iterm2"
+cask "itsycal"
+cask "keka"
+cask "keycastr"
+cask "github"
+cask "sourcetree"
+cask "logi-options-plus"
+cask "microsoft-remote-desktop"
+cask "remote-desktop-manager"
+cask "raycast"
+cask "shottr"
+cask "termius"
+cask "visual-studio-code"
+cask "topnotch"
+cask "intellij-idea" # or intellij-idea-ce
+cask "pycharm" # or pycharm-ce
+cask "datagrip"
+cask "alt-tab"
+cask "burp-suite"
+cask "cheatsheet"
+cask "command-x"
+cask "dropzone"
+cask "cursor"
+cask "fig"
+cask "openlens" # or lens 
+cask "mate-translate"
+cask "maccy"
+cask "obsidian"
+cask "tabby"
+cask "wireshark"
+cask "sourcetree"
+cask "github"
+cask "homebrew/cask-fonts/font-jetbrains-mono"
+cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
+# cask 'dash' #
+
+mas "Goodnotes", id: 1444383602
+mas "KakaoTalk", id: 869223134
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Notability", id: 360593530
+mas "Amphetamine", id: 937984704
+mas "RunCat", id: 1429033973

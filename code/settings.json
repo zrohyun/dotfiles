@@ -1,0 +1,7 @@
+{
+    "workbench.colorTheme": "Default Light+",
+    "redhat.telemetry.enabled": false,
+    
+    "vim.vimrc.enable": true,
+    "vim.useSystemClipboard": true
+}

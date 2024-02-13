@@ -1,0 +1,18 @@
+###########################################################################################
+## Mac 초기 세팅 할때 설정 code로 관리
+#
+### Reference
+#- [dotfiles 만들기](https://blog.appkr.dev/work-n-play/dotfiles/)
+#- [mathiasbynens/dotfiles/.macos - Github](https://github.com/mathiasbynens/dotfiles/blob/main/.macos)
+###########################################################################################
+
+# for repeating keys
+# defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false              # For VS Code
+# defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false      # For VS Code Insider
+# defaults write com.vscodium ApplePressAndHoldEnabled -bool false                      # For VS Codium
+# defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false   # For VS Codium Exploration users
+# defaults delete -g ApplePressAndHoldEnabled
+defaults write -g ApplePressAndHoldEnabled -bool false # for global key repeating
+
+# for hotkeys or shortcuts ( 아래의 명령어처럼 defaults를 이용해 shortcuts을 바꿀 수 있음.)
+# defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 79 "{enabled = 1; value = { parameters = (65535, 124, 262144); type = standard; }; }"

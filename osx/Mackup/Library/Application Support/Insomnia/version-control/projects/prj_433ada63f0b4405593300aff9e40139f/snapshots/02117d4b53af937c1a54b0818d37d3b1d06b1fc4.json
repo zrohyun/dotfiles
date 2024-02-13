@@ -1,0 +1,25 @@
+{
+  "author": "acct_d1aff60ecb364bd19507075c7578afe6",
+  "authorAccount": {
+    "email": "zrohyun@gmail.com",
+    "firstName": "Younghyun",
+    "lastName": "Yu"
+  },
+  "created": "2024-01-24T14:16:36.864Z",
+  "description": "",
+  "id": "02117d4b53af937c1a54b0818d37d3b1d06b1fc4",
+  "name": "Initial Snapshot",
+  "parent": "0000000000000000000000000000000000000000",
+  "state": [
+    {
+      "blob": "cd04b9df38e9c701c749beace4a0dfba9a41b314",
+      "key": "env_ca9b8060ab31a31b7a17c05f03da1eff6584fd4f",
+      "name": "Base Environment"
+    },
+    {
+      "blob": "2629298252eaed4048e8084333a92a8a0b9ba95a",
+      "key": "wrk_25d059d7d00146ad9e755df07f0d5293",
+      "name": "Insomnia_test"
+    }
+  ]
+}
