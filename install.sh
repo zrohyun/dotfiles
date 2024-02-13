@@ -7,43 +7,42 @@ case "${unameOut}" in
     *)          echo "NOT SUPPORTED:${unameOut}";exit 1
 esac
 
+backup_file() {
+    # Usage
+    # backup_file $HOME/.aliases
+    if [[ -f "$1" ]]; then
+        mv "$1" "$1.bak"
+        echo "Backup created for $1"
+    fi
+}
+
+backup_and_link() {
+    # Usage
+    # backup_and_link "$HOME/.aliases" "$PWD/.aliases" "$HOME/"
+    backup_file "$1"
+    ln -s -f "$2" "$3"
+}
+
+
 # copy base config
-if [[ -f ~/.aliases ]]; then
-    mv $HOME/.aliases $HOME/.aliases.bak
-fi 
-if [[ -f ~/.export ]]; then
-    mv $HOME/.export $HOME/.export.bak
-fi 
-if [[ -f ~/.extra ]]; then
-    mv $HOME/.extra $HOME/.extra.bak
-fi 
+backup_file $HOME/.aliases
+backup_file $HOME/.export
+backup_file $HOME/.extra
 ln -s -f $PWD/.{aliases,export,extra} $HOME/
 
 # copy tmux config
-if [[ -f ~/.tmux.conf ]]; then
-    mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
-fi 
-if [[ -f ~/.tmux.conf.local ]]; then
-    mv $HOME/.tmux.conf.local $HOME/.tmux.conf.local.bak
-fi
-ln -s -f $PWD/tmux/.tmux.conf $HOME/
-ln -s -f $PWD/tmux/.tmux.conf.local $HOME/
+backup_file $HOME/.tmux.conf
+backup_file $HOME/.tmux.conf.local
+ln -s -f $PWD/tmux/.tmux.conf{,.local} $HOME/
 
 # copy vim config
-if [[ -f ~/.vimrc ]]; then
-    mv $HOME/.vimrc $HOME/.vimrc.bak
-fi 
+backup_file $HOME/.vimrc
 ln -s -f  $PWD/vim/.vimrc $HOME/
 
 # copy git config
-if [[ -f ~/.gitconfig ]]; then
-    mv $HOME/.gitconfig $HOME/.gitconfig.bak
-fi 
-if [[ -f ~/.gitignore ]]; then
-    mv $HOME/.gitignore $HOME/.gitignore.bak
-fi
-ln -s -f  $PWD/git/.gitconfig $HOME/
-ln -s -f  $PWD/git/.gitignore $HOME/
+backup_file $HOME/.gitconfig
+backup_file $HOME/.gitignore
+ln -s -f  $PWD/git/.{gitconfig,gitignore} $HOME/
 
 # copy zsh config
 if [ "$machine" = "Linux" ]; then
@@ -67,11 +66,6 @@ install_omz() {
 
 install_omz
 
-if [[ -f ~/.zshrc ]]; then
-    mv $HOME/.zshrc $HOME/.zshrc.bak
-fi
-if [[ -f ~/.p10k.zsh ]]; then
-    mv $HOME/.p10k.zsh $HOME/.p10k.zsh.bak
-fi
-ln -s -f  $PWD/zsh/.zshrc $HOME/
-ln -s -f  $PWD/zsh/.p10k.zsh $HOME/
+backup_file $HOME/.zshrc
+backup_file $HOME/.p10k.zsh
+ln -s -f  $PWD/zsh/{.zshrc,.p10k.zsh} $HOME/

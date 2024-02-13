@@ -13,8 +13,7 @@ alias v="$VISUAL"
 alias path='echo $PATH | tr -s ":" "\n"'
 
 # trash comand
-if which trash &> /dev/null
-then 
+if (( +command[trash] )); then # if which trash &> /dev/null
   alias rm='trash -v'
   alias rm-list='trash-list'
 else
