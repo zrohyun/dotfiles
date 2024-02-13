@@ -1,0 +1,25 @@
+ostype="$(uname -s)"
+case "${ostype}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    *)          echo "NOT SUPPORTED:${unameOut}";exit 1
+esac
+
+if (( +command[fzf] )); then
+    export FZF_BASE=$(which fzf)
+else;
+   case "$machine" in
+        Linux)
+            sudo apt install -y fzf
+            ;;
+        Mac)
+            brew install fzf
+            ;;
+        *)
+            echo "Operating system not supported."
+            exit 1
+            ;;
+    esac
+
+    export FZF_BASE=$(which fzf)
+fi
