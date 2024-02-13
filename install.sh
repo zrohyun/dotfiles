@@ -48,9 +48,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 if [[ -f ~/.zshrc ]]; then
     mv $HOME/.zshrc $HOME/.zshrc.bak
-if 
-if [[ -f ~/.p10k.zsh]]; then
+fi
+if [[ -f ~/.p10k.zsh ]]; then
     mv $HOME/.p10k.zsh $HOME/.p10k.zsh.bak
-if 
+fi
 ln -s -f  ./zsh/.zshrc $HOME/
 ln -s -f  ./zsh/.p10k.zsh $HOME/
