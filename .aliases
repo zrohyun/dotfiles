@@ -11,6 +11,7 @@ alias v="$VISUAL"
 # Pretty print the path
 
 alias path='echo $PATH | tr -s ":" "\n"'
+alias hey='tmux new -As main'
 
 # trash comand
 if (( +command[trash] )); then # if which trash &> /dev/null

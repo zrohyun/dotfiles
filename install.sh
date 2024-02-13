@@ -7,6 +7,13 @@ case "${unameOut}" in
     *)          echo "NOT SUPPORTED:${unameOut}";exit 1
 esac
 
+install_basic_linux_cli_tools() {
+    sudo apt-get update && sudo apt-get -y upgrade;
+    sudo apt-get install -y trash-cli tmux
+}
+
+[[ $machine == "Linux" ]] && install_basic_linux_cli_tools
+
 backup_file() {
     # Usage
     # backup_file $HOME/.aliases
@@ -34,6 +41,12 @@ ln -s -f $PWD/.{aliases,export,extra} $HOME/
 backup_file $HOME/.tmux.conf
 backup_file $HOME/.tmux.conf.local
 ln -s -f $PWD/tmux/.tmux.conf{,.local} $HOME/
+if (( +command[tmux] )); then # activate tmux config
+    tmux source $HOME/.tmux.conf
+    # Optional
+    # tmux new -ds main
+fi
+
 
 # copy vim config
 backup_file $HOME/.vimrc
