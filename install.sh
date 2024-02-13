@@ -58,9 +58,11 @@ fi
 
 install_omz() {
     # omz install and link plugins and themes
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    ln -s -f $PWD/zsh/plugins/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/
-    ln -s -f $PWD/zsh/themes/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/
+    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+    git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+    git submodule update --init --recursive
+    ln -s -f $PWD/zsh/plugins/* ${ZSH:-~/.oh-my-zsh}/plugins/
+    ln -s -f $PWD/zsh/themes/* ${ZSH:-~/.oh-my-zsh}/themes/
 }
 
 install_omz
