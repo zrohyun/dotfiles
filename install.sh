@@ -8,8 +8,8 @@ case "${unameOut}" in
 esac
 
 install_basic_linux_cli_tools() {
-    sudo apt-get update && sudo apt-get -y upgrade;
-    sudo apt-get install -y trash-cli tmux
+    apt-get update && apt-get -y upgrade;
+    apt-get install -y trash-cli tmux
 }
 
 [[ $machine == "Linux" ]] && install_basic_linux_cli_tools
@@ -60,11 +60,11 @@ ln -s -f  $PWD/git/.{gitconfig,gitignore} $HOME/
 # copy zsh config
 if [ "$machine" = "Linux" ]; then
     # Install zsh using apt
-    sudo apt update
-    sudo apt install -y zsh
+    apt update
+    apt install -y zsh
 
     # Change the default login shell to zsh
-    sudo chsh -s $(which zsh)
+    chsh -s $(which zsh)
     echo "Zsh installed and set as the default login shell. Please restart your terminal to apply changes."
 fi
 
