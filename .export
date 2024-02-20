@@ -5,10 +5,10 @@ case "${ostype}" in
     *)          echo "NOT SUPPORTED:${unameOut}";exit 1
 esac
 
-if (( +command[fzf] )); then
+if command -v fzf &>/dev/null; then
     export FZF_BASE=$(which fzf)
 else;
-   case "$machine" in
+    case "$machine" in
         Linux)
             sudo apt install -y fzf
             ;;

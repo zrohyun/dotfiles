@@ -1,3 +1,4 @@
+#!/bin/bash
 ##############################################################################
 ########################### zrohyun custom aliases ###########################
 ##############################################################################
@@ -13,10 +14,19 @@ alias v="$VISUAL"
 alias path='echo $PATH | tr -s ":" "\n"'
 alias hey='tmux new -As main'
 
-# trash comand
-if (( +command[trash] )); then # if which trash &> /dev/null
+# trash command
+if command -v trash &> /dev/null; then
   alias rm='trash -v'
   alias rm-list='trash-list'
 else
   echo "'trash' command is not installed"
 fi 
+
+# tldr command
+if command -v tldr &> /dev/null; then
+  alias man='tldr'
+else
+  echo "'tldr' command is not installed"
+fi 
+
+# open 되어 있는 port 검색
