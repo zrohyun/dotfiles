@@ -49,6 +49,7 @@ brew "jq"
 brew "k9s"
 brew "btop"
 brew "kubectx"
+brew "kubectl"
 brew "krew"
 brew "helm"
 brew "trash-cli"
@@ -105,8 +106,11 @@ cask "bartender"
 cask "contexts"
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
+# cask "alacritty"
+# cask "zed"
 # cask "dash" #
 
+# mas "zest" # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능
 mas "Goodnotes", id: 1444383602
 mas "KakaoTalk", id: 869223134
 mas "Microsoft Remote Desktop", id: 1295203466
