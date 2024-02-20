@@ -126,8 +126,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
+[[ ! -f $HOME/.functions.zsh ]] || source $HOME/.functions.zsh
 
-[[ ! -f ~/.aliases ]] || source .aliases
-[[ ! -f ~/.export ]] || source .export
-[[ ! -f ~/.extra ]] || source .extra
+[[ ! -f $HOME/.aliases ]] || source $HOME/.aliases
+[[ ! -f $HOME/.export ]] || source $HOME/.export
+[[ ! -f $HOME/.extra ]] || source $HOME/.extra
+[[ ! -f $HOME/.env ]] || source $HOME/.env
+[[ ! -f $HOME/.path ]] || source $HOME/.path

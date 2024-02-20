@@ -1,7 +1,21 @@
 {
     "workbench.colorTheme": "Default Light+",
-    "redhat.telemetry.enabled": false,
-    
     "vim.vimrc.enable": true,
-    "vim.useSystemClipboard": true
+    "vim.useSystemClipboard": true,
+    "redhat.telemetry.enabled": true,
+    "audioCues.diffLineDeleted": "off",
+    "audioCues.chatResponsePending": "off",
+    "audioCues.volume": 0,
+    "vs-kubernetes": {
+        "vscode-kubernetes.helm-path-linux": "/home/ncsoft/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm"
+    },
+    "git.autofetch": true,
+    "gitlens.ai.experimental.provider": "openai",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "python.terminal.launchArgs": [],
+    "window.zoomLevel": 2,
+    "editor.fontFamily": "",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "dotfiles.repository": "https://github.com/zrohyun/dotfiles.git",
+    "dotfiles.installCommand": "install.sh"
 }
