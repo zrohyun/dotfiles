@@ -11,7 +11,7 @@ esac
 
 if check_sudo; then
     apt-get update && apt-get -y upgrade;
-elif [ "$check_sudo_result" -eq 1 ]; then
+elif [[ $? -eq 1 ]]; then
     sudo apt-get update && sudo apt-get -y upgrade;
 else
     echo "User does not have necessary privileges or sudo command not found."
@@ -58,7 +58,7 @@ install_omz() {
 
     if check_sudo; then
         chsh -s $(which zsh)
-    elif [ "$check_sudo_result" -eq 1 ]; then
+    elif [ $? -eq 1 ]; then
         sudo chsh -s $(which zsh) 
     else
         echo "User does not have necessary privileges or sudo command not found."

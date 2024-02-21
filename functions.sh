@@ -57,7 +57,7 @@ backup_and_link() {
 }
 
 check_sudo() {
-    if [ "$(id -u)" -eq 0 ]; then
+    if [[ "$(id -u)" -eq 0 ]]; then
         return 0  # true (root user)
     elif command -v sudo &>/dev/null && sudo -v 2>/dev/null; then
         return 1  # true (non-root user with sudo privileges)
