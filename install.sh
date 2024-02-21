@@ -18,9 +18,11 @@ else
 fi
 
 if [[ $machine == "Linux" ]]; then
+    # must have tools
     # install_cli_tool tmux & install_cli_tool trash-cli & disown
     install_cli_tool tmux
     install_cli_tool trash-cli
+    install_cli_tool tldr
 fi
 
 # copy base config
