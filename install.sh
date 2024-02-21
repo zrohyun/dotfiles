@@ -23,6 +23,7 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool tmux
     install_cli_tool trash-cli
     install_cli_tool tldr
+    install_cli_tool jq
 fi
 
 # copy base config
@@ -50,6 +51,18 @@ ln -s -f  $PWD/vim/.vimrc $HOME/
 backup_file $HOME/.gitconfig
 backup_file $HOME/.gitignore
 ln -s -f  $PWD/git/.{gitconfig,gitignore} $HOME/
+
+# copy fonts
+backup_file $HOME/.fonts
+ln -s -f $PWD/fonts $HOME/.fonts
+# 아래처럼 할 수도 있지만 생각보다 고려해야할 게 좀 있다.
+# 일단 자동화하지 않고 그냥 vscode setting으로 설정하는 게 나을듯
+# if [[ $machine == "Linux" ]]; then
+#     mkdir -p $HOME/.vscode-server/data/Machine && touch $HOME/.vscode-server/data/Machine/settings.json
+#     jq '. + {"editor.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
+#     jq '. + {"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
+#     rm tmp.json
+# fi
 
 # copy zsh config
 

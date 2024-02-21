@@ -14,8 +14,8 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     "python.terminal.launchArgs": [],
     "window.zoomLevel": 2,
-    "editor.fontFamily": "",
-    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
     "dotfiles.repository": "https://github.com/zrohyun/dotfiles.git",
     "dotfiles.installCommand": "install.sh"
 }
