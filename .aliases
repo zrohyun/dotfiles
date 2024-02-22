@@ -27,6 +27,11 @@ if command -v tldr &> /dev/null; then
   alias man='tldr'
 else
   echo "'tldr' command is not installed"
-fi 
+fi
 
-# open 되어 있는 port 검색
+# thefuck command
+if command -v thefuck &>/dev/null; then
+  eval $(thefuck --alias)
+else
+  echo "'thefuck' command is not installed"
+fi

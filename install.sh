@@ -24,6 +24,7 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool trash-cli
     install_cli_tool tldr
     install_cli_tool jq
+    install_cli_tool thefuck
 fi
 
 # copy base config
