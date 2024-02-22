@@ -7,19 +7,19 @@ esac
 
 if command -v fzf &>/dev/null; then
     export FZF_BASE=$(which fzf)
-else;
-    case "$machine" in
-        Linux)
-            sudo apt install -y fzf
-            ;;
-        Mac)
-            brew install fzf
-            ;;
-        *)
-            echo "Operating system not supported."
-            exit 1
-            ;;
-    esac
+# else;
+#     case "$machine" in
+#         Linux)
+#             sudo apt-get install -y fzf
+#             ;;
+#         Mac)
+#             brew install fzf
+#             ;;
+#         *)
+#             echo "Operating system not supported."
+#             exit 1
+#             ;;
+#     esac
 
-    export FZF_BASE=$(which fzf)
+#     export FZF_BASE=$(which fzf)
 fi

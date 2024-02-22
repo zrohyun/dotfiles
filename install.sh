@@ -9,14 +9,17 @@ case "${unameOut}" in
     *)          echo "NOT SUPPORTED:${unameOut}";exit 1
 esac
 
-if check_sudo; then
-    install_cli_tool software-properties-common
-    apt-get update && apt-get -y upgrade;
-elif [[ $? -eq 1 ]]; then
-    install_cli_tool software-properties-common
-    sudo apt-get update && sudo apt-get -y upgrade;
-else
-    echo "User does not have necessary privileges or sudo command not found."
+if [[ $machine == "Linux" ]]; then
+    if check_sudo; then
+        install_cli_tool software-properties-common
+        apt-get update && apt-get -y upgrade;
+    elif [[ $? -eq 1 ]]; then
+        install_cli_tool software-properties-common
+        sudo apt-get update && sudo apt-get -y upgrade;
+    else
+        echo "User does not have necessary privileges or sudo command not found."
+    fi
+    exec /bin/bash
 fi
 
 if [[ $machine == "Linux" ]]; then
@@ -26,6 +29,7 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool trash-cli
     install_cli_tool tldr
     install_cli_tool jq
+    install_cli_tool fzf
     install_cli_tool thefuck
     install_cli_tool fd-find
     install_cli_tool exa
@@ -119,6 +123,7 @@ install_omz
 # neovim
 source ./nvim/lazyvim_starter_install.sh
 
+# symbolic link dotfiles
 backup_file $HOME/.zshrc
 backup_file $HOME/.p10k.zsh
 backup_file $HOME/.functions.zsh
