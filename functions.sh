@@ -1,10 +1,12 @@
 #!/bin/bash
 
 install_cli_tool() {
-    # Usage 1: do update
+    # Usage 1: install and do update
     # install_cli_tool "vim" true
-    # Usage 2: do not update
+    # Usage 2: install and do not update
     # install_cli_tool "tmux"
+    # Usage 3: only do update
+    # install_cli_tool
 
     local tool_name="$1"
     local update_flag="$2"
@@ -19,20 +21,19 @@ install_cli_tool() {
         local upgrade_command=""
 
         if command -v sudo &> /dev/null; then
-            sudo -v 2>/dev/null && install_command="sudo apt install -y" && update_command="sudo apt update" && upgrade_command="sudo apt upgrade -y"
+            sudo -v 2>/dev/null && install_command="sudo apt-get install -y" && update_command="sudo apt-get update" && upgrade_command="sudo apt-get upgrade -y"
         else
-            install_command="apt install -y" && update_command="apt update" && upgrade_command="apt upgrade -y"
+            install_command="apt-get install -y" && update_command="apt-get update" && upgrade_command="apt-get upgrade -y"
+        fi
+
+        if ( [ -n "$tool_name" ] && [ -n "$update_flag" ] ) || [[ "$update_flag" == true ]]; then
+            echo "$update_command" && $update_command || { echo "Error: Unable to run $update_command. Please check your sudo privileges."; exit 1; }
+            echo "$upgrade_command" && $upgrade_command
         fi
 
         if [ -n "$install_command" ]; then
-
-            if [ "$update_flag" = true ]; then
-                $update_command || { echo "Error: Unable to run $update_command. Please check your sudo privileges."; exit 1; }
-                $upgrade_command
-            fi
-
+            echo "$install_command $tool_name"
             $install_command "$tool_name"
-
             echo "$tool_name installed. Please restart your terminal to apply changes."
         else
             echo "Error: User does not have necessary privileges or sudo command not found."

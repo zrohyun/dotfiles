@@ -4,6 +4,8 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
+# session 시작시 기본 쉘 지정
+set-option -g default-command "if command -v zsh; then zsh; else bash; fi;
 
 # -- session creation ----------------------------------------------------------
 
@@ -18,7 +20,6 @@ tmux_conf_new_session_prompt=false
 #   - false (default)
 #   - disabled (do not modify new-session bindings)
 tmux_conf_new_session_retain_current_path=false
-
 
 # -- windows & pane creation ---------------------------------------------------
 

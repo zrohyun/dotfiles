@@ -3,7 +3,7 @@ set nocompatible
 
 " 파일 유형 감지 끄기
 filetype off
-
+nnoremap <C-c>p :normal! viw"0p<CR> " 0번째 reg로 단어 대치
 " Syntax Highlighting 활성화
 if has("syntax")
      syntax on
@@ -12,12 +12,15 @@ endif
 " 여러 에디팅 환경 설정
 set ruler            " 화면 상단에 커서 위치 정보 표시
 set spell            " 스펠링 검사 활성화
+set paste
 set expandtab        " 탭 대신 스페이스 사용
+set mouse
+set go+=a
 " set number           " 줄 번호 표시
 set autoindent       " 자동 들여쓰기
 set ts=4             " 탭 너비
 set shiftwidth=4     " 자동 인덴트할 때 너비
-set clipboard=unnamed " 클립보드 사용
+set clipboard+=unnamed " 클립보드 사용
 
 " 상태 표시 줄 설정
 set laststatus=2     " 상태 바 항상 표시
@@ -27,6 +30,13 @@ set statusline=\ %<%l:%v\ [%P]%=%a\ %h%m%r\ %F\
 autocmd FileType python set softtabstop=4
 autocmd FileType python set tabstop=4
 autocmd FileType python set autoindent
+
+" 자주 쓰는 명령어 단축어 
+nnoremap <C-c>p :normal! viw"0p<CR> " 0번째 register로 단어 대치
+nnoremap <C-c>( :normal! ciw( <Esc>pa )<Esc>
+nnoremap <C-c>" :normal! ciw"<Esc>pa"<Esc>
+nnoremap <C-c>' :normal! ciw"<Esc>pa'<Esc>
+nnoremap <C-c>y :normal! viwy<Esc>
 
 " H 키와 ^ 키를 바꿈
 nnoremap H ^

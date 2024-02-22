@@ -1,9 +1,29 @@
 #!/bin/bash
 
+# from ../functions.sh
+check_sudo() {
+    if [[ "$(id -u)" -eq 0 ]]; then
+        return 0  # true (root user)
+    elif command -v sudo &>/dev/null && sudo -v 2>/dev/null; then
+        return 1  # true (non-root user with sudo privileges)
+    else
+        return 2  # false (sudo command not found, and not a root user)
+    fi
+}
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    *)          echo "NOT SUPPORTED:${unameOut}";exit 1
+esac
+
 if [[ $machine == "Linux" ]]; then
     if check_sudo; then
+        echo "add-apt-repository -y ppa:neovim-ppa/unstable && apt-get update && apt-get install -y neovim"
         add-apt-repository -y ppa:neovim-ppa/unstable && apt-get update && apt-get install -y neovim
     elif [ $? -eq 1 ]; then
+        echo "sudo add-apt-repository -y ppa:neovim-ppa/unstable && sudo apt-get update && sudo apt-get install -y neovim"
         sudo add-apt-repository -y ppa:neovim-ppa/unstable && sudo apt-get update && sudo apt-get install -y neovim
     else
         echo "User does not have necessary privileges or sudo command not found."

@@ -1,5 +1,6 @@
 {
     "workbench.colorTheme": "Default Light+",
+    "vim.vimrc.path": "$HOME/.vimrc",
     "vim.vimrc.enable": true,
     "vim.useSystemClipboard": true,
     "redhat.telemetry.enabled": true,

@@ -19,6 +19,11 @@ noremap ^ H
 noremap L $
 noremap $ L
 
+" nnoremap <C-c>p :normal! viw"0p<CR> " 0번째 register로 단어 대치
+" nnoremap <C-c>( :normal! ciw( <Esc>pa )<Esc>
+" nnoremap <C-c>" :normal! ciw"<Esc>pa"<Esc>
+" nnoremap <C-c>' :normal! ciw"<Esc>pa'<Esc>
+
 " Don't use Ex mode, use Q for formatting.
 "map Q gq
 " inoremap qq yiw

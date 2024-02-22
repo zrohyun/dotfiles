@@ -14,6 +14,13 @@ alias v="$VISUAL"
 alias path='echo $PATH | tr -s ":" "\n"'
 alias hey='tmux new -As main'
 
+
+# vim command
+if command -v vim &> /dev/null; then
+  alias vi=vim
+fi 
+
+
 # trash command
 if command -v trash &> /dev/null; then
   alias rm='trash -v'

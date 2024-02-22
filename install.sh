@@ -2,6 +2,8 @@
 
 source ./functions.sh
 
+install_cli_tool
+
 unameOut="$(uname -s)"
 case "${unameOut}" in
     Linux*)     machine=Linux;;
@@ -9,22 +11,34 @@ case "${unameOut}" in
     *)          echo "NOT SUPPORTED:${unameOut}";exit 1
 esac
 
+# first install_cli_tool은 update를 수행해야한다.
 if [[ $machine == "Linux" ]]; then
     if check_sudo; then
-        install_cli_tool software-properties-common
+        install_cli_tool software-properties-common true
         apt-get update && apt-get -y upgrade;
     elif [[ $? -eq 1 ]]; then
-        install_cli_tool software-properties-common
+        install_cli_tool software-properties-common true
         sudo apt-get update && sudo apt-get -y upgrade;
     else
         echo "User does not have necessary privileges or sudo command not found."
     fi
-    exec /bin/bash
+
 fi
 
 if [[ $machine == "Linux" ]]; then
     # must have tools
     # install_cli_tool tmux & install_cli_tool trash-cli & disown
+
+    if check_sudo; then
+        ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+    elif [ $? -eq 1 ]; then
+        sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+    else
+        echo "User does not have necessary privileges or sudo command not found."
+    fi
+    
+    install_cli_tool tzdata true
+    install_cli_tool vim
     install_cli_tool tmux
     install_cli_tool trash-cli
     install_cli_tool tldr
@@ -43,7 +57,6 @@ if [[ $machine == "Linux" ]]; then
     else
         echo "User does not have necessary privileges or sudo command not found."
     fi
-
 fi
 
 # copy base config
@@ -120,11 +133,11 @@ install_omz() {
 
 install_omz
 
-# neovim
-source ./nvim/lazyvim_starter_install.sh
-
 # symbolic link dotfiles
 backup_file $HOME/.zshrc
 backup_file $HOME/.p10k.zsh
 backup_file $HOME/.functions.zsh
 ln -s -f  $PWD/zsh/{.zshrc,.p10k.zsh,.functions.zsh} $HOME/
+
+# neovim
+source ./nvim/lazyvim_starter_install.sh
