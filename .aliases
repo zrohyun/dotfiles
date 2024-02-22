@@ -50,6 +50,7 @@ fi
 # exa
 if command -v exa &>/dev/null; then
   alias ls='exa --icons'
+  alias la='ls -lah'
 fi
 
 # NOT MUST HAVE ITEM
