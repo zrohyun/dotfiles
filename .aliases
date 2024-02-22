@@ -22,16 +22,49 @@ else
   echo "'trash' command is not installed"
 fi 
 
-# tldr command
-if command -v tldr &> /dev/null; then
-  alias man='tldr'
-else
-  echo "'tldr' command is not installed"
+
+
+
+# tldr command -> cht
+if command -v cht.sh &>/dev/null; then
+  alias man='cht.sh'
 fi
+# if command -v tldr &> /dev/null; then
+#   alias man='tldr'
+# else
+#   echo "'tldr' command is not installed"
+# fi
 
 # thefuck command
 if command -v thefuck &>/dev/null; then
   eval $(thefuck --alias)
 else
   echo "'thefuck' command is not installed"
+fi
+
+# fd
+if command -v fdfind &>/dev/null; then
+  alias fd='fdfind -aI'
+fi
+
+# exa
+if command -v exa &>/dev/null; then
+  alias ls='exa --icons'
+fi
+
+# NOT MUST HAVE ITEM
+
+# bat
+if command -v batcat &>/dev/null; then
+  alias bat='batcat'
+fi
+
+# duf
+if command -v duf &>/dev/null; then
+  alias df='duf'
+fi
+
+# dust
+if command -v dust &>/dev/null; then
+  alias du='dust'
 fi

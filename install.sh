@@ -25,6 +25,18 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool tldr
     install_cli_tool jq
     install_cli_tool thefuck
+    install_cli_tool fd-find
+    install_cli_tool exa
+
+    if check_sudo; then
+        # https://github.com/chubin/cheat.sh
+        curl -s https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh && chmod +x /usr/local/bin/cht.sh
+    elif [ $? -eq 1 ]; then
+        curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh
+    else
+        echo "User does not have necessary privileges or sudo command not found."
+    fi
+
 fi
 
 # copy base config
