@@ -22,12 +22,14 @@ cli_tools=(
     "btop"
     "exa"
     "fasd"
-    "fd"
+    "fd-find"
     "fzf"
     "htop"
     "jq"
     "trash-cli"
-    "lazygit"
+
+    # "dust" #https://github.com/bootandy/dust
+    # "duf" #https://github.com/muesli/duf
     
     # "docker"
     # "docker-compose"

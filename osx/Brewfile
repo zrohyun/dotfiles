@@ -54,6 +54,8 @@ brew "krew"
 brew "helm"
 brew "trash-cli"
 brew "lazygit"
+brew "duf"
+brew "dust"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "jesseduffield/lazydocker/lazydocker"
 brew "daipeihust/tap/im-select"
