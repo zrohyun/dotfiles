@@ -7,6 +7,7 @@ install_cli_tool "zsh" true
 cli_tools=(
     "tmux"
     "vim"
+    "neovim"
     "curl"
     "tree"
     "telnet"

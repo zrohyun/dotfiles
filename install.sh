@@ -10,8 +10,10 @@ case "${unameOut}" in
 esac
 
 if check_sudo; then
+    install_cli_tool software-properties-common
     apt-get update && apt-get -y upgrade;
 elif [[ $? -eq 1 ]]; then
+    install_cli_tool software-properties-common
     sudo apt-get update && sudo apt-get -y upgrade;
 else
     echo "User does not have necessary privileges or sudo command not found."
@@ -27,6 +29,7 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool thefuck
     install_cli_tool fd-find
     install_cli_tool exa
+    install_cli_tool ripgrep
 
     if check_sudo; then
         # https://github.com/chubin/cheat.sh
@@ -112,6 +115,9 @@ install_omz() {
 }
 
 install_omz
+
+# neovim
+source ./nvim/lazyvim_starter_install.sh
 
 backup_file $HOME/.zshrc
 backup_file $HOME/.p10k.zsh
