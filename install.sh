@@ -46,7 +46,7 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool fzf
     install_cli_tool thefuck
     install_cli_tool fd-find
-    install_cli_tool exa
+    install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
     install_cli_tool ripgrep
 
     if check_sudo; then

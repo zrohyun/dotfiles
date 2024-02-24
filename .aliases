@@ -60,6 +60,12 @@ if command -v exa &>/dev/null; then
   alias la='ls -lah'
 fi
 
+if command -v lsd &>/dev/null; then
+  alias ls='lsd'
+  alias la='lsd -lah'
+  alias ll='lsd -lh'
+fi
+
 # NOT MUST HAVE ITEM
 
 # bat
