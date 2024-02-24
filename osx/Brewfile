@@ -57,6 +57,9 @@ brew "lazygit"
 brew "nvim"
 brew "duf"
 brew "dust"
+# pyenv
+brew "pyenv"
+brew "pyenv-virtualenv"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "jesseduffield/lazydocker/lazydocker"
 brew "daipeihust/tap/im-select"
@@ -107,9 +110,11 @@ cask "sourcetree"
 cask "github"
 cask "bartender"
 cask "contexts"
+cask "deepl"
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "alacritty"
+# cask "mate-translate" -> 유료화
 # cask "zed"
 # cask "dash" #
 
