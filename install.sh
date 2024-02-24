@@ -112,6 +112,7 @@ install_omz() {
         echo "User does not have necessary privileges or sudo command not found."
     fi
 
+    backup_file $HOME/.oh-my-zsh
     # git clone version
     git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
     # zsh-syntax-highlighting
@@ -138,6 +139,10 @@ backup_file $HOME/.zshrc
 backup_file $HOME/.p10k.zsh
 backup_file $HOME/.functions.zsh
 ln -s -f  $PWD/zsh/{.zshrc,.p10k.zsh,.functions.zsh} $HOME/
+
+# bashrc
+backup_file $HOME/.bashrc
+ln -s -f $PWD/.bashrc $HOME/
 
 # neovim
 source ./nvim/lazyvim_starter_install.sh

@@ -14,7 +14,7 @@ set ruler            " 화면 상단에 커서 위치 정보 표시
 set spell            " 스펠링 검사 활성화
 set paste
 set expandtab        " 탭 대신 스페이스 사용
-set mouse
+set mouse=a
 set go+=a
 " set number           " 줄 번호 표시
 set autoindent       " 자동 들여쓰기
