@@ -1,0 +1,29 @@
+name: 'Google Cloud IaC Destroy Resources'
+defaults:
+  run:
+    shell: bash
+    working-directory: .
+on:
+  workflow_dispatch:
+
+jobs:
+  destroy:
+    name: 'Run GCP ubuntu Workspace'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Auth GCP Service Account
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          cleanup_credentials: true
+          export_default_credentials: true
+          
+      - name: Provision GCP Instance
+        run: |
+          gcloud compute instances create ubuntu-workspace \
+                --project=vernal-acrobat-397015 \
+                --zone=us-central1-a \
+                --machine-type=n2-standard-8 \
