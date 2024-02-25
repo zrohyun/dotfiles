@@ -127,6 +127,18 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    *)          echo "NOT SUPPORTED:${unameOut}";exit 1
+esac
+
+if [[ $machine == "Mac" ]]; then
+  eval "$(zoxide init zsh)"
+fi
+
 [[ ! -f $HOME/.functions.zsh ]] || source $HOME/.functions.zsh
 
 [[ ! -f $HOME/.aliases ]] || source $HOME/.aliases

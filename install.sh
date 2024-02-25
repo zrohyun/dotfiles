@@ -48,6 +48,7 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool fd-find
     install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
     install_cli_tool ripgrep
+    # curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash # install zoxide
 
     if check_sudo; then
         # https://github.com/chubin/cheat.sh

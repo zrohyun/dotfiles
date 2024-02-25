@@ -67,6 +67,12 @@ if command -v lsd &>/dev/null; then
   alias ll='lsd -lh'
 fi
 
+#TODO: alias 등록하려고 했으나 cd했을 때 $HOME으로 안감.
+# 추후 수정하거나 그냥 alias 등록하지 않는 것으로 해야할 듯
+# if command -v z &>/dev/null; then
+#   alias cd=z
+# fi
+
 # NOT MUST HAVE ITEM
 
 # bat
