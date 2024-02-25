@@ -13,6 +13,7 @@ alias v="$VISUAL"
 
 alias path='echo $PATH | tr -s ":" "\n"'
 alias hey='tmux new -As main'
+alias hi=hey
 
 
 # vim command
