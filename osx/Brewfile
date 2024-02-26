@@ -115,6 +115,7 @@ cask "deepl"
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "alacritty"
+# cask "kitty"
 # cask "mate-translate" -> 유료화
 # cask "zed"
 # cask "dash" #

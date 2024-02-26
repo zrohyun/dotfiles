@@ -147,3 +147,7 @@ ln -s -f $PWD/.bashrc $HOME/
 
 # neovim
 source ./nvim/lazyvim_starter_install.sh
+
+# terminal
+# alacritty
+# kitty
