@@ -16,3 +16,19 @@ defaults write -g ApplePressAndHoldEnabled -bool false # for global key repeatin
 
 # for hotkeys or shortcuts ( 아래의 명령어처럼 defaults를 이용해 shortcuts을 바꿀 수 있음.)
 # defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 79 "{enabled = 1; value = { parameters = (65535, 124, 262144); type = standard; }; }"
+
+# Keyboard > Keyboard Shortcuts... >
+# Fucntion Keys >
+# 1. Use F1,F2 etc. keys as standard function keys [ON]
+# Spotlight >
+# 2. show SpotLight searc > Option + Space # when using raycast
+# Services
+# 3. New Terminal at Folder > Ctrl + Cmd + =
+# Keyboard
+# 4. Move focus to next window > Ctrl + Cmd + \
+# Mission Control
+# 5. Mission Control > Ctrl + Cmd + F
+# 6. Move left a space > Ctrl + Cmd + [
+# 7. Move right a space > Ctrl + Cmd + ]
+# Lauchpad & Dock
+# 8. Show Launchpad > Ctrl + Cmd + A
