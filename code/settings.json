@@ -1,5 +1,10 @@
 {
+    "editor.accessibilitySupport": "off",
     "workbench.colorTheme": "Default Light+",
+    // vscode-zro default setting
+    "editor.inlayHints.fontFamily": "",
+    // "dotfiles.targetPath": "~/.dotfiles",
+    // "dotfiles.repository": "https://github.com/zrohyun/dotfiles.git"
     "vim.vimrc.path": "$HOME/.vimrc",
     "vim.vimrc.enable": true,
     "vim.useSystemClipboard": true,
