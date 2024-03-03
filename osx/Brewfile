@@ -58,6 +58,7 @@ brew "lazygit"
 brew "nvim"
 brew "duf"
 brew "dust"
+brew "helix"
 # pyenv
 brew "pyenv"
 brew "pyenv-virtualenv"
