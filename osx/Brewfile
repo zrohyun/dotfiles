@@ -65,6 +65,8 @@ brew "pyenv-virtualenv"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "jesseduffield/lazydocker/lazydocker"
 brew "daipeihust/tap/im-select"
+# 나중에 shortcut 활용할 일이 있을 때
+# brew "koekeishiya/formulae/skhd"
 
 
 # cask
