@@ -59,6 +59,8 @@ brew "nvim"
 brew "duf"
 brew "dust"
 brew "helix"
+brew "zellij"
+brew "asdf"
 # pyenv
 brew "pyenv"
 brew "pyenv-virtualenv"

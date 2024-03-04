@@ -76,6 +76,9 @@ install_pyenv() {
     eval "$(pyenv virtualenv-init -)"
     source ~/.zshrc
 }
+install_zellij(){
+    bash <(curl -L zellij.dev/launch)
+}
 
 # container
 #TODO: automation -> shell or ansible
