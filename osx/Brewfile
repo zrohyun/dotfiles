@@ -67,6 +67,7 @@ brew "pyenv-virtualenv"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "jesseduffield/lazydocker/lazydocker"
 brew "daipeihust/tap/im-select"
+# brew "mrkai77/cask/loop" # window manager
 # 나중에 shortcut 활용할 일이 있을 때
 # brew "koekeishiya/formulae/skhd"
 
@@ -118,11 +119,13 @@ cask "bartender"
 cask "contexts"
 cask "deepl"
 cask "emacs"
+cask "cyberduck"
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "alacritty"
 # cask "kitty"
 # cask "mate-translate" -> 유료화
+#cask "forklift" -> 유료
 # cask "zed"
 # cask "dash" #
 

@@ -80,6 +80,10 @@ install_zellij(){
     bash <(curl -L zellij.dev/launch)
 }
 
+install_nix() {
+    sh <(curl -L https://nixos.org/nix/install) --daemon # linux version
+    # sh <(curl -L https://nixos.org/nix/install) # mac version
+}
 # container
 #TODO: automation -> shell or ansible
 install_docker() {
