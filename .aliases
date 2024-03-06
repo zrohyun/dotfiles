@@ -30,7 +30,12 @@ else
   echo "'trash' command is not installed"
 fi 
 
-
+# trash command
+if command -v btop &> /dev/null; then
+  alias top='btop'
+# else
+#   echo "'trash' command is not installed"
+fi 
 
 
 # tldr command -> cht

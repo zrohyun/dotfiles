@@ -137,3 +137,18 @@ P = "paste_clipboard_before"
 
 # Escape the madness! No more fighting with the cursor! Or with multiple cursors!
 esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
+
+
+# theme = 'catppuccin_latte'
+# 
+# [editor]
+# line-number = 'relative'
+# # mouse = false
+# bufferline = "multiple"
+# 
+# [keys.normal]
+# esc = ["collapse_selection", "keep_primary_selection"]
+# # C-f = [":new", ":insert-output lf-pick", ":theme default", "select_all", "split_selection_on_new
+# 
+# [editor.cursor-shape]
+# insert = 'bar'
