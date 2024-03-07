@@ -17,8 +17,12 @@ alias hi=hey
 
 
 # vim command
-if command -v vim &> /dev/null; then
+if command -v hx &> /dev/null; then
+  alias vi=hx
+elif command -v vim &> /dev/null; then
   alias vi=vim
+# else
+#   echo "'hx', 'vim' command is not installed"
 fi 
 
 
