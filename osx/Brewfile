@@ -17,6 +17,9 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 tap "homebrew/cask-fonts"
 tap "buo/cask-upgrade"
+tap "hamidnazari/jetbrains-versions"
+# tap "daipeihust/tap"
+# tap "jesseduffield/lazydocker"
 
 # brew
 brew "mas"
@@ -25,7 +28,6 @@ brew "code-server"
 brew "docker"
 brew "docker-compose"
 brew "colima"
-brew "minikube"
 brew "tmux"
 brew "tree"
 brew "telnet"
@@ -33,38 +35,42 @@ brew "wget"
 brew "trash-cli"
 brew "neovim"
 brew "bat"
-brew "tig"
-brew "lazygit"
 brew "git"
 brew "tldr"
 brew "neofetch"
 brew "ripgrep"
 brew "btop"
 brew "lsd" #brew "exa"
-brew "fasd"
 brew "fd"
 brew "fzf"
 brew "jq"
-brew "k9s"
-brew "kubectx"
-brew "kubectl"
-brew "helm"
+brew "helix"
 brew "nvim"
+brew "kubectl"
 brew "duf"
 brew "dust"
-brew "helix"
-brew "jesseduffield/lazydocker/lazydocker"
 brew "daipeihust/tap/im-select"
-# brew "zsh" # mac default shell
+# brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
+
+# brew "fasd"
+# GIT
+# brew "tig"
+# brew "lazygit"
+# CONTAINER
+# brew "minikube"
+# brew "k9s"
+# brew "kubectx"
+# brew "helm"
+# brew "jesseduffield/lazydocker/lazydocker"
 # brew "krew"
 # brew "htop"
 # brew "zellij"
 # brew "zoxide"
 # pyenv
-#brew "pyenv"
-#brew "pyenv-virtualenv"
-#brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
+# brew "pyenv"
+# brew "pyenv-virtualenv"
 # brew "mrkai77/cask/loop" # window manager
+# brew "zsh" # mac default shell
 # 나중에 shortcut 활용할 일이 있을 때
 # brew "koekeishiya/formulae/skhd"
 
@@ -86,7 +92,7 @@ cask "sourcetree"
 cask "logi-options-plus"
 cask "microsoft-remote-desktop"
 cask "remote-desktop-manager"
-cask "shottr"
+cask "shottr" # 구매하지 않으면 앱 시작시 팝업이 뜨지만 무료라 참는다.
 cask "termius"
 cask "devtoys"
 cask "maccy"
@@ -96,10 +102,20 @@ cask "dropzone"
 cask "obsidian"
 cask "contexts"
 cask "deepl"
+cask "zed"
+cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight 
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
+
+# JETBRAINS
+# cask "goland@2022.3.4"
+# cask "pycharm@2022.3.3"
+# cask "datagrip@2022.3.3"
+# cask "intellij-idea@2022.3.3"
 # cask "intellij-idea" # or intellij-idea-ce
 # cask "pycharm" # or pycharm-ce
+
+# cask "qlmarkdown" # https://github.com/sbarex/QLMarkdown
 # cask "command-x"
 # cask "firefox"
 # cask "emacs"
@@ -111,7 +127,6 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "cursor"
 # cask "bartender"
 # cask "fig"
-# cask "zed"
 # for network
 # cask "burp-suite"
 # cask "wireshark"
@@ -119,10 +134,11 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "cyberduck"
 # cask "alacritty"
 # cask "kitty"
-# cask "mate-translate" -> 유료화
-# cask "forklift" -> 유료
 # cask "alt-tab"
-# cask "dash" #
+# cask "flameshot"
+# cask "mate-translate" # -> 유료화
+# cask "forklift" # -> 유료
+# cask "dash" # -> 유료
 # cask "filezilla" # cask는 아니지만 ftp client
 
 # mas "zest" # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능

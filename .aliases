@@ -18,9 +18,9 @@ alias hi=hey
 
 # vim command
 if command -v hx &> /dev/null; then
-  alias vi=hx
+    alias vi=hx
 elif command -v vim &> /dev/null; then
-  alias vi=vim
+    alias vi=vim
 # else
 #   echo "'hx', 'vim' command is not installed"
 fi 
@@ -28,52 +28,58 @@ fi
 
 # trash command
 if command -v trash &> /dev/null; then
-  alias rm='trash -v'
-  alias rm-list='trash-list'
-else
-  echo "'trash' command is not installed"
+    alias rm='trash -v'
+    alias rm-list='trash-list'
+# else
+#   echo "'trash' command is not installed"
 fi 
 
 # trash command
 if command -v btop &> /dev/null; then
-  alias top='btop'
+    alias top='btop'
+elif command -v htop &>/dev/null; then
+    alias top='htop'
 # else
 #   echo "'trash' command is not installed"
 fi 
 
 
 # tldr command -> cht
-if command -v cht.sh &>/dev/null; then
-  alias man='cht.sh'
-fi
-# if command -v tldr &> /dev/null; then
-#   alias man='tldr'
+if command -v tldr &> /dev/null; then
+    alias man='tldr'
+elif command -v cht.sh &>/dev/null; then
+    alias man='cht.sh'
+elif command -v curl &>/dev/null; then
+    function cht() {
+        curl cht.sh/$1 # https://github.com/chubin/cheat.sh
+    }
+    alias man=cht
 # else
-#   echo "'tldr' command is not installed"
-# fi
+#     echo "'tldr' command is not installed"
+fi
 
 # thefuck command
 if command -v thefuck &>/dev/null; then
-  eval $(thefuck --alias)
+    eval $(thefuck --alias)
 else
-  echo "'thefuck' command is not installed"
+    echo "'thefuck' command is not installed"
 fi
 
 # fd
 if command -v fdfind &>/dev/null; then
-  alias fd='fdfind -aI'
+    alias fd='fdfind -aI'
 fi
 
 # exa
 if command -v exa &>/dev/null; then
-  alias ls='exa --icons'
-  alias la='ls -lah'
+    alias ls='exa --icons'
+    alias la='ls -lah'
 fi
 
 if command -v lsd &>/dev/null; then
-  alias ls='lsd'
-  alias la='lsd -lah'
-  alias ll='lsd -lh'
+    alias ls='lsd'
+    alias la='lsd -lah'
+    alias ll='lsd -lh'
 fi
 
 #TODO: alias 등록하려고 했으나 cd했을 때 $HOME으로 안감.
@@ -86,15 +92,133 @@ fi
 
 # bat
 if command -v batcat &>/dev/null; then
-  alias bat='batcat'
+    alias bat='batcat'
 fi
 
 # duf
 if command -v duf &>/dev/null; then
-  alias df='duf'
+    alias df='duf'
 fi
 
 # dust
 if command -v dust &>/dev/null; then
-  alias du='dust'
+    alias du='dust'
 fi
+
+# network
+local commands=("netstat" "lsof" "nmap" "ss")
+if [[ $machine == "Linux" ]]; then
+    checkport() {
+        local sudo_cmd=""
+        local arg="${1:-default}"
+
+        if [[ "$arg" == "sudo" ]]; then
+            if command -v sudo &>/dev/null; then
+                if sudo -v &>/dev/null; then
+                    sudo_cmd="sudo"
+                    arg="${2:-default}"
+                    # shift  # Remove "sudo" from the arguments
+                else
+                    echo "Error: sudo permission is required to run this command."
+                    exit 1
+                fi
+            else
+                echo "Error: sudo command not found. Please install sudo."
+                exit 1
+            fi
+        fi
+
+        for cmd in "${commands[@]}"; do
+            if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
+                if command -v "$cmd" &>/dev/null; then
+                    echo "Checking open ports using $cmd..."
+                    case "$cmd" in
+                        "lsof")
+                            echo "$sudo_cmd lsof -i -P -n | grep LISTEN"
+                            $sudo_cmd lsof -i -P -n | grep LISTEN
+                            ;;
+                        "netstat")
+                            echo "$sudo_cmd netstat -tuln"
+                            $sudo_cmd netstat -tuln
+                            ;;
+                        "ss")
+                            echo "$sudo_cmd ss -tuln"
+                            $sudo ss -tuln
+                            ;;
+                        "nmap")
+                            echo "$sudo_cmd nmap -p 1-65535 localhost"
+                            $sudo_cmd nmap -p 1-65535 localhost
+                            ;;
+                    esac
+                    return 0
+                else
+                    echo "$cmd is not installed"
+                fi
+            # else
+            #     echo "$cmd is not your command($arg)"
+            fi
+        done
+
+        echo "No suitable command found for checking open ports."
+        return 1
+    }
+elif [[ $machine == "Mac" ]]; then
+    checkport() {
+        local sudo_cmd=""
+        local arg="${1:-default}"
+
+        if [[ "$arg" == "sudo" ]]; then
+            if command -v sudo &>/dev/null; then
+                if sudo -v &>/dev/null; then
+                    sudo_cmd="sudo"
+                    arg="${2:-default}"
+                    # shift  # Remove "sudo" from the arguments
+                else
+                    echo "Error: sudo permission is required to run this command."
+                    exit 1
+                fi
+            else
+                echo "Error: sudo command not found. Please install sudo."
+                exit 1
+            fi
+        fi
+
+        #TODO: if commands안에 $cmd가 없다면 
+        #TODO: open된 port의 PID 출력
+
+        for cmd in "${commands[@]}"; do
+            if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
+                if command -v "$cmd" &>/dev/null; then
+                    echo "Checking open ports using $cmd..."
+                    case "$cmd" in
+                        "lsof")
+                            echo "$sudo_cmd lsof -i -P -n | grep LISTEN"
+                            $sudo_cmd lsof -i -P -n | grep LISTEN
+                            ;;
+                        "netstat")
+                            echo "$sudo_cmd netstat -an | grep LISTEN"
+                            $sudo_cmd netstat -an | grep LISTEN
+                            ;;
+                        "ss")
+                            echo "$sudo_cmd ss -tuln | grep LISTEN"
+                            $sudo_cmd ss -tuln | grep LISTEN
+                            ;;
+                        "nmap")
+                            echo "$sudo_cmd nmap -p 1-65535 localhost"
+                            $sudo_cmd nmap -p 1-65535 localhost
+                            ;;
+                    esac
+                    return 0
+                else
+                    echo "$cmd is not installed"
+                fi
+            # else
+            #     echo "$cmd is not your command($arg)"
+            fi
+        done
+
+        echo "No suitable command found for checking open ports."
+        return 1
+    }
+fi
+

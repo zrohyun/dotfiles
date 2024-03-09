@@ -32,3 +32,14 @@ defaults write -g ApplePressAndHoldEnabled -bool false # for global key repeatin
 # 7. Move right a space > Ctrl + Cmd + ]
 # Lauchpad & Dock
 # 8. Show Launchpad > Ctrl + Cmd + A
+# Maccy
+# Cmd + Ctrl + x
+# DeepL
+# Cmd + Ctrl + c
+# Raycast
+    # window management
+    # Cmd + Ctrl + {h,j,k,l}
+    # Cmd + Shift + Ctrl + {h,j,k,l}
+    # Cmd + Ctrl + e, Cmd + Ctrl + r
+    # chatgpt
+    # Cmd + Ctrl + G

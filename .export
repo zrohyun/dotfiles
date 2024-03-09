@@ -2,7 +2,7 @@ ostype="$(uname -s)"
 case "${ostype}" in
     Linux*)     machine=Linux;;
     Darwin*)    machine=Mac;;
-    *)          echo "NOT SUPPORTED:${unameOut}";exit 1
+    *)          echo "NOT SUPPORTED:${ostype}";exit 1
 esac
 
 if command -v fzf &>/dev/null; then
