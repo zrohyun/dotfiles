@@ -174,7 +174,7 @@ elif [[ $machine == "Mac" ]]; then
 
 
     # 시스템 단축키, iterm2, raycast
-    system_files= (
+    system_files=(
        "com.apple.symbolichotkeys.plist"
        "com.googlecode.iterm2.plist"
        "com.raycast.macos"
