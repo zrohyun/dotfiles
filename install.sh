@@ -27,16 +27,17 @@ install_omz() {
 
     # git clone version
     # backup_file_to_bak $HOME/.oh-my-zsh
-    git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+    echo "[[ ! -d $HOME/.oh-my-zsh ]] && git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh"
+    [[ ! -d $HOME/.oh-my-zsh ]] && git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
     # zsh-syntax-highlighting
-    echo "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    echo "[[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     # zsh-autosuggestions
-    echo "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    echo "[[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     # powerlevel10k
-    echo "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+    echo "[[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k"
+    [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 
     #! submodule 사용시 (deprecated)
     # mkdir -p $PWD/zsh/{plugins,themes}
@@ -234,6 +235,7 @@ echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gi
 # copy helix config
 backup_file_to_bak $HOME/.config/helix/config.toml
 backup_file_to_bak $HOME/.config/helix/languages.toml
+echo "[[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix" && [[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix
 echo "ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix" && ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix
 
 # INSTALL Oh-My-Zsh
