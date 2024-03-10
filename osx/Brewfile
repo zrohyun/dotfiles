@@ -12,13 +12,13 @@
 ###########################################################################################
 
 # tap
-tap "homebrew/core"
+# tap "homebrew/core" #ERROR: Tapping homebrew/core is no longer typically necessary
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "homebrew/cask-fonts"
 tap "buo/cask-upgrade"
 tap "hamidnazari/jetbrains-versions"
-# tap "daipeihust/tap"
+tap "daipeihust/tap"
 # tap "jesseduffield/lazydocker"
 
 # brew
@@ -49,8 +49,10 @@ brew "nvim"
 brew "kubectl"
 brew "duf"
 brew "dust"
-brew "daipeihust/tap/im-select"
-# brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
+brew "thefuck"
+brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
+brew "im-select" # brew "daipeihust/tap/im-select"
+brew "pyright" # python lsp
 
 # brew "fasd"
 # GIT
@@ -96,7 +98,6 @@ cask "shottr" # 구매하지 않으면 앱 시작시 팝업이 뜨지만 무료�
 cask "termius"
 cask "devtoys"
 cask "maccy"
-cask "datagrip"
 cask "cheatsheet"
 cask "dropzone"
 cask "obsidian"
@@ -114,6 +115,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "intellij-idea@2022.3.3"
 # cask "intellij-idea" # or intellij-idea-ce
 # cask "pycharm" # or pycharm-ce
+# cask "datagrip"
 
 # cask "qlmarkdown" # https://github.com/sbarex/QLMarkdown
 # cask "command-x"
@@ -144,8 +146,8 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # mas "zest" # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능
 mas "Goodnotes", id: 1444383602
 mas "KakaoTalk", id: 869223134
-mas "Microsoft Remote Desktop", id: 1295203466
 mas "Notability", id: 360593530
 mas "Amphetamine", id: 937984704
 mas "RunCat", id: 1429033973
 mas "Xmenu", id: 419332741
+mas "Microsoft Remote Desktop", id: 1295203466

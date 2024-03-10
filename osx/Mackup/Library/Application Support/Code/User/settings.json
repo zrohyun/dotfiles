@@ -8,22 +8,18 @@
     "remote.SSH.defaultExtensions": [
         "gitpod.gitpod-remote-ssh"
     ],
-    "cloudcode.kubeconfigs": [
-        {
-            "name": "/Users/ncsoft/.kube/config",
-            "configPath": "/Users/ncsoft/.kube/config"
-        }
-    ],
-    "cloudcode.active-kubeconfig": "/Users/ncsoft/.kube/config",
     "window.titleBarStyle": "custom",
-    "dogu.enabled": true,
-    "dogu.baseUrl": "http://KDL-02.korea.ncsoft.corp:5000/v1/engines/codegen",
-    "dogu.temperature": 0.1,
-    "dogu.inlineCompletion": false,
     "fauxpilot.server": "http://KDL-02.korea.ncsoft.corp:5000/v1/engines/codegen",
     "remote.SSH.remotePlatform": {
         "coder-vscode--asdmin--test-work": "linux"
     },
     "editor.accessibilitySupport": "off",
-    "fauxpilot.enabled": false,
+    "editor.fontFamily": "JetBrainsMono Nerd Font, Menlo, Monaco, 'Courier New', monospace",
+    "dotfiles.installCommand": "install.sh",
+    "dotfiles.repository": "https://github.com/zrohyun/dotfiles.git",
+    "dotfiles.targetPath": "~/.dotfiles",
+
+
+
+    
 }
