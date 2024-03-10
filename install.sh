@@ -15,8 +15,6 @@ install_omz() {
     # omz install and link plugins and themes
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
     if [[ $machine == "Linux" ]]; then
-        install_cli_tool "zsh"
-
         if check_sudo; then
             chsh -s $(which zsh)
         elif [ $? -eq 1 ]; then
@@ -100,16 +98,15 @@ if [[ $machine == "Linux" ]]; then
     # INSTALL HELIX
 
     # neovim config
-    source ./nvim/lazyvim_starter_setup.sh
-    if check_sudo; then
-        echo "add-apt-repository ppa:maveonair/helix-editor && apt-get update && apt-get install -y helix" && add-apt-repository ppa:maveonair/helix-editor && apt-get update && apt-get install -y helix
-    elif [ $1 -eq 1 ]; then 
-        echo "sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt-get update && sudo apt-get install -y helix" && sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt-get update && sudo apt-get install -y helix
-    else
-        echo "User does not have necessary privileges or sudo command not found."
-    fi
-    sudo apt update
-    sudo apt install helix
+    # source ./nvim/lazyvim_starter_setup.sh
+    # if check_sudo; then
+    #     echo "add-apt-repository ppa:maveonair/helix-editor && apt-get update && apt-get install -y helix" && add-apt-repository ppa:maveonair/helix-editor && apt-get update && apt-get install -y helix
+    # elif [ $1 -eq 1 ]; then 
+    #     echo "sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt-get update && sudo apt-get install -y helix" && sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt-get update && sudo apt-get install -y helix
+    # else
+    #     echo "User does not have necessary privileges or sudo command not found."
+    # fi
+
 
     #! Deprecated install tools
     # curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash # install zoxide
