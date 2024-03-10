@@ -53,9 +53,11 @@ install_cli_tool() {
         fi
         
         # DO INSTALL
-        if [ -n "$install_command" ] && [ -z "$tool_name" ]; then
+        if [ -n "$install_command" ] && [ -n "$tool_name" ]; then
             echo "$install_command $tool_name" && $install_command "$tool_name"
             echo "$tool_name installed. Please restart your terminal to apply changes."
+        elif [ -z "$tool_name" ]; then
+            echo "Do Only Update"
         else
             echo "Error: User can't install $tool_name."
             exit 1
