@@ -1,8 +1,8 @@
-ostype="$(uname -s)"
-case "${ostype}" in
+osType="$(uname -s)"
+case "${osType}" in
     Linux*)     machine=Linux;;
     Darwin*)    machine=Mac;;
-    *)          echo "NOT SUPPORTED:${ostype}";exit 1
+    *)          echo "NOT SUPPORTED:${osType}";exit 1
 esac
 
 if command -v fzf &>/dev/null; then

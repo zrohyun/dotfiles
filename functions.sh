@@ -22,6 +22,8 @@ install_cli_tool() {
     local tool_name="${1:-}"
     local update_flag="${2:-false}"  # 기본값을 false로 설정
 
+    echo "install_cli_tool $1 $2"
+
 
     # Check if the tool is already installed
     if command -v "$tool_name" &>/dev/null; then

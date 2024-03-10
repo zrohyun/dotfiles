@@ -97,13 +97,6 @@ if [ -f /opt/etc/bash_completion ] && ! shopt -oq posix; then
     . /opt/etc/bash_completion
 fi
 
-osType="$(uname -s)"
-case "${ostype}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    *)          echo "NOT SUPPORTED:${ostype}";exit 1
-esac
-
 [[ ! -f $HOME/.aliases ]] || source $HOME/.aliases
 [[ ! -f $HOME/.export ]] || source $HOME/.export
 [[ ! -f $HOME/.extra ]] || source $HOME/.extra

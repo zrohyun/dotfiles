@@ -12,13 +12,14 @@ case "${osType}" in
 esac
 
 install_omz() {
+    echo "install_omz"
     # omz install and link plugins and themes
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
     if [[ $machine == "Linux" ]]; then
         if check_sudo; then
-            chsh -s $(which zsh)
+            echo "chsh -s $(which zsh)" && chsh -s $(which zsh)
         elif [ $? -eq 1 ]; then
-            sudo chsh -s $(which zsh) 
+            echo "sudo chsh -s $(which zsh)" && sudo chsh -s $(which zsh)
         else
             echo "User does not have necessary privileges or sudo command not found."
         fi
@@ -26,15 +27,16 @@ install_omz() {
 
     # git clone version
     # backup_file_to_bak $HOME/.oh-my-zsh
-    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-        git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
-        # zsh-syntax-highlighting
-        echo "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        # zsh-autosuggestions
-        echo "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-        # powerlevel10k
-        echo "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k" && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
-    fi
+    git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+    # zsh-syntax-highlighting
+    echo "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    # zsh-autosuggestions
+    echo "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    # powerlevel10k
+    echo "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 
     #! submodule 사용시 (deprecated)
     # mkdir -p $PWD/zsh/{plugins,themes}
@@ -73,6 +75,7 @@ if [[ $machine == "Linux" ]]; then
     fi
     
     install_cli_tool tzdata true
+    install_cli_tool curl
     install_cli_tool vim
     install_cli_tool tmux
     install_cli_tool trash-cli
@@ -84,28 +87,31 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
     install_cli_tool ripgrep
     install_cli_tool git
-    install_cli_tool zsh && install_omz
+    install_cli_tool zsh
 
     # INSTALL NEOVIM # install_cli_tool neovim
     if check_sudo; then
-        echo "add-apt-repository -y ppa:neovim-ppa/unstable && apt-get update && apt-get install -y neovim" && add-apt-repository -y ppa:neovim-ppa/unstable && apt-get update && apt-get install -y neovim
+        echo "add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true" 
+        add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
     elif [ $? -eq 1 ]; then
-        echo "sudo add-apt-repository -y ppa:neovim-ppa/unstable && sudo apt-get update && sudo apt-get install -y neovim" && sudo add-apt-repository -y ppa:neovim-ppa/unstable && sudo apt-get update && sudo apt-get install -y neovim
+        echo "sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool -y neovim true" 
+        sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
     else
         echo "User does not have necessary privileges or sudo command not found."
     fi
+    # neovim config
+    source ./nvim/lazyvim_starter_setup.sh
     
     # INSTALL HELIX
-
-    # neovim config
-    # source ./nvim/lazyvim_starter_setup.sh
-    # if check_sudo; then
-    #     echo "add-apt-repository ppa:maveonair/helix-editor && apt-get update && apt-get install -y helix" && add-apt-repository ppa:maveonair/helix-editor && apt-get update && apt-get install -y helix
-    # elif [ $1 -eq 1 ]; then 
-    #     echo "sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt-get update && sudo apt-get install -y helix" && sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt-get update && sudo apt-get install -y helix
-    # else
-    #     echo "User does not have necessary privileges or sudo command not found."
-    # fi
+    if check_sudo; then
+        echo "add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
+        add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true 
+    elif [ $? -eq 1 ]; then 
+        echo "sudo add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
+        sudo add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true
+    else
+        echo "User does not have necessary privileges or sudo command not found."
+    fi
 
 
     #! Deprecated install tools
@@ -166,9 +172,6 @@ elif [[ $machine == "Mac" ]]; then
         }
         service_start
     fi
-    # INSTALL Oh-My-Zsh
-    install_omz 
-
 
     # 시스템 단축키, iterm2, raycast
     system_files=(
@@ -223,7 +226,7 @@ echo "ln -s -f $PWD/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/" && ln -s -f $PWD/zsh/
 backup_file_to_bak $HOME/.mackup.cfg
 echo "ln -s -f $PWD/osx/.mackup.cfg $HOME/" && ln -s -f $PWD/osx/.mackup.cfg $HOME/
 
-# copy mackup config
+# copy git config
 backup_file_to_bak $HOME/.gitignore
 backup_file_to_bak $HOME/.gitconig
 echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/
@@ -231,7 +234,12 @@ echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gi
 # copy helix config
 backup_file_to_bak $HOME/.config/helix/config.toml
 backup_file_to_bak $HOME/.config/helix/languages.toml
-echo "ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/" && ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/
+echo "ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix" && ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix
+
+# INSTALL Oh-My-Zsh
+install_omz 
+
+#TODO: helix config symlink 추가
 
 #?
 # terminal
