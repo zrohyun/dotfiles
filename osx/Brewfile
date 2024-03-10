@@ -12,7 +12,6 @@
 ###########################################################################################
 
 # tap
-# tap "homebrew/core" #ERROR: Tapping homebrew/core is no longer typically necessary
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "homebrew/cask-fonts"
@@ -20,6 +19,7 @@ tap "buo/cask-upgrade"
 tap "hamidnazari/jetbrains-versions"
 tap "daipeihust/tap"
 # tap "jesseduffield/lazydocker"
+# tap "homebrew/core" #ERROR: Tapping homebrew/core is no longer typically necessary
 
 # brew
 brew "mas"
@@ -129,7 +129,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "cursor"
 # cask "bartender"
 # cask "fig"
-# for network
+# FOR NETWORK
 # cask "burp-suite"
 # cask "wireshark"
 # cask "docker" # colima와 함께 사용하는 거 비추, socket path 이슈
@@ -143,11 +143,11 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "dash" # -> 유료
 # cask "filezilla" # cask는 아니지만 ftp client
 
+mas "KakaoTalk", id: 869223134
+mas "RunCat", id: 1429033973
 # mas "zest" # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능
 # mas "Xmenu", id: 419332741
 # mas "Amphetamine", id: 937984704
 # mas "Notability", id: 360593530
 # mas "Goodnotes", id: 1444383602
 # mas "Microsoft Remote Desktop", id: 1295203466
-mas "KakaoTalk", id: 869223134
-mas "RunCat", id: 1429033973

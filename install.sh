@@ -89,6 +89,7 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool ripgrep
     install_cli_tool git
     install_cli_tool zsh
+    echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 
     # INSTALL NEOVIM # install_cli_tool neovim
     if check_sudo; then
