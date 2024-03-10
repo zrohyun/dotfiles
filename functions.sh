@@ -37,7 +37,7 @@ install_cli_tool() {
             sudo -v 2>/dev/null && install_command="sudo apt-get install -y" && update_command="sudo apt-get update" && upgrade_command="sudo apt-get upgrade -y"
         # else
         #     echo "User does not have necessary privileges or sudo command not found."           
-        if
+        fi
 
         #TODO: 위의 로직 정상동작 확인되면 삭제
         # if command -v sudo &> /dev/null; then
@@ -47,15 +47,14 @@ install_cli_tool() {
         # fi
 
         # DO UPDATE
-        if { [ -z "$tool_name" ] && [[ "$update_flag" == false ]] } || [[ $update_flag == true ]]; then
+        if ( [ -z "$tool_name" ] && [[ "$update_flag" == false ]] ) || [[ $update_flag == true ]]; then
             echo "$update_command" && $update_command || { echo "Error: Unable to run $update_command. Please check your sudo privileges."; exit 1; }
             echo "$upgrade_command" && $upgrade_command
         fi
         
         # DO INSTALL
         if [ -n "$install_command" ] && [ -z "$tool_name" ]; then
-            echo "$install_command $tool_name"
-            $install_command "$tool_name"
+            echo "$install_command $tool_name" && $install_command "$tool_name"
             echo "$tool_name installed. Please restart your terminal to apply changes."
         else
             echo "Error: User can't install $tool_name."
@@ -64,11 +63,12 @@ install_cli_tool() {
     fi
 }
 
-backup_file_to_bak() { 
+backup_file_to_bak() {
     # Usage: backup_file_to_home $HOME/.aliases
-    if [[ -f "$1" ]]; then
+    echo "backup_file_bak $1"
+    if [[ -f "$1" ]] || [[ -d "$1" ]]; then
         echo "mkdir -p $HOME/.bak" && mkdir -p $HOME/.bak # make the directory if it doesn't exist
-        echo "mv $1 $HOME/.bak/$1.bak" && mv "$1" "$HOME/.bak/$1.bak" # copy the file to the backup directory 
+        echo "mv $1 $HOME/.bak/" && mv "$1" "$HOME/.bak/" # copy the file to the backup directory 
         # echo "Backup of $1 created at $HOME/.back" 
     fi 
 } 

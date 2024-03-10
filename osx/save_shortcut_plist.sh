@@ -3,7 +3,6 @@
 cd $HOME/Library/Preferences
 
 if [[ -f com.apple.symbolichotkeys.plist]]; then
-    #! mackup으로 대체 (Deprecated)
     echo "Symbolic hotkeys already installed"
     cp com.apple.symbolichotkeys.plist $HOME/symbolichotkeys.plist
     putil --convert xml1 symbolichotkeys.plist 

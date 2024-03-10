@@ -1,0 +1,10 @@
+[[language]]
+name = "python"
+language-servers = [ "pyright" ]
+
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "basic"
+
+[language.formatter]
+command = "black"
+args = ["--line-length", "88", "--quiet", "-"]

@@ -61,8 +61,8 @@ fi
 # thefuck command
 if command -v thefuck &>/dev/null; then
     eval $(thefuck --alias)
-else
-    echo "'thefuck' command is not installed"
+# else
+    # echo "'thefuck' command is not installed"
 fi
 
 # fd
@@ -106,7 +106,6 @@ if command -v dust &>/dev/null; then
 fi
 
 # network
-local commands=("netstat" "lsof" "nmap" "ss")
 if [[ $machine == "Linux" ]]; then
     checkport() {
         local sudo_cmd=""
@@ -128,6 +127,7 @@ if [[ $machine == "Linux" ]]; then
             fi
         fi
 
+        local commands=("netstat" "lsof" "nmap" "ss")
         for cmd in "${commands[@]}"; do
             if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
                 if command -v "$cmd" &>/dev/null; then
@@ -186,6 +186,7 @@ elif [[ $machine == "Mac" ]]; then
         #TODO: if commands안에 $cmd가 없다면 
         #TODO: open된 port의 PID 출력
 
+        local commands=("netstat" "lsof" "nmap" "ss")
         for cmd in "${commands[@]}"; do
             if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
                 if command -v "$cmd" &>/dev/null; then
