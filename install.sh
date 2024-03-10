@@ -227,6 +227,7 @@ if command -v mackup &>/dev/null; then
     # echo "mackup backup" && mackup backup 
     # echo "mackup restore && mackup backup" && mackup restore && mackup backup
     # echo "mackup backup && mackup uninstall" && mackup backup && mackup uninstall
+    echo "" &>/dev/null
 fi
 
 #?
