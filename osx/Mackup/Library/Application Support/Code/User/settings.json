@@ -18,8 +18,7 @@
     "dotfiles.installCommand": "install.sh",
     "dotfiles.repository": "https://github.com/zrohyun/dotfiles.git",
     "dotfiles.targetPath": "~/.dotfiles",
-
-
-
-    
+    "vim.vimrc.path": "$HOME/.ideavimrc",
+    "vim.vimrc.enable": true,
+    "editor.minimap.enabled": false,
 }

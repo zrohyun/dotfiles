@@ -108,8 +108,8 @@ if [[ $machine == "Linux" ]]; then
     else
         echo "User does not have necessary privileges or sudo command not found."
     fi
-sudo apt update
-sudo apt install helix
+    sudo apt update
+    sudo apt install helix
 
     #! Deprecated install tools
     # curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash # install zoxide
@@ -121,6 +121,20 @@ sudo apt install helix
     #     echo "curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh" && curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh
     # else
     #     echo "User does not have necessary privileges or sudo command not found."
+    # fi
+
+    # copy fonts
+    echo "backup_file_to_bak $HOME/.fonts" &&  backup_file_to_bak $HOME/.fonts
+    echo "ln -s -f $PWD/fonts $HOME/.fonts" &&  ln -s -f $PWD/fonts $HOME/.fonts
+    
+    #! (Deprecated) vscode의 설정은 mackup의 간헐적 동작으로 백업을 수행한다.
+    #? 아래처럼 할 수도 있지만 생각보다 고려해야할 게 좀 있으니 나중에. 아니면 설정 자체를 모든 프로파일마다 적용할 수 있으면서 백업할 수 있는 방법을 생각해봐야겠다.
+    # 일단 자동화하지 않고 그냥 vscode setting으로 설정하는 게 나을듯
+    # if [[ $machine == "Linux" ]]; then
+    #     mkdir -p $HOME/.vscode-server/data/Machine && touch $HOME/.vscode-server/data/Machine/settings.json
+    #     jq '. + {"editor.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
+    #     jq '. + {"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
+    #     rm tmp.json
     # fi
 
 elif [[ $machine == "Mac" ]]; then
@@ -157,6 +171,23 @@ elif [[ $machine == "Mac" ]]; then
     fi
     # INSTALL Oh-My-Zsh
     install_omz 
+
+
+    # 시스템 단축키, iterm2, raycast
+    system_files= (
+       "com.apple.symbolichotkeys.plist"
+       "com.googlecode.iterm2.plist"
+       "com.raycast.macos"
+    )
+    for file in "${system_files[@]}"
+    do 
+        if [[ -f "$HOME/Library/Preferences/$file" ]]; then
+            backup_file_to_bak "$HOME/Library/Preferences/$file"
+            echo "cp $PWD/osx/$file $HOME/Library/Preferences/$file" && cp $PWD/osx/$file $HOME/Library/Preferences/$file
+            # putil --convert xml1 symbolichotkeys.plist
+        fi
+    done
+    
 fi
 
 # copy base config
@@ -185,20 +216,6 @@ echo "backup_file_to_bak $HOME/.vimrc" && backup_file_to_bak $HOME/.vimrc
 echo "backup_file_to_bak $HOME/.ideavimrc" &&  backup_file_to_bak $HOME/.ideavimrc
 echo "ln -s -f $PWD/vim/.{vimrc,ideavimrc} $HOME/" && ln -s -f $PWD/vim/.{vimrc,ideavimrc} $HOME/
 
-# copy fonts
-if [[ $machine == "Linux" ]]; then
-    echo "backup_file_to_bak $HOME/.fonts" &&  backup_file_to_bak $HOME/.fonts
-    echo "ln -s -f $PWD/fonts $HOME/.fonts" &&  ln -s -f $PWD/fonts $HOME/.fonts
-    #? 아래처럼 할 수도 있지만 생각보다 고려해야할 게 좀 있으니 나중에. 아니면 설정 자체를 모든 프로파일마다 적용할 수 있으면서 백업할 수 있는 방법을 생각해봐야겠다.
-    # 일단 자동화하지 않고 그냥 vscode setting으로 설정하는 게 나을듯
-    # if [[ $machine == "Linux" ]]; then
-    #     mkdir -p $HOME/.vscode-server/data/Machine && touch $HOME/.vscode-server/data/Machine/settings.json
-    #     jq '. + {"editor.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
-    #     jq '. + {"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
-    #     rm tmp.json
-    # fi
-fi
-
 # copy zsh config
 backup_file_to_bak $HOME/.zshrc
 backup_file_to_bak $HOME/.p10k.zsh
@@ -218,17 +235,6 @@ echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gi
 backup_file_to_bak $HOME/.config/helix/config.toml
 backup_file_to_bak $HOME/.config/helix/languages.toml
 echo "ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/" && ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/
-
-if command -v mackup &>/dev/null; then
-    #! (DEPRECATED) 진짜 mackup 너무 쓰레기. 그냥 내가 symbolic link 거는 게 훨씬 나음.
-    # iterms는 그냥 저장이 안됨
-    # 한번만 연결되면 git에 있는 파일이 모두 link되어 있어 최신 버전이라 가정해도 됨
-    # 백업을 원하는 다른 앱이 생긴다면 mackup search로 검색 후 최초 한번 수행
-    # echo "mackup backup" && mackup backup 
-    # echo "mackup restore && mackup backup" && mackup restore && mackup backup
-    # echo "mackup backup && mackup uninstall" && mackup backup && mackup uninstall
-    echo "" &>/dev/null
-fi
 
 #?
 # terminal
