@@ -21,4 +21,8 @@
     "vim.vimrc.path": "$HOME/.ideavimrc",
     "vim.vimrc.enable": true,
     "editor.minimap.enabled": false,
+
+
+
+    
 }
