@@ -5,8 +5,17 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 	"features": {
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
-		// "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+		// "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		// "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
+		// "ghcr.io/devcontainers-contrib/features/apt-get-packages:1": {},
+		// "ghcr.io/devcontainers-contrib/features/apt-packages:1": {},
+		// "ghcr.io/devcontainers-contrib/features/asdf-package:1": {},
+		// "ghcr.io/devcontainers-contrib/features/btop-homebrew:1": {},
+		// "ghcr.io/devcontainers-contrib/features/kubectl-asdf:2": {},
+		// "ghcr.io/devcontainers-contrib/features/tmux-apt-get:1": {},
+		// "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {},
+		// "ghcr.io/edouard-lopez/devcontainer-features/bats:0": {},
+		// "ghcr.io/schlich/devcontainer-features/powerlevel10k:1": {}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
