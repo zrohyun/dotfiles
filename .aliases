@@ -6,15 +6,17 @@
 # Unix
 alias ln="ln -v"
 alias mkdir="mkdir -p"
+
+#TODO: export 분리, export, path, etc.. load 순서 결정
+export EDITOR=vi
+export VISUAL=vi
 alias e="$EDITOR"
 alias v="$VISUAL"
 
 # Pretty print the path
-
 alias path='echo $PATH | tr -s ":" "\n"'
 alias hey='tmux new -As main'
 alias hi=hey
-
 
 # vim command
 if command -v hx &> /dev/null; then
@@ -24,7 +26,6 @@ elif command -v vim &> /dev/null; then
 # else
 #   echo "'hx', 'vim' command is not installed"
 fi 
-
 
 # trash command
 if command -v trash &> /dev/null; then
