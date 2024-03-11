@@ -138,6 +138,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "kitty"
 # cask "alt-tab"
 # cask "flameshot"
+# cask "dbeaver-community"
 # cask "mate-translate" # -> 유료화
 # cask "forklift" # -> 유료
 # cask "dash" # -> 유료
