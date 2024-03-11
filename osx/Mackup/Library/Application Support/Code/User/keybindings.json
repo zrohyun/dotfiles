@@ -1,7 +1,7 @@
 // 키 바인딩을 이 파일에 넣어서 기본값 재정의
 [
     {
-        "key": "ctrl+cmd+p t",
+        "key": "ctrl+cmd+p j",
         "command": "workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
     },
@@ -11,7 +11,15 @@
         "when": "terminal.active"
     },
     {
-        "key": "ctrl+cmd+p ctrl+t",
+        "key": "ctrl+cmd+p k",
         "command": "workbench.action.createTerminalEditor"
+    },
+    {
+        "key": "ctrl+cmd+p h",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
     }
 ]

@@ -21,4 +21,10 @@
     "vim.vimrc.path": "$HOME/.ideavimrc",
     "vim.vimrc.enable": true,
     "editor.minimap.enabled": false,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "workbench.iconTheme": "material-icon-theme",
+
+
+
+    
 }
