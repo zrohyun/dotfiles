@@ -54,6 +54,7 @@ brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS
 brew "im-select" # brew "daipeihust/tap/im-select"
 brew "pyright" # python lsp
 
+# brew "ffmpeg"
 # brew "fasd"
 # GIT
 # brew "tig"

@@ -1,0 +1,3 @@
+
+# export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
+export ZDOTDIR=$ZSH/cache

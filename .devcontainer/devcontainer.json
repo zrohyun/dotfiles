@@ -39,7 +39,7 @@
 		// "ghcr.io/georgofenbeck/features/thefuck-homebrew:1": {},
 		// "ghcr.io/georgofenbeck/features/thefuck-pipx:1": {}
 	},
-	"runArgs": ["--privileged"]
+	// "runArgs" : ["--privileged",  "--network=host"]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
