@@ -107,6 +107,7 @@ if command -v dust &>/dev/null; then
 fi
 
 # network
+#TODO: print port with title, and pid
 if [[ $machine == "Linux" ]]; then
     checkport() {
         local sudo_cmd=""
