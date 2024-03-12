@@ -1,4 +1,9 @@
 #!/bin/bash
 
-eval "$($(which brew) shellenv)" # eval "$(/opt/homebrew/bin/brew shellenv)"
-# mkdir -p $HOME/.cache/zsh && compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
+if command -v brew &>/dev/null; then
+  eval "$($(which brew) shellenv)"
+elif [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi

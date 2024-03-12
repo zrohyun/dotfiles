@@ -82,18 +82,19 @@ plugins=(
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
-    tmux
     kubectl
-    fasd
     asdf
     z
     macos
     brew
     ripgrep
     colorize 
-    composer 
     docker 
     docker-compose
+    # composer 
+    # fasd
+    #TODO: tmux-plugin?, oh-my-tmux?
+    # tmux # plugin 에러 발생  
     # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
 )
 
@@ -138,9 +139,10 @@ esac
 #   eval "$(zoxide init zsh)"
 # fi
 
+# mkdir -p $HOME/.cache/zsh && compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
+[[ ! -f $HOME/.extra ]] || source $HOME/.extra
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 [[ ! -f $HOME/.aliases ]] || source $HOME/.aliases
 [[ ! -f $HOME/.export ]] || source $HOME/.export
-[[ ! -f $HOME/.extra ]] || source $HOME/.extra
 [[ ! -f $HOME/.env ]] || source $HOME/.env
 [[ ! -f $HOME/.path ]] || source $HOME/.path

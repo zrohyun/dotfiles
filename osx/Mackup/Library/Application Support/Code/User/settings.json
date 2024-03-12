@@ -4,7 +4,6 @@
         "FIG_NEW_SESSION": "1"
     },
     "workbench.colorTheme": "Default Light+",
-    "remote.tunnels.access.preventSleep": true,
     "remote.SSH.defaultExtensions": [
         "gitpod.gitpod-remote-ssh"
     ],
@@ -23,8 +22,4 @@
     "editor.minimap.enabled": false,
     "terminal.integrated.defaultProfile.linux": "zsh",
     "workbench.iconTheme": "material-icon-theme",
-
-
-
-    
 }

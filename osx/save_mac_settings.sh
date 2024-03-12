@@ -12,7 +12,7 @@ for file in "${system_files[@]}"
 do 
     if [[ -f "$HOME/Library/Preferences/$file" ]] && [[ -d "$HOME/.dotfiles/osx" ]]; then
         echo "cp $HOME/Library/Preferences/$file $HOME/.dotfiles/osx/$file" && cp $HOME/Library/Preferences/$file $HOME/.dotfiles/osx/$file
-        # putil --convert xml1 symbolichotkeys.plist
+        # plutil -convert xml1 symbolichotkeys.plist
     fi
 done
 
