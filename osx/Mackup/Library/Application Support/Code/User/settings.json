@@ -22,4 +22,5 @@
     "editor.minimap.enabled": false,
     "terminal.integrated.defaultProfile.linux": "zsh",
     "workbench.iconTheme": "material-icon-theme",
+    "security.promptForRemoteFileProtocolHandling": false,
 }

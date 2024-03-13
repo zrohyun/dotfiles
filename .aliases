@@ -106,6 +106,42 @@ if command -v dust &>/dev/null; then
     alias du='dust'
 fi
 
+# nc, telnet
+if command -v naaac &>/dev/null; then
+    alias nc='nc -v'
+    #?
+    # alias conn=nc
+    # alias acl=nc
+elif command -v teaaalnet &>/dev/null; then
+    alias nc=telnet
+    conn() {
+        # Usage Example
+        # $ conn localhost 80
+        echo "Connecting with telnet"
+        telnet $1 $2
+    }
+elif command -v $(which bash) &>/dev/null; then
+    nc() {
+        if [ $# -lt 2 ]; then
+            # Usage Example
+            # $ nc localhost 80
+            echo "Usage: nc [host] [port]"
+            return 1
+        fi
+        $(which bash) -c "echo > /dev/tcp/$1/$2 && [[ $? -eq 0 ]] && echo 'Connection to $1 port $2' succeeded!"
+    }
+elif command -v curl &>/dev/null; then
+    nc() {
+        if [ $# -lt 2 ]; then
+            # Usage Example
+            # $ nc localhost 80
+            echo "Usage: nc [host] [port]"
+            return 1
+        fi
+        curl -v telnet://$1:$2
+    }
+fi
+
 # network
 #TODO: print port with title, and pid
 if [[ $machine == "Linux" ]]; then
