@@ -145,9 +145,18 @@ fi
 # network
 #TODO: print port with title, and pid
 if [[ $machine == "Linux" ]]; then
-    checkport() {
+    openports() {
         local sudo_cmd=""
         local arg="${1:-default}"
+
+        if [[ "$arg" == "-h" || "$arg" == "help" ]]; then
+            echo "Usage: openports [sudo] [command]"
+            echo "Options:"
+            echo "  sudo     : Run with elevated privileges (requires sudo)"
+            echo "  command  : Specify a specific command (netstat, lsof, nmap, ss)"
+            echo "  -p       : [TODO]Show the PID of open ports"
+            return 0
+        fi
 
         if [[ "$arg" == "sudo" ]]; then
             if command -v sudo &>/dev/null; then
@@ -201,30 +210,38 @@ if [[ $machine == "Linux" ]]; then
         return 1
     }
 elif [[ $machine == "Mac" ]]; then
-    checkport() {
+    openports() {
         local sudo_cmd=""
         local arg="${1:-default}"
+
+        if [[ "$arg" == "-h" || "$arg" == "help" ]]; then
+            echo "Usage: openports [sudo] [command]"
+            echo "Options:"
+            echo "  sudo     : Run with elevated privileges (requires sudo)"
+            echo "  command  : Specify a specific command (netstat, lsof, nmap, ss)"
+            echo "  -p       : [TODO]Show the PID of open ports"
+            return 0
+        fi
 
         if [[ "$arg" == "sudo" ]]; then
             if command -v sudo &>/dev/null; then
                 if sudo -v &>/dev/null; then
                     sudo_cmd="sudo"
                     arg="${2:-default}"
-                    # shift  # Remove "sudo" from the arguments
                 else
                     echo "Error: sudo permission is required to run this command."
-                    exit 1
+                    return 1
                 fi
             else
                 echo "Error: sudo command not found. Please install sudo."
-                exit 1
+                return 1
             fi
         fi
 
-        #TODO: if commands안에 $cmd가 없다면 
-        #TODO: open된 port의 PID 출력
-
+        # TODO: if commands안에 $cmd가 없다면 
+        # TODO: open된 port의 PID 출력(Implement checking for open port PID)
         local commands=("netstat" "lsof" "nmap" "ss")
+
         for cmd in "${commands[@]}"; do
             if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
                 if command -v "$cmd" &>/dev/null; then
@@ -250,9 +267,8 @@ elif [[ $machine == "Mac" ]]; then
                     return 0
                 else
                     echo "$cmd is not installed"
+                    return 1
                 fi
-            # else
-            #     echo "$cmd is not your command($arg)"
             fi
         done
 
