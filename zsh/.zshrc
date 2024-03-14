@@ -79,21 +79,25 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    # https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
-    kubectl
-    asdf
-    z
-    macos
+    aliases
+    common-aliases
     brew
+    macos
+    z
+    asdf
     ripgrep
     colorize 
     docker 
+    kubectl
     docker-compose
+    command-not-found
     # composer 
     # fasd
-    #TODO: tmux-plugin?, oh-my-tmux?
+    # TODO: tmux-plugin?, oh-my-tmux?
     # tmux # plugin 에러 발생  
     # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
 )

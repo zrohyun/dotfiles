@@ -1,0 +1,59 @@
+{
+  "userOverrides" : [
+    {
+      "source" : "userDefined",
+      "priority" : "overrideWebView",
+      "action" : {
+        "identifier" : "newTab",
+        "name" : "New Tab…"
+      },
+      "default" : {
+        "typeTravelTriggers" : [
+          "New Tab…"
+        ],
+        "shortcut" : {
+          "deviceIndependentModifierFlags" : 1048576,
+          "keyEquivalent" : "t"
+        },
+        "priority" : "overrideWebView"
+      },
+      "state" : {
+        "valid" : {
+          "_0" : {
+            "keyEquivalent" : "p",
+            "deviceIndependentModifierFlags" : 1179648
+          }
+        }
+      }
+    },
+    {
+      "priority" : "promptAfterConsumedByWebView",
+      "source" : "userDefined",
+      "action" : {
+        "name" : "Show\/Hide Sidebar",
+        "identifier" : "showSidebar"
+      },
+      "default" : {
+        "shortcut" : {
+          "keyEquivalent" : "s",
+          "deviceIndependentModifierFlags" : 1048576
+        },
+        "priority" : "promptAfterConsumedByWebView",
+        "typeTravelTriggers" : [
+          "Show\/Hide Sidebar",
+          "Toggle Sidebar",
+          ""
+        ]
+      },
+      "state" : {
+        "valid" : {
+          "_0" : {
+            "keyEquivalent" : "e",
+            "deviceIndependentModifierFlags" : 1179648
+          }
+        }
+      }
+    }
+  ],
+  "version" : 1
+}

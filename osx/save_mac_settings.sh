@@ -24,3 +24,6 @@ if command -v mackup &>/dev/null; then
     #TODO: VSCODE 설정을 mackup 혹은 symlink로 설정해놓아야하나..? (근데 code는 이미 github으로 백업이 되고 있기는 한데)
     # echo "" &>/dev/null
 fi
+
+# COPY ALL SYSTEM SETTINGS (그냥 단발성 백업)
+# cp -r $HOME/Library/Preferences $HOME/.dotfiles/osx && tar -zcvf $HOME/.dotfiles/osx/Library-Preferences.tar.gz $HOME/.dotfiles/osx/Preferences # && rm $HOME/.dotfiles/osx/Preferences

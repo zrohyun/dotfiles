@@ -1,6 +1,6 @@
 [[language]]
 name = "python"
-language-servers = [ "pyright" ]
+language-servers = [ "pyright" ] # brew install pyright(pyright이 설치되어 있어야함)
 
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"

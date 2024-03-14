@@ -8,8 +8,23 @@ alias ln="ln -v"
 alias mkdir="mkdir -p"
 
 #TODO: export 분리, export, path, etc.. load 순서 결정
-export EDITOR=vi
-export VISUAL=vi
+if command -v hx &>/dev/null; then
+    export EDITOR=hx
+    export VISUAL=hx
+elif command -v vim &>/dev/null; then
+    export EDITOR=vim
+    export VISUAL=vim
+elif command -v vi &>/dev/null; then
+    export EDITOR=vi
+    export VISUAL=vi
+elif command -v nano &>/dev/null; then
+    export EDITOR=nano
+    export VISUAL=nano
+elif command -v emacs &>/dev/null; then
+    export EDITOR=emacs
+    export VISUAL=emacs
+fi
+
 alias e="$EDITOR"
 alias v="$VISUAL"
 
