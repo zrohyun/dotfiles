@@ -87,6 +87,8 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool fd-find
     install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
     install_cli_tool ripgrep
+    install_cli_tool neofetch
+    install_cli_tool btop
     install_cli_tool git
     install_cli_tool zsh
     echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
@@ -241,8 +243,6 @@ echo "ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix" && ln -s 
 
 # INSTALL Oh-My-Zsh
 install_omz 
-
-#TODO: helix config symlink 추가
 
 #?
 # terminal

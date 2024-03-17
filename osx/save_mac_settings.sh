@@ -26,4 +26,4 @@ if command -v mackup &>/dev/null; then
 fi
 
 # COPY ALL SYSTEM SETTINGS (그냥 단발성 백업)
-# cp -r $HOME/Library/Preferences $HOME/.dotfiles/osx && tar -zcvf $HOME/.dotfiles/osx/Library-Preferences.tar.gz $HOME/.dotfiles/osx/Preferences # && rm $HOME/.dotfiles/osx/Preferences
+# cp -r $HOME/Library/Preferences $HOME/.dotfiles/osx && tar -zcvf $HOME/.dotfiles/osx/Library-Preferences.tar.gz $HOME/.dotfiles/osx/Preferences && rm $HOME/.dotfiles/osx/Preferences

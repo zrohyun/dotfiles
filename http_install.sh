@@ -6,5 +6,5 @@ if command -v git &>/dev/null; then
     cd $HOME/.dotfiles
     source ./install.sh
 else
-    print git is not installed
+    echo "git is not installed"
 fi

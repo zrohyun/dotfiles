@@ -33,6 +33,13 @@ install_cli_tool() {
         local update_command=""
         local upgrade_command=""
 
+        # TODO: https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+        # TODO: Refactor with this clause
+        # if [ $UID -ne 0 ]; then
+        #     alias reboot='sudo reboot'
+        #     alias update='sudo apt-get upgrade'
+        # fi
+
         if check_sudo; then
             install_command="apt-get install -y" && update_command="apt-get update" && upgrade_command="apt-get upgrade -y"
         elif [[ $? -eq 1 ]]; then

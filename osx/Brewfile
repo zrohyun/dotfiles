@@ -49,6 +49,7 @@ brew "dust"
 # brew "thefuck"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "im-select" # brew "daipeihust/tap/im-select"
+brew "bash-language-server"
 # brew "bat"
 # brew "git"
 # brew "pyright" # python lsp
@@ -117,6 +118,12 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "pycharm" # or pycharm-ce
 # cask "datagrip"
 
+
+# KUBERNETES
+# cask "openlens" # or lens 
+# cask "aptakube"
+# cask "kubernetic"
+
 # cask "qlmarkdown" # https://github.com/sbarex/QLMarkdown
 # cask "command-x"
 # cask "firefox"
@@ -124,7 +131,6 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "keycastr"
 # cask "anydesk"
 # cask "topnotch"
-# cask "openlens" # or lens 
 # cask "tabby"
 # cask "cursor"
 # cask "bartender"
@@ -147,6 +153,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 mas "KakaoTalk", id: 869223134
 mas "RunCat", id: 1429033973
 # mas "zest" # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능
+# mas "DropOver", id: 1355679052 # 유료
 # mas "Xmenu", id: 419332741
 # mas "Amphetamine", id: 937984704
 # mas "Notability", id: 360593530

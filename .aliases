@@ -5,7 +5,14 @@
 
 # Unix
 alias ln="ln -v"
-alias mkdir="mkdir -p"
+alias mkdir="mkdir -vp"
+# handy short cuts #
+alias h='history'
+alias j='jobs -l'
+alias now='date'
+
+# TODO
+# alias c='clear'
 
 #TODO: export 분리, export, path, etc.. load 순서 결정
 if command -v hx &>/dev/null; then
@@ -27,6 +34,39 @@ fi
 
 alias e="$EDITOR"
 alias v="$VISUAL"
+
+if [[ $machine == 'Linux' ]]; then
+    alias os="uname -a && cat /etc/os-release"
+elif [[ $machine == 'Mac' ]]; then
+    alias os="uname -a && sw_vers && system_profiler SPSoftwareDataType"
+fi
+
+# dotfiles
+if [[ -d $HOME/.dotfiles ]]; then
+    alias dotfiles="cd $HOME/.dotfiles"
+fi
+
+# machine directory alias
+if [[ $machine == 'Mac' ]]; then
+  if [[ -d $HOME ]]; then
+    alias home="cd $HOME"
+    alias Home="cd $HOME"
+  fi
+
+  if [[ -d $HOME/Desktop ]]; then
+    alias desktop="cd $HOME/Desktop"
+    alias Desktop="cd $HOME/Desktop"
+  fi
+
+  if [[ -d $HOME/Downloads ]]; then
+    alias downloads="cd $HOME/Downloads"
+    alias Downloads="cd $HOME/Downloads"
+  fi
+
+  if [[ -d $HOME/obsidian-zro ]]; then
+    alias obsidian="cd $HOME/obsidian-zro"
+  fi
+fi
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
