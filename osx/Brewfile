@@ -49,10 +49,12 @@ brew "dust"
 # brew "thefuck"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "im-select" # brew "daipeihust/tap/im-select"
+#LSP
 brew "bash-language-server"
+brew "pyright" # python lsp
+brew "gopls"
 # brew "bat"
 # brew "git"
-# brew "pyright" # python lsp
 
 # brew "ffmpeg"
 # brew "fasd"

@@ -6,10 +6,18 @@
 # Unix
 alias ln="ln -v"
 alias mkdir="mkdir -vp"
+
 # handy short cuts #
 alias h='history'
 alias j='jobs -l'
 alias now='date'
+
+if [[ $0 == *"zsh" ]]; then
+    alias reload="source $HOME/.zshrc"
+    # alias reload="omz reload"
+elif [[ $0 == *"bash" ]]; then
+    alias reload=". $HOME/.bashrc"
+fi
 
 # TODO
 # alias c='clear'
@@ -145,6 +153,11 @@ fi
 # fi
 
 # NOT MUST HAVE ITEM
+
+# KUBERNETES
+if command -v k9s &>/dev/null; then
+    alias ks=k9s
+fi
 
 # bat
 if command -v batcat &>/dev/null; then

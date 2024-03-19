@@ -66,8 +66,7 @@ if [[ $machine == "Linux" ]]; then
 
     #TODO: async???
     # install_cli_tool tmux & install_cli_tool trash-cli & disown
-
-    if check_sudo; then
+ if check_sudo; then
         echo "ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     elif [ $? -eq 1 ]; then
         echo "sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
@@ -90,6 +89,14 @@ if [[ $machine == "Linux" ]]; then
     install_cli_tool neofetch
     install_cli_tool btop
     install_cli_tool git
+    
+    # LIP
+    install_cli_tool pyright
+    install_cli_tool gopls
+    #! (NOT WORKING) 
+    # TODO: install_cli_tool bash-language-server
+
+    # ZSH
     install_cli_tool zsh
     echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 
@@ -152,7 +159,7 @@ elif [[ $machine == "Mac" ]]; then
     BREW_BUNDLE=./osx/Brewfile
 
     # Update Homebrew recipes
-    echo "brew upadte && brew upgrade" && brew update && brew upgrade
+    echo "brew update && brew upgrade" && brew update && brew upgrade
     echo "brew bundle --file=$BREW_BUNDLE" && brew bundle --file=$BREW_BUNDLE
 
     if [[ $macServiceStart == true ]]; then 
@@ -240,6 +247,16 @@ backup_file_to_bak $HOME/.config/helix/config.toml
 backup_file_to_bak $HOME/.config/helix/languages.toml
 echo "[[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix" && [[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix
 echo "ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix" && ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix
+
+# copy k9s config
+if [[ $machine == "Linux" ]]; then
+    OUT="${XDG_CONFIG_HOME:-$HOME/.config}/k9s"
+elif [[ $machine == "Mac" ]]; then
+    OUT="${XDG_CONFIG_HOME:-$HOME/Library/Application Support}/k9s"
+fi
+backup_file_to_bak "$OUT"
+echo 'mkdir -p $OUT' && mkdir -p "$OUT"
+echo "ln -s -f $PWD/k9s/{config.yaml,skins} $OUT" && ln -s -f $PWD/k9s/{config.yaml,skins} "$OUT"
 
 # INSTALL Oh-My-Zsh
 install_omz 
