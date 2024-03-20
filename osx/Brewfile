@@ -31,7 +31,6 @@ brew "colima"
 brew "tmux"
 brew "tree"
 brew "telnet"
-# brew "wget"
 brew "trash-cli"
 brew "neovim"
 brew "tldr"
@@ -46,6 +45,7 @@ brew "helix"
 # brew "kubectl"
 brew "duf"
 brew "dust"
+# brew "wget"
 # brew "thefuck"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "im-select" # brew "daipeihust/tap/im-select"
@@ -54,7 +54,7 @@ brew "bash-language-server"
 brew "pyright" # python lsp
 brew "gopls"
 # brew "bat"
-# brew "git"
+# brew "git" # xcode-select로 해결
 
 # brew "ffmpeg"
 # brew "fasd"
@@ -71,7 +71,7 @@ brew "gopls"
 # brew "htop"
 # brew "zellij"
 # brew "zoxide"
-# pyenv
+# PYENV
 # brew "pyenv"
 # brew "pyenv-virtualenv"
 # brew "mrkai77/cask/loop" # window manager

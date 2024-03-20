@@ -10,17 +10,17 @@ alias mkdir="mkdir -vp"
 # handy short cuts #
 alias h='history'
 alias j='jobs -l'
+alias c='clear'
 alias now='date'
+alias hg='history|grep'
 
-if [[ $0 == *"zsh" ]]; then
+if [[ $SHELL == *"zsh"* ]]; then
     alias reload="source $HOME/.zshrc"
     # alias reload="omz reload"
-elif [[ $0 == *"bash" ]]; then
+elif [[ $SHELL == *"bash"* ]] && [[ -e $HOME/.bashrc ]]; then
     alias reload=". $HOME/.bashrc"
 fi
 
-# TODO
-# alias c='clear'
 
 #TODO: export 분리, export, path, etc.. load 순서 결정
 if command -v hx &>/dev/null; then
