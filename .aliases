@@ -132,6 +132,7 @@ fi
 # fd
 if command -v fdfind &>/dev/null; then
     alias fd='fdfind -aI'
+    alias find=fd
 fi
 
 # exa

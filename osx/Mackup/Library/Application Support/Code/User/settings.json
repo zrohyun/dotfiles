@@ -23,4 +23,17 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     "workbench.iconTheme": "material-icon-theme",
     "security.promptForRemoteFileProtocolHandling": false,
+    "vim.insertModeKeyBindings": [
+        {
+          "before": ["g", "I"],
+          "commands": ["editor.action.goToImplementation"]
+        }
+      ],
+    
+      "vim.normalModeKeyBindings": [
+        {
+          "before": ["g", "I"],
+          "commands": ["editor.action.goToImplementation"]
+        }
+      ]
 }

@@ -42,6 +42,7 @@ brew "fd"
 brew "fzf"
 brew "jq"
 brew "helix"
+brew "bash" # mac default bash(/bin/bash)는 버전이 낮음. symlink도 걸어줘야하나..
 # brew "kubectl"
 brew "duf"
 brew "dust"
@@ -80,7 +81,7 @@ brew "gopls"
 # brew "koekeishiya/formulae/skhd"
 
 
-# cask
+# CASK
 cask "raycast"
 cask "visual-studio-code"
 # cask "appcleaner"
@@ -125,6 +126,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "openlens" # or lens 
 # cask "aptakube"
 # cask "kubernetic"
+cask 'headlamp'
 
 # cask "qlmarkdown" # https://github.com/sbarex/QLMarkdown
 # cask "command-x"
