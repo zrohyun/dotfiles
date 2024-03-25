@@ -14,6 +14,23 @@ alias c='clear'
 alias now='date'
 alias hg='history|grep'
 
+# TODO: 
+# hosts
+# hardware: sudo lshw -short
+# cpu: cat /proc/cpuinfo
+# ram: cat /proc/meminfo
+# hdd: fdisk -l
+# gpu: nvidia-smi or lspci | grep VGA or sudo lshw -C display
+
+if command -v dig &> /dev/null; then
+    alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+    # alias myip="dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'\"' '{ print \$2 }'"
+elif curl -s --max-time 1 ifconfig.me > /dev/null; then
+    alias myip='curl ifconfig.me'
+elif curl -s --max-time 1 icanhazip.com > /dev/null; then
+    alias myip='curl icanhazip.com'
+fi
+
 if [[ $SHELL == *"zsh"* ]]; then
     alias reload="source $HOME/.zshrc"
     # alias reload="omz reload"
@@ -176,12 +193,13 @@ if command -v dust &>/dev/null; then
 fi
 
 # nc, telnet
-if command -v naaac &>/dev/null; then
+if command -v nc &>/dev/null; then
     alias nc='nc -v'
+    alias telnet=nc
     #?
     # alias conn=nc
     # alias acl=nc
-elif command -v teaaalnet &>/dev/null; then
+elif command -v telnet &>/dev/null; then
     alias nc=telnet
     conn() {
         # Usage Example
@@ -199,6 +217,7 @@ elif command -v $(which bash) &>/dev/null; then
         fi
         $(which bash) -c "echo > /dev/tcp/$1/$2 && [[ $? -eq 0 ]] && echo 'Connection to $1 port $2' succeeded!"
     }
+    alias telnet=nc
 elif command -v curl &>/dev/null; then
     nc() {
         if [ $# -lt 2 ]; then
@@ -209,6 +228,7 @@ elif command -v curl &>/dev/null; then
         fi
         curl -v telnet://$1:$2
     }
+    alias telnet=nc
 fi
 
 # network

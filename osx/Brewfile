@@ -80,7 +80,6 @@ brew "gopls"
 # 나중에 shortcut 활용할 일이 있을 때
 # brew "koekeishiya/formulae/skhd"
 
-
 # CASK
 cask "raycast"
 cask "visual-studio-code"
@@ -88,6 +87,7 @@ cask "visual-studio-code"
 cask "arc"
 cask "google-chrome"
 cask "brave-browser"
+# cask "microsoft-edge"
 # cask "postman"
 # cask "heynote"
 cask "iterm2"
@@ -121,12 +121,11 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "pycharm" # or pycharm-ce
 # cask "datagrip"
 
-
 # KUBERNETES
 # cask "openlens" # or lens 
 # cask "aptakube"
 # cask "kubernetic"
-cask 'headlamp'
+# cask 'headlamp'
 
 # cask "qlmarkdown" # https://github.com/sbarex/QLMarkdown
 # cask "command-x"
@@ -139,6 +138,7 @@ cask 'headlamp'
 # cask "cursor"
 # cask "bartender"
 # cask "fig"
+
 # FOR NETWORK
 # cask "burp-suite"
 # cask "wireshark"
