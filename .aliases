@@ -59,8 +59,8 @@ function print_my_ip_info() {
     echo "Public IP: $public_ip"
 }
 
-# print_my_ip_info 함수를 myip 별칭으로 설정
 alias myip=print_my_ip_info
+alias ip=myip
 
 if [[ $SHELL == *"zsh"* ]]; then
     alias reload="source $HOME/.zshrc"

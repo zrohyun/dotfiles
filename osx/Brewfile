@@ -153,6 +153,8 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "forklift" # -> 유료
 # cask "dash" # -> 유료
 # cask "filezilla" # cask는 아니지만 ftp client
+# cask "via"
+# cask "vial"
 
 mas "KakaoTalk", id: 869223134
 mas "RunCat", id: 1429033973
