@@ -3,6 +3,7 @@
 source ./functions.sh
 
 macServiceStart=false
+#TODO: $PWD change to $DOTFILES=#HOME/.dotfiles
 
 osType="$(uname -s)"
 case "${osType}" in
@@ -257,6 +258,11 @@ fi
 backup_file_to_bak "$OUT"
 echo 'mkdir -p $OUT' && mkdir -p "$OUT"
 echo "ln -s -f $PWD/k9s/{config.yaml,skins} $OUT" && ln -s -f $PWD/k9s/{config.yaml,skins} "$OUT"
+
+# copy karabiner config
+backup_file_to_bak $HOME/.config/karabiner/karabiner.json
+echo "mkdir -p $HOME/.config/karabiner" && mkdir -p $HOME/.config/karabiner
+echo "ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/" && ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/
 
 # INSTALL Oh-My-Zsh
 install_omz 

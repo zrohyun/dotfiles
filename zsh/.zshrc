@@ -84,7 +84,7 @@ plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
     aliases
-    common-aliases
+    # common-aliases # command not found: pygmentize 에러 발생 
     brew
     macos
     z
@@ -134,9 +134,9 @@ source $ZSH/oh-my-zsh.sh
 
 osType="$(uname -s)"
 case "${osType}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    *)          echo "NOT SUPPORTED:${osType}";exit 1
+Linux*)     machine=Linux;;
+Darwin*)    machine=Mac;;
+*)          echo "NOT SUPPORTED:${osType}";exit 1
 esac
 
 # if [[ $machine == "Mac" ]]; then

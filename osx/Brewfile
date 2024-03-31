@@ -108,6 +108,7 @@ cask "obsidian"
 cask "contexts"
 cask "deepl"
 cask "zed"
+cask "karabiner-elements"
 cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight 
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
@@ -165,3 +166,5 @@ mas "RunCat", id: 1429033973
 # mas "Notability", id: 360593530
 # mas "Goodnotes", id: 1444383602
 # mas "Microsoft Remote Desktop", id: 1295203466
+# mas "Translation Tooltip", id: 1591769658
+# mas "Tip", id: 1495732622
