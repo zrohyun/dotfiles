@@ -13,6 +13,17 @@ alias j='jobs -l'
 alias c='clear'
 alias now='date'
 alias hg='history|grep'
+alias shell='echo $SHELL'
+
+if [[ -f /etc/hosts ]]; then
+    #TODO: if $UID =0 no sudo
+    if [[ $UID == 0 ]]; then
+        alias vihosts='vi hosts'
+    else
+        alias vihosts='sudo vi hosts'
+    fi
+    alias hosts='cat /etc/hosts'
+fi
 
 # TODO: 
 # hosts

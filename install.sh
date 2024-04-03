@@ -260,9 +260,11 @@ echo 'mkdir -p $OUT' && mkdir -p "$OUT"
 echo "ln -s -f $PWD/k9s/{config.yaml,skins} $OUT" && ln -s -f $PWD/k9s/{config.yaml,skins} "$OUT"
 
 # copy karabiner config
-backup_file_to_bak $HOME/.config/karabiner/karabiner.json
-echo "mkdir -p $HOME/.config/karabiner" && mkdir -p $HOME/.config/karabiner
-echo "ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/" && ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/
+if [[ $machine == "Mac" ]]; then
+    backup_file_to_bak $HOME/.config/karabiner/karabiner.json
+    echo "mkdir -p $HOME/.config/karabiner" && mkdir -p $HOME/.config/karabiner
+    echo "ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/" && ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/
+fi
 
 # INSTALL Oh-My-Zsh
 install_omz 
