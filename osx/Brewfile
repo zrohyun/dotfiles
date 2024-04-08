@@ -154,6 +154,12 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "forklift" # -> 유료
 # cask "dash" # -> 유료
 # cask "filezilla" # cask는 아니지만 ftp client
+
+# FOR LLM
+# cask "notesollama"
+# cask "lm-studio"
+
+# FOR KEYBOARD
 # cask "via"
 # cask "vial"
 
