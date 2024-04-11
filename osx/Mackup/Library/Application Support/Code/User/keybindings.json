@@ -11,15 +11,39 @@
         "when": "terminal.active"
     },
     {
-        "key": "ctrl+cmd+p k",
+        "key": "ctrl+cmd+p o",
         "command": "workbench.action.createTerminalEditor"
     },
     {
-        "key": "ctrl+cmd+p h",
+        "key": "ctrl+cmd+p s",
         "command": "workbench.action.toggleSidebarVisibility"
     },
     {
         "key": "cmd+b",
         "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+cmd+p l",
+        "command": "workbench.action.decreaseViewSize"
+    },
+    {
+        "key": "ctrl+cmd+p h",
+        "command": "workbench.action.increaseViewSize"
+    },
+    {
+        "key": "ctrl+cmd+p shift+h",
+        "command": "workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "cmd+r cmd+left",
+        "command": "-workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "ctrl+cmd+p shift+l",
+        "command": "workbench.action.focusRightGroup"
+    },
+    {
+        "key": "cmd+r cmd+right",
+        "command": "-workbench.action.focusRightGroup"
     }
 ]
