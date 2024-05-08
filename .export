@@ -23,3 +23,10 @@ if command -v fzf &>/dev/null; then
 
 #     export FZF_BASE=$(which fzf)
 fi
+
+# KUBERNETES(K8S)/CKA/CKAD/CKS
+if command -v kubectl &>/dev/null; then
+    export oy='-oyaml'
+    export dry="--dry-run=client $oy"       # k create deploy nginx --image=nginx $do
+    export now="--force --grace-period 0"   # k delete pod x $now
+fi
