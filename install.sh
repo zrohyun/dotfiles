@@ -76,20 +76,12 @@ if [[ $machine == "Linux" ]]; then
     fi
     
     install_cli_tool tzdata true
-    install_cli_tool curl
-    install_cli_tool vim
-    install_cli_tool tmux
-    install_cli_tool trash-cli
-    install_cli_tool tldr
-    install_cli_tool jq
-    install_cli_tool fzf
-    install_cli_tool thefuck
-    install_cli_tool fd-find
     install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
-    install_cli_tool ripgrep
-    install_cli_tool neofetch
-    install_cli_tool btop
-    install_cli_tool git
+    tools=("curl" "vim" "tmux" "trash-cli" "tldr" "jq" "fzf" "thefuck" "fd-find" "ripgrep" "neofetch" "btop" "git")
+
+    for tool in "${tools[@]}"; do
+        install_cli_tool "$tool"
+    done
     
     # LIP
     install_cli_tool pyright

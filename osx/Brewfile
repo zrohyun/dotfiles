@@ -108,6 +108,7 @@ cask "obsidian"
 cask "contexts"
 cask "deepl"
 cask "zed"
+cask "drawio"
 cask "karabiner-elements"
 cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight 
 cask "homebrew/cask-fonts/font-jetbrains-mono"
