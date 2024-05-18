@@ -1,48 +1,110 @@
 {
   "main": {
-    "id": "8396955622c779a4",
+    "id": "b5a4c1047ab5eedd",
     "type": "split",
     "children": [
       {
-        "id": "de9aafb73028fdab",
+        "id": "63b7e4b6156be935",
         "type": "tabs",
         "children": [
           {
-            "id": "8722069ca51bdaa3",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "71caa290ddb44965",
+            "id": "19ba573da83c8470",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Untitled.md",
+                "file": "daily/2023-12-19.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "34a5f1b7359824be",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Vault/zArchive(Bear)/시스템 트레이딩.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "dba268123dbd9ef0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Vault/Books/k8s101.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "63cf2c8f8cb41eba",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ncsoft/daily/2024-03-29.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "3c64da3e287d6987",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Vault/Study/Certificate/Certified Kubernetes(CKA, CKAD, CKS).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "3842d6a1b6f77203",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "Untitled Diagram.svg"
+              }
+            }
+          },
+          {
+            "id": "aba8546d098e5888",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Vault/Dev/Language/Language 101 Basic.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "95ab881ba61d8405",
+    "id": "de536f4788c8b31b",
     "type": "split",
     "children": [
       {
-        "id": "2d2eb92c00da1800",
+        "id": "e721ecc9ef040f25",
         "type": "tabs",
         "children": [
           {
-            "id": "0f2eb42374a92cfb",
+            "id": "77e0ea95e52e0358",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -52,7 +114,7 @@
             }
           },
           {
-            "id": "eb87d136040018c8",
+            "id": "3e63113c616f9dd5",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -60,41 +122,43 @@
                 "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
-                "collapseAll": false,
+                "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
               }
             }
           },
           {
-            "id": "921a2b4ca04b006d",
+            "id": "cb916e7f14edda79",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 343.50124740600586,
+    "collapsed": true
   },
   "right": {
-    "id": "a1c22cbb562cccc4",
+    "id": "e2bd6219cb3c6f4f",
     "type": "split",
     "children": [
       {
-        "id": "4061af95e55fda11",
+        "id": "53af34e69abac667",
         "type": "tabs",
         "children": [
           {
-            "id": "412f8fb0010744b9",
+            "id": "65144860a0aefbbc",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Untitled.md",
+                "file": "Vault/Dev/Language/Language 101 Basic.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,19 +170,19 @@
             }
           },
           {
-            "id": "f1ddbb8418be18b9",
+            "id": "3ecc2e7b8339cc2d",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Untitled.md",
+                "file": "Vault/Dev/Language/Language 101 Basic.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "7b3282484a9498c4",
+            "id": "e56d71f503b942d3",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -129,16 +193,37 @@
             }
           },
           {
-            "id": "56362024be9c3af7",
+            "id": "3232e19536ab190d",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Untitled.md"
+                "file": "Vault/Dev/Language/Language 101 Basic.md"
               }
             }
+          },
+          {
+            "id": "82f17d9a533a067c",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              }
+            }
+          },
+          {
+            "id": "1e7954e50fef460d",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -147,6 +232,9 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "omnisearch:Omnisearch": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -155,8 +243,57 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "71caa290ddb44965",
+  "active": "aba8546d098e5888",
   "lastOpenFiles": [
-    "Untitled.md"
+    "Untitled Diagram.svg",
+    "Vault/Dev/Language/Language 101 Basic.md",
+    "kakao 단톡방 공지.md",
+    "ncsoft/daily/2024-05-17.md",
+    "Vault/Study/Certificate/Untitled.md",
+    "Vault/Study/Certificate/Certified Kubernetes(CKA, CKAD, CKS).md",
+    "Excalidraw/varco_mt_controller.drawio",
+    "자주 사용하는.md",
+    "Vault/Books/k8s101.md",
+    "daily/2023-12-19.md",
+    "Vault/Books/k8s tips.md",
+    "Vault/Infra/Skills/Container/K8S Tips.md",
+    "ncsoft/daily/2024-03-19.md",
+    "ncsoft/chatgpt/2024-2-21/0-40-58-______________.md",
+    "Vault/Books/24단계 실습으로 정복하는 쿠버네티스.md",
+    "Vault/Infra/Skills/Container/container.md",
+    "container.md",
+    "TODO-zrohyun-MD8EE.md",
+    "Vault/Study/Certificate/attachments/Pasted image 20240511182705.png",
+    "ncsoft/daily/2024-05-09.md",
+    "ncsoft/daily/2024-05-11.md",
+    "container handson.md",
+    "Excalidraw/zrohyun_배포파이프라인(deploypipeline).drawio.crswap",
+    "Excalidraw/zrohyun_배포파이프라인(deploypipeline).drawio",
+    "Excalidraw/studioplatform배포1.drawio",
+    "Excalidraw/Untitled-2023-10-30-0135.excalidraw",
+    "Excalidraw/attachments/test_2.svg",
+    "Excalidraw/attachments/test_1.svg",
+    "Excalidraw/attachments/test_0.svg",
+    "ncsoft/daily/2024-03-29.md",
+    "Excalidraw/attachments/test.svg",
+    "Excalidraw/Scripts/Downloaded/Create DrawIO file.svg",
+    "Excalidraw/Scripts/Downloaded/Create DrawIO file.md",
+    "Excalidraw/studioplatform배포.drawio.html",
+    "Excalidraw/제목 없음-2024-01-25-0052.excalidraw",
+    "Excalidraw/my backup and sync system for my future home lab.excalidraw.md",
+    "Excalidraw/k8s_addon.excalidraw.md",
+    "Excalidraw/instant_dev_env.excalidraw.md",
+    "Excalidraw/k8s architecture 그려보기.png",
+    "Excalidraw/k8s architecture 그려보기.md",
+    "Excalidraw/k8s architecture 그려보기.svg",
+    "Excalidraw/studioplatform배포.drawio",
+    "Untitled Diagram 3.svg",
+    "kubernetes.canvas",
+    "Untitled 3.canvas",
+    "withNCU-414140456-150324-1819-192.pdf",
+    "자격취득 신청 품의 및 비용 청구 가이드.pdf",
+    "Untitled 2.canvas",
+    "Untitled.canvas",
+    "Untitled 1.canvas"
   ]
 }

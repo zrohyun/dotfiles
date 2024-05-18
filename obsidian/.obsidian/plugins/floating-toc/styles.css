@@ -310,12 +310,6 @@ settings:
   --floating-toc-line-width:18rem;
  
 }
-@media (max-width: 767px) {
-  .theme-light,
-  .theme-dark {
-    --floating-toc-line-width: 10rem; /* 适应较小屏幕 */
-  }
-}
 .theme-light{
   --floating-toc-header-background-color:var(--background-primary);
   --floating-toc-background-color: rgba(221, 221, 221, 0.3);
@@ -438,7 +432,7 @@ body.enable-heading-nowrap .floating-toc-div.pin .floating-toc .heading-list-ite
   max-width: unset;
 }
 body.enable-heading-nowrap .heading-list-item .text-wrap .text {
-  max-width: calc(var(--floating-toc-line-width) - 3rem);
+  max-width: calc(var(--floating-toc-line-width) - 1rem);
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -472,11 +466,11 @@ body.enable-heading-nowrap .heading-list-item .text-wrap .text {
   margin-left: 1.5rem;
 }
 .heading-list-item[data-level="5"] .text-wrap {
-  margin-left: 2rem;
+  margin-left: 1.6rem;
  
 }
 .heading-list-item[data-level="6"] .text-wrap {
-  margin-left: 2.5rem;
+  margin-left: 1.8rem;
   
 }
 
@@ -575,7 +569,6 @@ body.enable-heading-nowrap .heading-list-item .text-wrap .text {
   min-height: max-content;
   max-height: calc(100% - 135px) ;
   left:var(--floating-toc-position);
-  padding-top: 0.5rem;
 }
 
 .floating-toc-div.pin .floating-toc,
@@ -599,7 +592,7 @@ body:not(.enable-heading-nowrap) .floating-toc-div.pin .floating-toc .heading-li
 body:not(.enable-heading-nowrap) .floating-toc:hover .heading-list-item {
   min-height: auto;
 }
-.floating-toc-div:is(.hover,.pin) .floating-toc .heading-list-item
+.floating-toc .heading-list-item
 {
   padding:0 1rem;
 }
@@ -633,21 +626,9 @@ body.enable-heading-nowrap .floating-toc:hover .heading-list-item>.text-wrap {
 
 }
 
-/* .workspace-leaf-content .floating-toc-div.pin:is(.floating-left,.floating-both)+.markdown-source-view .cm-editor {
+.workspace-leaf-content .floating-toc-div:is(.floating-left,.floating-both)+.markdown-source-view .cm-editor {
   padding-left: 2rem;
- 
-} */
-
- 
-
-.workspace-leaf-content .floating-toc-div:is(.floating-left,.floating-both)+.markdown-source-view>.cm-editor {
-  padding-left:  2rem;
 }
-
-.workspace-leaf-content .floating-toc-div.pin:is(.floating-left,.floating-both)+.markdown-source-view>.cm-editor {
-  padding-left:  var(--floating-toc-line-width);
-}
-
 
 .workspace-leaf-content .floating-toc-div:is(.floating-left,.floating-both)~.markdown-reading-view .markdown-preview-view {
   padding-left: 4rem;
@@ -817,7 +798,7 @@ animation: shake 0.5s 2 alternate linear; /* 设置动画为2秒钟的时间，�
 }
 
 
-body.enable-background-blur-dept .workspace-leaf-content .floating-toc-div.hover:not(.pin)+.markdown-source-view>.cm-editor
+body.enable-background-blur-dept .workspace-leaf-content .floating-toc-div.hover:not(.pin)+.markdown-source-view .cm-editor
 {
   
   filter: blur(var(--background-blur-depth));
@@ -845,7 +826,7 @@ body.enable-background-blur-dept .floating-toc:hover {
 
 /****alignLeft**/
 
-.floating-toc-div.floating-right.alignLeft .floating-toc {
+.floating-toc-div.floating-right.alignLeft.hover .floating-toc {
  
     align-items: flex-start;
 }
@@ -1001,7 +982,7 @@ margin-left: 0.2rem;
 }
 /**垂直分割后第二个tabs*/
 
-.workspace-split.mod-vertical > .workspace-tabs ~.workspace-tabs .floating-toc-div.floating-both + .markdown-source-view>.cm-editor {
+.workspace-split.mod-vertical > .workspace-tabs ~.workspace-tabs .floating-toc-div.floating-both + .markdown-source-view .cm-editor {
   padding-right: 2rem;
   padding-left: 0;
 }
@@ -1321,87 +1302,49 @@ body.toggle-floating-toc-header-color .floating-toc-div .floating-toc
 
 
  
-body.float-curves-outline-style  .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='1'] + li.heading-list-item[data-level='2']::before, 
-body.float-curves-outline-style  .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='2'] + li.heading-list-item[data-level='3']::before, 
-body.float-curves-outline-style .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='3'] + li.heading-list-item[data-level='4']::before ,
-body.float-curves-outline-style .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='4'] + li.heading-list-item[data-level='5']::before ,
-body.float-curves-outline-style .floating-toc-div:is(.hover,.pin) 
- .heading-list-item[data-level='5'] + li.heading-list-item[data-level='6']::before 
-{
-  top: calc(calc(var(--nav-item-size) * 1.8) / 2 * -0.8)!important;
 
-}
-
-body.float-curves-outline-style  .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='1'] ~ .heading-list-item[data-level='2']:not([iscollapsed])::before, 
-body.float-curves-outline-style  .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='2'] ~ .heading-list-item[data-level='3']:not([iscollapsed])::before, 
-body.float-curves-outline-style .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='3'] ~ .heading-list-item[data-level='4']:not([iscollapsed])::before ,
-body.float-curves-outline-style .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='4'] ~ .heading-list-item[data-level='5']:not([iscollapsed])::before ,
-body.float-curves-outline-style .floating-toc-div:is(.hover,.pin) 
-.heading-list-item[data-level='5'] ~ .heading-list-item[data-level='6']:not([iscollapsed])::before 
+body.float-curves-outline-style 
+.heading-list-item[data-level='2'] + .heading-list-item[data-level='2']  .text-wrap::before, 
+body.float-curves-outline-style 
+.heading-list-item[data-level='3'] + .heading-list-item[data-level='3']  .text-wrap::before ,
+body.float-curves-outline-style 
+.heading-list-item[data-level='4'] + .heading-list-item[data-level='4']  .text-wrap::before ,
+body.float-curves-outline-style 
+ .heading-list-item[data-level='5'] + .heading-list-item[data-level='5']  .text-wrap::before ,
+ body.float-curves-outline-style 
+ .heading-list-item[data-level='6'] + .heading-list-item[data-level='6']  .text-wrap::before 
  {
     content: " ";
     position: absolute;
-    top: calc(calc(var(--nav-item-size) * 1.8) / 2 * -1.6);
-    /* left: -10px; */
-    bottom: calc(100% - (calc(var(--nav-item-size) * 1.8) - 4px) / 2 );
+    top: calc(calc(var(--nav-item-size) * 1.8) / 2 * -1.5);
+    left: -10px;
+    bottom: calc(100% - (calc(var(--nav-item-size) * 1.8) + 8px) / 2 - 1px);
     width: 18px;
     border-bottom-left-radius: var(--radius-m);
     border-bottom: 1.5px solid hsla(var(--color-accent-hsl), 0.9);
     border-left: 2px solid hsla(var(--color-accent-hsl), 0.9);
-    pointer-events: none;
-}
-.heading-list-item[data-level='2']::before
-{
-  left: 0.7rem;
-}
-.heading-list-item[data-level='3']::before
-{
-  left: 1.2rem;
-}
-.heading-list-item[data-level='4']::before
-{
-  left: 1.7rem;
-}
-.heading-list-item[data-level='5']::before
-{
-  left: 2.2rem;
-}
-.heading-list-item[data-level='6']::before
-{
-  left: 2.7rem;
 }
 
-
 body.float-outline-style 
-.heading-list-item[data-level='2'] + .heading-list-item[data-level='2']::before, 
+.heading-list-item[data-level='2'] + .heading-list-item[data-level='2']  .text-wrap::before, 
 body.float-outline-style 
-.heading-list-item[data-level='3'] + .heading-list-item[data-level='3']::before ,
+.heading-list-item[data-level='3'] + .heading-list-item[data-level='3']  .text-wrap::before ,
 body.float-outline-style 
-.heading-list-item[data-level='4'] + .heading-list-item[data-level='4']::before ,
+.heading-list-item[data-level='4'] + .heading-list-item[data-level='4']  .text-wrap::before ,
 body.float-outline-style 
- .heading-list-item[data-level='5'] + .heading-list-item[data-level='5']::before ,
+ .heading-list-item[data-level='5'] + .heading-list-item[data-level='5']  .text-wrap::before ,
  body.float-outline-style 
- .heading-list-item[data-level='6'] + .heading-list-item[data-level='6']::before 
+ .heading-list-item[data-level='6'] + .heading-list-item[data-level='6']  .text-wrap::before 
  {
     content: " ";
       position: absolute;
       display: block;
- 
-      top: -2.6em;
-      bottom: 100%;
+      left: -4px;
+      top: -1.3em;
+      bottom: 1em;
       border-right: 1px solid var(--text-muted);
-      pointer-events: none;
    
  }
- 
  /*********/
 
 
@@ -1427,7 +1370,7 @@ body.float-outline-style
     position: absolute;
     width: 1em; 
     margin-left: -0.9em; /* 向左偏移自身宽度，使伪元素不占用.text-wrap的空间 */
-    padding-right: 0.5rem;
+    pading-right: 0.5rem;
     z-index: 2;
     left: 0; /* 使伪元素位于li的最左边 */
     top: 50%; /* 垂直居中 */
@@ -1443,7 +1386,7 @@ body.float-outline-style
     position: absolute;
     width: 1em; 
     margin-left: -0.9em; 
-    padding-right: 0.5rem;
+    pading-right: 0.5rem;
     z-index: 2;
     left: 0; 
     top: 50%; 
