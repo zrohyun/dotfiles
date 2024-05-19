@@ -49,5 +49,25 @@
     {
         "key": "ctrl+cmd+p shift+cmd+f",
         "command": "workbench.action.experimental.quickTextSearch"
+    },
+    {
+        "key": "ctrl+cmd+p ctrl+h",
+        "command": "workbench.action.debug.continue",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "ctrl+cmd+p ctrl+l",
+        "command": "workbench.action.debug.stepOver",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "ctrl+cmd+p ctrl+k",
+        "command": "workbench.action.debug.stepOut",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "ctrl+cmd+p ctrl+j",
+        "command": "workbench.action.debug.stepInto",
+        "when": "debugState != 'inactive'"
     }
 ]
