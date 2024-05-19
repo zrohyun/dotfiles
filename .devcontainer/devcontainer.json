@@ -39,6 +39,21 @@
 		// "ghcr.io/georgofenbeck/features/thefuck-homebrew:1": {},
 		// "ghcr.io/georgofenbeck/features/thefuck-pipx:1": {}
 	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				// "vscodevim.vim",
+				// "Gruntfuggly.todo-tree",
+				// "jgclark.vscode-todo-highlight",
+				// "PKief.material-icon-theme",
+				// "MS-CEINTL.vscode-language-pack-ko",
+				// "mhutchie.git-graph",
+				// "aaron-bond.better-comments",
+				// "redhat.vscode-yaml",
+				// "mohsen1.prettify-json"
+			]
+		}
+	},
 	// "runArgs" : ["--privileged",  "--network=host"]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

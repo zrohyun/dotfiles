@@ -15,6 +15,7 @@
     "editor.accessibilitySupport": "off",
     "editor.fontFamily": "JetBrainsMono Nerd Font, Menlo, Monaco, 'Courier New', monospace",
     "dotfiles.installCommand": "install.sh",
+    "security.promptForRemoteFileProtocolHandling": false,
     "dotfiles.repository": "https://github.com/zrohyun/dotfiles.git",
     "dotfiles.targetPath": "~/.dotfiles",
     "vim.vimrc.path": "$HOME/.ideavimrc",
@@ -22,7 +23,6 @@
     "editor.minimap.enabled": false,
     "terminal.integrated.defaultProfile.linux": "zsh",
     "workbench.iconTheme": "material-icon-theme",
-    "security.promptForRemoteFileProtocolHandling": false,
     "vim.insertModeKeyBindings": [
         {
           "before": ["g", "I"],
@@ -35,5 +35,10 @@
           "before": ["g", "I"],
           "commands": ["editor.action.goToImplementation"]
         }
-      ]
+      ],
+      "amazonQ.shareContentWithAWS": false,
+      "workbench.sideBar.location": "right",
+      "editor.guides.bracketPairs": true,
+      "amazonQ.telemetry": false,
+      "debug.inlineValues": "on"
 }

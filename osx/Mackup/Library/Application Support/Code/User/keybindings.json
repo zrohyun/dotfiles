@@ -45,5 +45,9 @@
     {
         "key": "cmd+r cmd+right",
         "command": "-workbench.action.focusRightGroup"
+    },
+    {
+        "key": "ctrl+cmd+p shift+cmd+f",
+        "command": "workbench.action.experimental.quickTextSearch"
     }
 ]

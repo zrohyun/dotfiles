@@ -1,0 +1,20 @@
+{
+	"name": "Vimium C",
+	"@time": "5/20/2024, 12:38:08 AM",
+	"time": 1716133088700,
+	"environment": {
+		"extension": "1.99.994",
+		"platform": "mac",
+		"chromium": 125
+	},
+	"keyLayout": 1,
+	"keyMappings": [
+		"#!no-check",
+		"# Insert your preferred key mappings here.",
+		"map o Vomnibar.activateInNewTab",
+		"map O Vomnibar.activate",
+		""
+	],
+	"vimSync": true,
+	"ignoreKeyboardLayout": 2
+}

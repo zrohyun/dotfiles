@@ -1,0 +1,5 @@
+{
+  "keyMappings": "# Insert your preferred key mappings here.\nmap o Vomnibar.activateInNewTab\nmap O Vomnibar.activate",
+  "ignoreKeyboardLayout": true,
+  "settingsVersion": "2.1.2"
+}

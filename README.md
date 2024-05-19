@@ -11,4 +11,10 @@ cd $HOME/.dotfiles
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/zrohyun/http_install.sh)
 ```
 
+## Docker
+```bash
+docker run -idt --name dotfiles --rm ubuntu:24.04 && docker exec -it dotfiles bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/zrohyun/http_install.sh)
+```
+
 # Requirements
