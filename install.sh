@@ -151,9 +151,15 @@ elif [[ $machine == "Mac" ]]; then
     # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval $(/opt/homebrew/bin/brew shellenv)
     BREW_BUNDLE=./osx/Brewfile
 
+    # copy Brewfile
+    backup_file_to_bak $HOME/Brewfile
+    echo "ln -s -f $PWD/osx/Brewfile $HOME/" && ln -s -f $PWD/osx/Brewfile $HOME/
+    BREW_BUNDLE=$HOME/Brewfile
+    # echo "ln -s -f $PWD/osx/Brewfile{,.lock.json} $HOME/" && ln -s -f $PWD/osx/Brewfile{,.lock.json} $HOME/
+
     # Update Homebrew recipes
     echo "brew update && brew upgrade" && brew update && brew upgrade
-    echo "brew bundle --file=$BREW_BUNDLE" && brew bundle --file=$BREW_BUNDLE
+    echo "brew bundle --file=$BREW_BUNDLE" && brew bundle --file=$BREW_BUNDLE # lock.json 파일은 BREW_BUNDLE 위치에 생성됨
 
     if [[ $macServiceStart == true ]]; then 
         # 서비스 시작 원할 시 service_start

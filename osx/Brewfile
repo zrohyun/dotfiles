@@ -24,10 +24,10 @@ tap "daipeihust/tap"
 # brew
 brew "mas"
 brew "asdf"
-brew "code-server"
+brew "code-server", restart_service: true
 brew "docker"
 brew "docker-compose"
-brew "colima"
+brew "colima", restart_service: true
 brew "tmux"
 brew "tree"
 brew "telnet"
@@ -53,6 +53,7 @@ brew "im-select" # brew "daipeihust/tap/im-select"
 #LSP
 brew "bash-language-server"
 brew "pyright" # python lsp
+brew "golang"
 brew "gopls"
 # brew "bat"
 # brew "git" # xcode-select로 해결
@@ -84,10 +85,11 @@ brew "gopls"
 cask "raycast"
 cask "visual-studio-code"
 # cask "appcleaner"
-cask "arc"
+# cask "arc" # mobile과의 연동성 + multi device 사용시 열려있던 tab이 갑자기 모두 닫히는 이유 + 업데이트 이후 급 성능이슈 일단 사용중지
 cask "google-chrome"
-cask "brave-browser"
-# cask "microsoft-edge"
+# cask "brave-browser" # 사내 내규상 사용불가
+cask "microsoft-edge"
+# cask "microsoft-edge@dev"
 # cask "postman"
 # cask "heynote"
 cask "iterm2"
@@ -109,6 +111,7 @@ cask "contexts"
 cask "deepl"
 cask "zed"
 cask "drawio"
+cask "removebg"
 cask "karabiner-elements"
 cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight 
 cask "homebrew/cask-fonts/font-jetbrains-mono"
@@ -175,3 +178,6 @@ mas "RunCat", id: 1429033973
 # mas "Microsoft Remote Desktop", id: 1295203466
 # mas "Translation Tooltip", id: 1591769658
 # mas "Tip", id: 1495732622
+
+# VSCODE
+# vscode "vscodevim.vim"
