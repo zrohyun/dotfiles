@@ -237,9 +237,9 @@ backup_file_to_bak $HOME/.mackup.cfg
 echo "ln -s -f $PWD/osx/.mackup.cfg $HOME/" && ln -s -f $PWD/osx/.mackup.cfg $HOME/
 
 # copy git config
-backup_file_to_bak $HOME/.gitignore
-backup_file_to_bak $HOME/.gitconig
-echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/
+# backup_file_to_bak $HOME/.gitignore
+# backup_file_to_bak $HOME/.gitconig
+# echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/
 
 # copy helix config
 backup_file_to_bak $HOME/.config/helix/config.toml
