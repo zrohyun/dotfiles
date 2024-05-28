@@ -84,7 +84,8 @@ brew "gopls"
 # CASK
 cask "raycast"
 cask "visual-studio-code"
-# cask "appcleaner"
+# cask "appcleaner" # raycast 기능으로 대체 가능
+# cask "chatgpt"
 # cask "arc" # mobile과의 연동성 + multi device 사용시 열려있던 tab이 갑자기 모두 닫히는 이유 + 업데이트 이후 급 성능이슈 일단 사용중지
 cask "google-chrome"
 # cask "brave-browser" # 사내 내규상 사용불가
