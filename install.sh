@@ -236,7 +236,7 @@ echo "ln -s -f $PWD/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/" && ln -s -f $PWD/zsh/
 backup_file_to_bak $HOME/.mackup.cfg
 echo "ln -s -f $PWD/osx/.mackup.cfg $HOME/" && ln -s -f $PWD/osx/.mackup.cfg $HOME/
 
-# copy git config
+#!(Deprecated) copy git config - devcontianer 사용시 host git config 자동 마운트(setting 옵션에 있음), 
 # backup_file_to_bak $HOME/.gitignore
 # backup_file_to_bak $HOME/.gitconig
 # echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/

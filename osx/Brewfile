@@ -24,10 +24,10 @@ tap "daipeihust/tap"
 # brew
 brew "mas"
 brew "asdf"
-brew "code-server", restart_service: true
+brew "code-server" #, restart_service: true
 brew "docker"
 brew "docker-compose"
-brew "colima", restart_service: true
+brew "colima" #, restart_service: true
 brew "tmux"
 brew "tree"
 brew "telnet"

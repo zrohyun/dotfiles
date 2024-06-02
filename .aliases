@@ -334,6 +334,7 @@ fi
 
 # network
 #TODO: print port with title, and pid
+#TODO: merge linux mac logic?
 if [[ $machine == "Linux" ]]; then
     openports() {
         local sudo_cmd=""
@@ -371,12 +372,12 @@ if [[ $machine == "Linux" ]]; then
                     echo "Checking open ports using $cmd..."
                     case "$cmd" in
                         "lsof")
-                            echo "$sudo_cmd lsof -i -P -n | grep LISTEN"
-                            $sudo_cmd lsof -i -P -n | grep LISTEN
+                            echo "$sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'"
+                            $sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'
                             ;;
                         "netstat")
-                            echo "$sudo_cmd netstat -tuln"
-                            $sudo_cmd netstat -tuln
+                            echo "$sudo_cmd netstat -tulpneav tcp |awk 'NR==2 || /LISTEN/'"
+                            $sudo_cmd netstat -tulpneav tcp |awk 'NR==2 || /LISTEN/'
                             ;;
                         "ss")
                             echo "$sudo_cmd ss -tuln"
@@ -429,7 +430,8 @@ elif [[ $machine == "Mac" ]]; then
         fi
 
         # TODO: if commands안에 $cmd가 없다면 
-        # TODO: open된 port의 PID 출력(Implement checking for open port PID)
+        # TODO: open된 port의 PID 출력(Implement checking for open port PID) - lsof, netstat 완료
+        # TODO: Header column별로 filtering하기
         local commands=("netstat" "lsof" "nmap" "ss")
 
         for cmd in "${commands[@]}"; do
@@ -438,12 +440,13 @@ elif [[ $machine == "Mac" ]]; then
                     echo "Checking open ports using $cmd..."
                     case "$cmd" in
                         "lsof")
-                            echo "$sudo_cmd lsof -i -P -n | grep LISTEN"
-                            $sudo_cmd lsof -i -P -n | grep LISTEN
+                            echo "$sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'"
+                            $sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'
+
                             ;;
                         "netstat")
-                            echo "$sudo_cmd netstat -an | grep LISTEN"
-                            $sudo_cmd netstat -an | grep LISTEN
+                            echo "$sudo_cmd netstat -anvptcp | awk 'NR==2 || /LISTEN/'"
+                            $sudo_cmd netstat -anv -ptcp | awk 'NR==2 || /LISTEN/'
                             ;;
                         "ss")
                             echo "$sudo_cmd ss -tuln | grep LISTEN"
