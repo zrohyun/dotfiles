@@ -113,26 +113,29 @@ if [[ -d $HOME/.dotfiles ]]; then
     alias dotfiles="cd $HOME/.dotfiles"
 fi
 
+# zshrc
+alias sourcezsh="source $HOME/.zshrc"
+
 # machine directory alias
 if [[ $machine == 'Mac' ]]; then
-  if [[ -d $HOME ]]; then
-    alias home="cd $HOME"
-    alias Home="cd $HOME"
-  fi
+    if [[ -d $HOME ]]; then
+        alias home="cd $HOME"
+        alias Home="cd $HOME"
+    fi
 
-  if [[ -d $HOME/Desktop ]]; then
-    alias desktop="cd $HOME/Desktop"
-    alias Desktop="cd $HOME/Desktop"
-  fi
+    if [[ -d $HOME/Desktop ]]; then
+        alias desktop="cd $HOME/Desktop"
+        alias Desktop="cd $HOME/Desktop"
+    fi
 
-  if [[ -d $HOME/Downloads ]]; then
-    alias downloads="cd $HOME/Downloads"
-    alias Downloads="cd $HOME/Downloads"
-  fi
+    if [[ -d $HOME/Downloads ]]; then
+        alias downloads="cd $HOME/Downloads"
+        alias Downloads="cd $HOME/Downloads"
+    fi
 
-  if [[ -d $HOME/obsidian-zro ]]; then
-    alias obsidian="cd $HOME/obsidian-zro"
-  fi
+    if [[ -d $HOME/obsidian-zro ]]; then
+        alias obsidian="cd $HOME/obsidian-zro"
+    fi
 fi
 
 # Pretty print the path
@@ -333,140 +336,75 @@ elif command -v curl &>/dev/null; then
 fi
 
 # network
-#TODO: print port with title, and pid
-#TODO: merge linux mac logic?
-if [[ $machine == "Linux" ]]; then
-    openports() {
-        local sudo_cmd=""
-        local arg="${1:-default}"
+openports() {
+    local sudo_cmd=""
+    local arg="${1:-default}"
 
-        if [[ "$arg" == "-h" || "$arg" == "help" ]]; then
-            echo "Usage: openports [sudo] [command]"
-            echo "Options:"
-            echo "  sudo     : Run with elevated privileges (requires sudo)"
-            echo "  command  : Specify a specific command (netstat, lsof, nmap, ss)"
-            echo "  -p       : [TODO]Show the PID of open ports"
-            return 0
-        fi
+    if [[ "$arg" == "-h" || "$arg" == "help" ]]; then
+        echo "Usage: openports [sudo] [command]"
+        echo "Options:"
+        echo "  sudo     : Run with elevated privileges (requires sudo)"
+        echo "  command  : Specify a specific command (netstat, lsof, nmap, ss)"
+        echo "  -P       : [TODO]Show the PID of open ports"
+        # TODO: Header column별로 filtering하기
+        return 0
+    fi
 
-        if [[ "$arg" == "sudo" ]]; then
-            if command -v sudo &>/dev/null; then
-                if sudo -v &>/dev/null; then
-                    sudo_cmd="sudo"
-                    arg="${2:-default}"
-                    # shift  # Remove "sudo" from the arguments
-                else
-                    echo "Error: sudo permission is required to run this command."
-                    exit 1
-                fi
+    if [[ "$arg" == "sudo" ]]; then
+        if command -v sudo &>/dev/null; then
+            if sudo -v &>/dev/null; then
+                sudo_cmd="sudo"
+                arg="${2:-default}"
             else
-                echo "Error: sudo command not found. Please install sudo."
-                exit 1
+                echo "Error: sudo permission is required to run this command."
+                return 1
             fi
+        else
+            echo "Error: sudo command not found. Please install sudo."
+            return 1
         fi
+    fi
 
-        local commands=("netstat" "lsof" "nmap" "ss")
-        for cmd in "${commands[@]}"; do
-            if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
-                if command -v "$cmd" &>/dev/null; then
-                    echo "Checking open ports using $cmd..."
-                    case "$cmd" in
-                        "lsof")
-                            echo "$sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'"
-                            $sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'
-                            ;;
-                        "netstat")
-                            echo "$sudo_cmd netstat -tulpneav tcp |awk 'NR==2 || /LISTEN/'"
-                            $sudo_cmd netstat -tulpneav tcp |awk 'NR==2 || /LISTEN/'
-                            ;;
-                        "ss")
-                            echo "$sudo_cmd ss -tuln"
-                            $sudo ss -tuln
-                            ;;
-                        "nmap")
-                            echo "$sudo_cmd nmap -p 1-65535 localhost"
-                            $sudo_cmd nmap -p 1-65535 localhost
-                            ;;
-                    esac
-                    return 0
-                else
-                    echo "$cmd is not installed"
-                fi
-            # else
-            #     echo "$cmd is not your command($arg)"
-            fi
-        done
+    # TODO: if commands안에 $cmd가 없다면 
+    local commands=("lsof" "netstat" "nmap" "ss")
 
-        echo "No suitable command found for checking open ports."
-        return 1
-    }
-elif [[ $machine == "Mac" ]]; then
-    openports() {
-        local sudo_cmd=""
-        local arg="${1:-default}"
-
-        if [[ "$arg" == "-h" || "$arg" == "help" ]]; then
-            echo "Usage: openports [sudo] [command]"
-            echo "Options:"
-            echo "  sudo     : Run with elevated privileges (requires sudo)"
-            echo "  command  : Specify a specific command (netstat, lsof, nmap, ss)"
-            echo "  -p       : [TODO]Show the PID of open ports"
-            return 0
-        fi
-
-        if [[ "$arg" == "sudo" ]]; then
-            if command -v sudo &>/dev/null; then
-                if sudo -v &>/dev/null; then
-                    sudo_cmd="sudo"
-                    arg="${2:-default}"
-                else
-                    echo "Error: sudo permission is required to run this command."
-                    return 1
-                fi
+    for cmd in "${commands[@]}"; do
+        if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
+            if command -v "$cmd" &>/dev/null; then
+                echo "Checking open ports using $cmd..."
+                case "$cmd" in
+                    "lsof")
+                        # echo "$sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'"
+                        # $sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'
+                        echo "$sudo_cmd lsof -i -P -n | awk 'NR==1 {print $1, $2, $3, $8, $9} $NF ~ /LISTEN/ {print $1, $2, $3, $8, $9}' | column -t"
+                        $sudo_cmd lsof -i -P -n | awk 'NR==1 {print $1, $2, $3, $8, $9} $NF ~ /LISTEN/ {print $1, $2, $3, $8, $9}' | column -t
+                        ;;
+                    "netstat")
+                        if [[ $machine == "Mac" ]]; then 
+                            echo "$sudo_cmd netstat -anv -ptcp | awk 'NR==2 || /LISTEN/'"
+                            $sudo_cmd netstat -anv -ptcp | awk 'NR==2 || /LISTEN/'
+                        elif [[ $machine == "Linux" ]]; then
+                            echo "$sudo_cmd netstat -tulpneav tcp | awk 'NR==2 || /LISTEN/'"
+                            $sudo_cmd netstat -tulpneav tcp | awk 'NR==2 || /LISTEN/'
+                        fi
+                        ;;
+                    "ss")
+                        echo "$sudo_cmd ss -tuln | grep LISTEN"
+                        $sudo_cmd ss -tuln | grep LISTEN
+                        ;;
+                    "nmap")
+                        echo "$sudo_cmd nmap -p 1-65535 localhost"
+                        $sudo_cmd nmap -p 1-65535 localhost
+                        ;;
+                esac
+                return 0
             else
-                echo "Error: sudo command not found. Please install sudo."
+                echo "$cmd is not installed"
                 return 1
             fi
         fi
+    done
 
-        # TODO: if commands안에 $cmd가 없다면 
-        # TODO: open된 port의 PID 출력(Implement checking for open port PID) - lsof, netstat 완료
-        # TODO: Header column별로 filtering하기
-        local commands=("netstat" "lsof" "nmap" "ss")
-
-        for cmd in "${commands[@]}"; do
-            if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
-                if command -v "$cmd" &>/dev/null; then
-                    echo "Checking open ports using $cmd..."
-                    case "$cmd" in
-                        "lsof")
-                            echo "$sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'"
-                            $sudo_cmd lsof -i -P -n | awk 'NR==1 || $NF ~ /LISTEN/'
-
-                            ;;
-                        "netstat")
-                            echo "$sudo_cmd netstat -anvptcp | awk 'NR==2 || /LISTEN/'"
-                            $sudo_cmd netstat -anv -ptcp | awk 'NR==2 || /LISTEN/'
-                            ;;
-                        "ss")
-                            echo "$sudo_cmd ss -tuln | grep LISTEN"
-                            $sudo_cmd ss -tuln | grep LISTEN
-                            ;;
-                        "nmap")
-                            echo "$sudo_cmd nmap -p 1-65535 localhost"
-                            $sudo_cmd nmap -p 1-65535 localhost
-                            ;;
-                    esac
-                    return 0
-                else
-                    echo "$cmd is not installed"
-                    return 1
-                fi
-            fi
-        done
-
-        echo "No suitable command found for checking open ports."
-        return 1
-    }
-fi
-
+    echo "No suitable command found for checking open ports."
+    return 1
+}
