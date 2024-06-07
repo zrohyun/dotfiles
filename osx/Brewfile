@@ -23,6 +23,7 @@ tap "daipeihust/tap"
 
 # brew
 brew "mas"
+brew "httpie"
 brew "asdf"
 brew "code-server" #, restart_service: true
 brew "docker"
@@ -93,6 +94,7 @@ cask "microsoft-edge"
 # cask "microsoft-edge@dev"
 # cask "postman"
 # cask "heynote"
+cask "httpie"
 cask "iterm2"
 cask "itsycal"
 # cask "keka"
