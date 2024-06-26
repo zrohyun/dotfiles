@@ -18,3 +18,6 @@ docker run -idt --name dotfiles --rm ubuntu:24.04 && docker exec -it dotfiles ba
 ```
 
 # Requirements
+
+# Ref
+Inspired and Forked From [thoughtbot/dotfiles](https://github.com/thoughtbot/dotfiles)

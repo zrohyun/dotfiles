@@ -80,6 +80,10 @@ elif [[ $SHELL == *"bash"* ]] && [[ -e $HOME/.bashrc ]]; then
     alias reload=". $HOME/.bashrc"
 fi
 
+# Create and enter directory
+mkcd() {
+    mkdir -vp "$1" && cd "$_"
+}
 
 #TODO: export 분리, export, path, etc.. load 순서 결정
 if command -v hx &>/dev/null; then
@@ -104,13 +108,17 @@ alias v="$VISUAL"
 
 if [[ $machine == 'Linux' ]]; then
     alias os="uname -a && cat /etc/os-release"
+    alias catos="cat /etc/os-release"
 elif [[ $machine == 'Mac' ]]; then
     alias os="uname -a && sw_vers && system_profiler SPSoftwareDataType"
+    alias catos=os
 fi
 
 # dotfiles
 if [[ -d $HOME/.dotfiles ]]; then
     alias dotfiles="cd $HOME/.dotfiles"
+    alias dotfile=dotfiles
+    alias dot=dotfiles
 fi
 
 # zshrc
@@ -120,21 +128,26 @@ alias sourcezsh="source $HOME/.zshrc"
 if [[ $machine == 'Mac' ]]; then
     if [[ -d $HOME ]]; then
         alias home="cd $HOME"
-        alias Home="cd $HOME"
+        alias Home=home
     fi
 
     if [[ -d $HOME/Desktop ]]; then
         alias desktop="cd $HOME/Desktop"
-        alias Desktop="cd $HOME/Desktop"
+        alias Desktop=desktop
+        alias desk=desktop
     fi
 
     if [[ -d $HOME/Downloads ]]; then
         alias downloads="cd $HOME/Downloads"
-        alias Downloads="cd $HOME/Downloads"
+        alias Downloads=downloads
+        alias download=downloads
+        alias Download=downloads
+        alias down=downloads
     fi
 
     if [[ -d $HOME/obsidian-zro ]]; then
         alias obsidian="cd $HOME/obsidian-zro"
+        alias obsi="cd $HOME/obsidian-zro"
     fi
 fi
 

@@ -3,7 +3,10 @@
 source ./functions.sh
 
 macServiceStart=false
-#TODO: $PWD change to $DOTFILES=#HOME/.dotfiles
+
+# PWD
+$DOTFILES=$HOME/.dotfiles
+cd $DOTFILES
 
 osType="$(uname -s)"
 case "${osType}" in
@@ -67,7 +70,7 @@ if [[ $machine == "Linux" ]]; then
 
     #TODO: async???
     # install_cli_tool tmux & install_cli_tool trash-cli & disown
- if check_sudo; then
+    if check_sudo; then
         echo "ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     elif [ $? -eq 1 ]; then
         echo "sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
@@ -83,7 +86,7 @@ if [[ $machine == "Linux" ]]; then
         install_cli_tool "$tool"
     done
     
-    # LIP
+    # LSP
     install_cli_tool pyright
     install_cli_tool gopls
     #! (NOT WORKING) 
@@ -132,7 +135,7 @@ if [[ $machine == "Linux" ]]; then
 
     # copy fonts
     echo "backup_file_to_bak $HOME/.fonts" &&  backup_file_to_bak $HOME/.fonts
-    echo "ln -s -f $PWD/fonts $HOME/.fonts" &&  ln -s -f $PWD/fonts $HOME/.fonts
+    echo "ln -s -f $DOTFILES/fonts $HOME/.fonts" &&  ln -s -f $DOTFILES/fonts $HOME/.fonts
     
     #! (Deprecated) vscode의 설정은 mackup의 간헐적 동작으로 백업을 수행한다.
     #? 아래처럼 할 수도 있지만 생각보다 고려해야할 게 좀 있으니 나중에. 아니면 설정 자체를 모든 프로파일마다 적용할 수 있으면서 백업할 수 있는 방법을 생각해봐야겠다.
@@ -153,9 +156,9 @@ elif [[ $machine == "Mac" ]]; then
 
     # copy Brewfile
     backup_file_to_bak $HOME/Brewfile
-    echo "ln -s -f $PWD/osx/Brewfile $HOME/" && ln -s -f $PWD/osx/Brewfile $HOME/
+    echo "ln -s -f $DOTFILES/osx/Brewfile $HOME/" && ln -s -f $DOTFILES/osx/Brewfile $HOME/
     BREW_BUNDLE=$HOME/Brewfile
-    # echo "ln -s -f $PWD/osx/Brewfile{,.lock.json} $HOME/" && ln -s -f $PWD/osx/Brewfile{,.lock.json} $HOME/
+    # echo "ln -s -f $DOTFILES/osx/Brewfile{,.lock.json} $HOME/" && ln -s -f $DOTFILES/osx/Brewfile{,.lock.json} $HOME/
 
     # Update Homebrew recipes
     echo "brew update && brew upgrade" && brew update && brew upgrade
@@ -185,15 +188,15 @@ elif [[ $machine == "Mac" ]]; then
 
     # 시스템 단축키, iterm2, raycast
     system_files=(
-       "com.apple.symbolichotkeys.plist"
-       "com.googlecode.iterm2.plist"
-       "com.raycast.macos"
+        "com.apple.symbolichotkeys.plist"
+        "com.googlecode.iterm2.plist"
+        "com.raycast.macos"
     )
     for file in "${system_files[@]}"
     do 
         if [[ -f "$HOME/Library/Preferences/$file" ]]; then
             backup_file_to_bak "$HOME/Library/Preferences/$file"
-            echo "cp $PWD/osx/$file $HOME/Library/Preferences/$file" && cp $PWD/osx/$file $HOME/Library/Preferences/$file
+            echo "cp $DOTFILES/osx/$file $HOME/Library/Preferences/$file" && cp $DOTFILES/osx/$file $HOME/Library/Preferences/$file
             # putil --convert xml1 symbolichotkeys.plist
         fi
     done
@@ -208,13 +211,13 @@ for file in "${files[@]}"; do
     # backup file
     echo "backup_file_to_bak $HOME/$file" && backup_file_to_bak $HOME/$file
     # create symbolic link
-    echo "ln -s -f $PWD/$file $HOME/" && ln -s -f $PWD/$file $HOME/
+    echo "ln -s -f $DOTFILES/$file $HOME/" && ln -s -f $DOTFILES/$file $HOME/
 done
 
 # copy tmux config
 echo "backup_file_to_bak $HOME/.tmux.conf" && backup_file_to_bak $HOME/.tmux.conf
 echo "backup_file_to_bak $HOME/.tmux.conf.local" && backup_file_to_bak $HOME/.tmux.conf.local
-echo "ln -s -f $PWD/tmux/.tmux.conf{,.local} $HOME/" && ln -s -f $PWD/tmux/.tmux.conf{,.local} $HOME/
+echo "ln -s -f $DOTFILES/tmux/.tmux.conf{,.local} $HOME/" && ln -s -f $DOTFILES/tmux/.tmux.conf{,.local} $HOME/
 if command -v tmux &>/dev/null; then
     echo "tmux source $HOME/.tmux.conf" && tmux source $HOME/.tmux.conf
     # Optional
@@ -224,28 +227,28 @@ fi
 # copy vim config
 echo "backup_file_to_bak $HOME/.vimrc" && backup_file_to_bak $HOME/.vimrc
 echo "backup_file_to_bak $HOME/.ideavimrc" &&  backup_file_to_bak $HOME/.ideavimrc
-echo "ln -s -f $PWD/vim/.{vimrc,ideavimrc} $HOME/" && ln -s -f $PWD/vim/.{vimrc,ideavimrc} $HOME/
+echo "ln -s -f $DOTFILES/vim/.{vimrc,ideavimrc} $HOME/" && ln -s -f $DOTFILES/vim/.{vimrc,ideavimrc} $HOME/
 
 # copy zsh config
 backup_file_to_bak $HOME/.zshrc
 backup_file_to_bak $HOME/.p10k.zsh
 backup_file_to_bak $HOME/.zprofile
-echo "ln -s -f $PWD/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/" && ln -s -f $PWD/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/
+echo "ln -s -f $DOTFILES/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/" && ln -s -f $DOTFILES/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/
 
 # copy mackup config
 backup_file_to_bak $HOME/.mackup.cfg
-echo "ln -s -f $PWD/osx/.mackup.cfg $HOME/" && ln -s -f $PWD/osx/.mackup.cfg $HOME/
+echo "ln -s -f $DOTFILES/osx/.mackup.cfg $HOME/" && ln -s -f $DOTFILES/osx/.mackup.cfg $HOME/
 
 #!(Deprecated) copy git config - devcontianer 사용시 host git config 자동 마운트(setting 옵션에 있음), 
 # backup_file_to_bak $HOME/.gitignore
 # backup_file_to_bak $HOME/.gitconig
-# echo "ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $PWD/git/.{gitignore,gitconfig} $HOME/
+# echo "ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/
 
 # copy helix config
 backup_file_to_bak $HOME/.config/helix/config.toml
 backup_file_to_bak $HOME/.config/helix/languages.toml
 echo "[[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix" && [[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix
-echo "ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix" && ln -s -f $PWD/helix/{config,languages}.toml $HOME/.config/helix
+echo "ln -s -f $DOTFILES/helix/{config,languages}.toml $HOME/.config/helix" && ln -s -f $DOTFILES/helix/{config,languages}.toml $HOME/.config/helix
 
 # copy k9s config
 if [[ $machine == "Linux" ]]; then
@@ -255,13 +258,13 @@ elif [[ $machine == "Mac" ]]; then
 fi
 backup_file_to_bak "$OUT"
 echo 'mkdir -p $OUT' && mkdir -p "$OUT"
-echo "ln -s -f $PWD/k9s/{config.yaml,skins} $OUT" && ln -s -f $PWD/k9s/{config.yaml,skins} "$OUT"
+echo "ln -s -f $DOTFILES/k9s/{config.yaml,skins} $OUT" && ln -s -f $DOTFILES/k9s/{config.yaml,skins} "$OUT"
 
 # copy karabiner config
 if [[ $machine == "Mac" ]]; then
     backup_file_to_bak $HOME/.config/karabiner/karabiner.json
     echo "mkdir -p $HOME/.config/karabiner" && mkdir -p $HOME/.config/karabiner
-    echo "ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/" && ln -s -f $PWD/karabiner/karabiner.json $HOME/.config/karabiner/
+    echo "ln -s -f $DOTFILES/karabiner/karabiner.json $HOME/.config/karabiner/" && ln -s -f $DOTFILES/karabiner/karabiner.json $HOME/.config/karabiner/
 fi
 
 # INSTALL Oh-My-Zsh

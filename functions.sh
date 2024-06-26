@@ -28,6 +28,7 @@ install_cli_tool() {
     # Check if the tool is already installed
     if command -v "$tool_name" &>/dev/null; then
         echo "$tool_name already installed"
+        # exit 0
     else
         local install_command=""
         local update_command=""
@@ -86,17 +87,17 @@ backup_file_to_bak() {
 
 # brew update every monday
 brew_update(){
-  if [[ $(date +%u) -eq 1 ]]; then # Check if today is Monday (1 = Monday)
-      read -p "Do you want to run 'brew update'? (Y/N): " answer
-      if [[ $answer == [Yy] ]]; then
-          echo "Running 'brew update'..."
-          echo "brew update && brew upgrade" && brew update && brew upgrade
-          # echo"brew bundle --file=$HOME/Brewfile" && brew bundle --file=$HOME/Brewfile
-          # echo "brew update --greedy" && brew update --greedy # update formula and cask 
-      # else
-      #     echo "Update skipped."
-      fi
-  fi
+    if [[ $(date +%u) -eq 1 ]]; then # Check if today is Monday (1 = Monday)
+        read -p "Do you want to run 'brew update'? (Y/N): " answer
+        if [[ $answer == [Yy] ]]; then
+            echo "Running 'brew update'..."
+            echo "brew update && brew upgrade" && brew update && brew upgrade
+            # echo"brew bundle --file=$HOME/Brewfile" && brew bundle --file=$HOME/Brewfile
+            # echo "brew update --greedy" && brew update --greedy # update formula and cask 
+        # else
+        #     echo "Update skipped."
+        fi
+    fi
 }
 
 #! Deprecated
