@@ -121,3 +121,41 @@ brew_update(){
 #     backup_file_to_home "$1" 
 #     echo "ln -s -f $2 $3" && ln -s -f "$2" "$3" 
 # }
+
+set_kubeconfig() {
+    # .kube 폴더 설정
+    KUBE_DIR="$HOME/.kube"
+
+    # 파일 목록 가져오기
+    files=($(find "$KUBE_DIR" -maxdepth 1 -type f))
+
+    # 파일 목록이 비어있는지 확인
+    if [ ${#files[@]} -eq 0 ]; then
+    echo "No files found in $KUBE_DIR"
+    exit 1
+    fi
+
+    # 파일 목록을 사용자에게 표시
+    echo "Select a file by entering the corresponding number:"
+    for i in "${!files[@]}"; do
+    echo "[$i] ${files[$i]##*/}"
+    done
+
+    # 사용자 입력 받기
+    read -p "Enter number: " file_index
+
+    # 입력값 검증
+    if ! [[ "$file_index" =~ ^[0-9]+$ ]] || [ "$file_index" -ge "${#files[@]}" ]; then
+    echo "Invalid selection"
+    exit 1
+    fi
+
+    # 선택한 파일 경로
+    selected_file="${files[$file_index]}"
+
+    # KUBECONFIG 환경 변수 설정
+    export KUBECONFIG="$selected_file"
+
+    # 결과 출력
+    echo "KUBECONFIG set to $KUBECONFIG"
+}

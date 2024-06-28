@@ -26,7 +26,9 @@ fi
 
 # KUBERNETES(K8S)/CKA/CKAD/CKS
 if command -v kubectl &>/dev/null; then
-    export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
+    # export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
+    export KUBECONFIG=$KUBECONFIG:$HOME/.kube/*
+    # export KUBECONFIG=$(find ~/.kube -type f | tr '\n' ':')
     export oy='-oyaml'
     export dry="--dry-run=client $oy"       # k create deploy nginx --image=nginx $do
     export now="--force --grace-period 0"   # k delete pod x $now
