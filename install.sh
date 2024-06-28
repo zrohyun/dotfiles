@@ -4,9 +4,9 @@ source ./functions.sh
 
 macServiceStart=false
 
-# PWD
-$DOTFILES=$HOME/.dotfiles
-cd $DOTFILES
+#PWD
+DOTFILES=$PWD
+echo "PWD(DOTFILES): $DOTFILES"
 
 osType="$(uname -s)"
 case "${osType}" in
