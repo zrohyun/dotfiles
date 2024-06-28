@@ -80,7 +80,7 @@ if [[ $machine == "Linux" ]]; then
     
     install_cli_tool tzdata true
     install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
-    tools=("curl" "vim" "tmux" "trash-cli" "tldr" "jq" "fzf" "thefuck" "fd-find" "ripgrep" "neofetch" "btop" "git")
+    tools=("curl" "vim" "tmux" "trash-cli" "tldr" "jq" "fzf" "thefuck" "fd-find" "ripgrep" "neofetch" "btop" "git" "neovim")
 
     for tool in "${tools[@]}"; do
         install_cli_tool "$tool"
@@ -97,15 +97,15 @@ if [[ $machine == "Linux" ]]; then
     echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 
     # INSTALL NEOVIM # install_cli_tool neovim
-    if check_sudo; then
-        echo "add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true" 
-        add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
-    elif [ $? -eq 1 ]; then
-        echo "sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool -y neovim true" 
-        sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
-    else
-        echo "User does not have necessary privileges or sudo command not found."
-    fi
+    # if check_sudo; then
+    #     echo "add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true" 
+    #     add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
+    # elif [ $? -eq 1 ]; then
+    #     echo "sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool -y neovim true" 
+    #     sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
+    # else
+    #     echo "User does not have necessary privileges or sudo command not found."
+    # fi
     # neovim config
     source ./nvim/lazyvim_starter_setup.sh
     
