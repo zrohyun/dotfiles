@@ -80,7 +80,7 @@ if [[ $machine == "Linux" ]]; then
     
     install_cli_tool tzdata true
     install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
-    tools=("curl" "vim" "tmux" "trash-cli" "tldr" "jq" "fzf" "thefuck" "fd-find" "ripgrep" "neofetch" "btop" "git" "neovim")
+    tools=("curl" "vim" "tmux" "trash-cli" "tldr" "jq" "fzf" "thefuck" "fd-find" "ripgrep" "neofetch" "btop" "git" "nvim")
 
     for tool in "${tools[@]}"; do
         install_cli_tool "$tool"
@@ -97,17 +97,24 @@ if [[ $machine == "Linux" ]]; then
     echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 
     # INSTALL NEOVIM # install_cli_tool neovim
+    # TODO apt-get은 nvim 버전이 낮아서 lazyvim을 쓸 수가 없음.
+    # brew로 패키지매니저를 바꿔야하나.. 아니면 nvim만..?? (회사에서는 neovim-ppa 통신이 안되는 것 같음...)
+    # 일단 nvim 설치는 apt-get으로만. ppa는 보류
+    # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # if check_sudo; then
     #     echo "add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true" 
     #     add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
+    #     # brew install neovim
     # elif [ $? -eq 1 ]; then
     #     echo "sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool -y neovim true" 
     #     sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
+    #     # sudo brew install neovim
     # else
     #     echo "User does not have necessary privileges or sudo command not found."
     # fi
     # neovim config
-    source ./nvim/lazyvim_starter_setup.sh
+    #! 낮은 버전 nvim(apt-get)은 lazyvim을 사용할 수 없음
+    # source ./nvim/lazyvim_starter_setup.sh
     
     # INSTALL HELIX
     if check_sudo; then
