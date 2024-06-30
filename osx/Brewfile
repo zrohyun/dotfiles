@@ -56,6 +56,7 @@ brew "bash-language-server"
 brew "pyright" # python lsp
 brew "golang"
 brew "gopls"
+brew "nvm"
 # brew "bat"
 # brew "git" # xcode-select로 해결
 
