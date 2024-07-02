@@ -85,6 +85,9 @@ mkcd() {
     mkdir -vp "$1" && cd "$_"
 }
 
+# git
+alias gitpush='echo "git pull --rebase -v && git push" && git pull --rebase -v && git push'
+
 #TODO: export 분리, export, path, etc.. load 순서 결정
 if command -v vim &>/dev/null; then
     export EDITOR=vim
