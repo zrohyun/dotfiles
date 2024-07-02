@@ -85,6 +85,16 @@ brew "nvm"
 # 나중에 shortcut 활용할 일이 있을 때
 # brew "koekeishiya/formulae/skhd"
 
+# CLOUD
+# brew terraform
+# AWS
+# https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+# GCP
+# https://cloud.google.com/sdk/docs/install?hl=ko
+# AZURE
+# brew "azure-cli"
+# https://learn.microsoft.com/ko-kr/cli/azure/install-azure-cli
+
 # CASK
 cask "raycast"
 cask "visual-studio-code"
