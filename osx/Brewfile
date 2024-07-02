@@ -1,4 +1,5 @@
 ###########################################################################################
+# BREWFILE
 ## Mac 초기 세팅 할때 xcode-select 사용 or Homebrew 사용
 #1. xcode-select
 #`$ xcode-select --install && git --version # Command Line Developer tools는 git 포함 여러 툴이 포함되어 있음.`
@@ -44,6 +45,7 @@ brew "fzf"
 brew "jq"
 brew "helix"
 brew "bash" # mac default bash(/bin/bash)는 버전이 낮음. symlink도 걸어줘야하나..
+# brew "direnv"
 # brew "kubectl"
 brew "duf"
 brew "dust"

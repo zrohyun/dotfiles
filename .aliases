@@ -253,15 +253,16 @@ fi
 if command -v kubectl &>/dev/null; then
     # ref: https://kubernetes.io/docs/reference/kubectl/quick-reference/
     # short alias to set/show context/namespace (only works for bash and bash-compatible shells, current context to be set before using kn to set namespace)
-    #TODO: print node info with label or traint or something
+    #TODO: print node info with label or taint or something
     # alias kap='f() { [ "$1" ] && kubectl apply -f $1 } ; f'
     alias kcl='k config get-clusters'
-    #TODO: cluster 선택받기 script 함수 작성
+    #TODO: cluster 선택받기 script 함수
     alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
     alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
     # k8s network troubleshooting
     alias knetshoot='f() { kubectl run netshoot --rm -it --image ${1:-nicolaka/netshoot} -- bash } ; f'
     alias kubuntu='f() { kubectl run ubuntu --rm -it --image ${1:-ubuntu:24.04} -- bash } ; f'
+    alias kbusybox='f() { kubectl run ubuntu --rm -it --image ${1:-busybox} -- bash } ; f'
 fi
 # Docker
 alias docker_ubuntu='f() { echo "RUN: docker run -it --rm ubuntu:${1:-24.04} bash"; docker run -it --rm ubuntu:${1:-24.04} bash; }; f'

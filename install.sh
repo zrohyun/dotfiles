@@ -213,7 +213,7 @@ fi
 
 # copy base config
 # files array
-files=(.aliases .export .extra .path .env .bashrc)
+files=(.aliases .export .extra .path .env .bashrc .envrc)
 # loop over files array
 for file in "${files[@]}"; do
     # backup file
