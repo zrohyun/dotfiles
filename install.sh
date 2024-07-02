@@ -69,6 +69,7 @@ if [[ $machine == "Linux" ]]; then
     # INSTALL MUST HAVE TOOLS
 
     #TODO: async???
+    #TODO: Optimize install logic
     # install_cli_tool tmux & install_cli_tool trash-cli & disown
     if check_sudo; then
         echo "ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime

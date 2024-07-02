@@ -117,9 +117,14 @@ cask "zed"
 cask "drawio"
 cask "removebg"
 cask "karabiner-elements"
+cask "rocket" # emoji shortcut
 cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight 
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
+# cask "hazeover" # 창 투명도 조절
+# cask "flux" # 화면 색상 조절
+# cask "Upscalyl" # 사진 해상도 조절(upscaling)
+# cask "cleanmymac" # 유료
 
 # JETBRAINS
 # cask "goland@2022.3.4"

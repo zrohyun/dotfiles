@@ -151,8 +151,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # mkdir -p $HOME/.cache/zsh && compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
 [[ -f $HOME/.extra ]] && source $HOME/.extra
-[[ -f $HOME/.p10k.zsh ]] && source $HOME/.p10k.zsh
-[[ -f $HOME/.aliases ]] && source $HOME/.aliases
-[[ -f $HOME/.export ]] && source $HOME/.export
 [[ -f $HOME/.env ]] && source $HOME/.env
 [[ -f $HOME/.path ]] && source $HOME/.path
+[[ -f $HOME/.export ]] && source $HOME/.export
+[[ -f $HOME/.aliases ]] && source $HOME/.aliases
+[[ -f $HOME/.p10k.zsh ]] && source $HOME/.p10k.zsh
