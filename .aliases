@@ -173,10 +173,10 @@ alias hey='tmux new -As main'
 alias hi=hey
 
 # vim command
-if command -v hx &> /dev/null; then
-    alias vi=hx
-elif command -v vim &> /dev/null; then
+if command -v vim &> /dev/null; then
     alias vi=vim
+elif command -v hx &> /dev/null; then
+    alias vi=hx
 # else
 #   echo "'hx', 'vim' command is not installed"
 fi 

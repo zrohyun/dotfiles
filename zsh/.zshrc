@@ -150,7 +150,7 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # zsh users - add the following line to your ~/.zshrc
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 
 # mkdir -p $HOME/.cache/zsh && compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
 [[ -f $HOME/.extra ]] && source $HOME/.extra

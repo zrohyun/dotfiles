@@ -21,9 +21,9 @@ install_omz() {
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
     if [[ $machine == "Linux" ]]; then
         if check_sudo; then
-            echo "chsh -s $(which zsh)" && chsh -s $(which zsh)
+            echo "chsh -s $(which zsh)" && chsh -s "$(which zsh)"
         elif [ $? -eq 1 ]; then
-            echo "sudo chsh -s $(which zsh)" && sudo chsh -s $(which zsh)
+            echo "sudo chsh -s $(which zsh)" && sudo chsh -s "$(which zsh)"
         else
             echo "User does not have necessary privileges or sudo command not found."
         fi
@@ -163,8 +163,8 @@ elif [[ $machine == "Mac" ]]; then
     BREW_BUNDLE=./osx/Brewfile
 
     # copy Brewfile
-    backup_file_to_bak $HOME/Brewfile
-    echo "ln -s -f $DOTFILES/osx/Brewfile $HOME/" && ln -s -f $DOTFILES/osx/Brewfile $HOME/
+    backup_file_to_bak "$HOME/Brewfile"
+    echo "ln -s -f $DOTFILES/osx/Brewfile $HOME/" && ln -s -f "$DOTFILES/osx/Brewfile" "$HOME/"
     BREW_BUNDLE=$HOME/Brewfile
     # echo "ln -s -f $DOTFILES/osx/Brewfile{,.lock.json} $HOME/" && ln -s -f $DOTFILES/osx/Brewfile{,.lock.json} $HOME/
 
