@@ -53,6 +53,7 @@ brew "dust"
 # brew "thefuck"
 brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
 brew "im-select" # brew "daipeihust/tap/im-select"
+# brew "stow" # for dotfiles symlink
 #LSP
 brew "bash-language-server"
 brew "pyright" # python lsp
@@ -61,6 +62,9 @@ brew "gopls"
 brew "nvm"
 # brew "bat"
 # brew "git" # xcode-select로 해결
+# brew "grpc"
+# brew "grpcui"
+# brew "grpcurl"
 
 # brew "ffmpeg"
 # brew "fasd"
@@ -72,6 +76,7 @@ brew "nvm"
 # brew "k9s"
 # brew "kubectx"
 # brew "helm"
+# brew "argocd"
 # brew "jesseduffield/lazydocker/lazydocker"
 # brew "krew"
 # brew "htop"
@@ -84,6 +89,15 @@ brew "nvm"
 # brew "zsh" # mac default shell
 # 나중에 shortcut 활용할 일이 있을 때
 # brew "koekeishiya/formulae/skhd"
+
+# ANALYSIS or Hacking
+# brew "tcpdump"
+# brew "nmap"
+# brew "httpflow"
+# brew "tcpreply"
+# brew "tcptrace"
+# brew "whireshark"
+# brew "aircrack-ng"
 
 # CLOUD
 # brew terraform
@@ -180,6 +194,10 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "dash" # -> 유료
 # cask "filezilla" # cask는 아니지만 ftp client
 
+# File Sync
+# brew "unison"
+# cask "unison"
+
 # FOR LLM
 # cask "notesollama"
 # cask "lm-studio"
@@ -199,6 +217,7 @@ mas "RunCat", id: 1429033973
 # mas "Microsoft Remote Desktop", id: 1295203466
 # mas "Translation Tooltip", id: 1591769658
 # mas "Tip", id: 1495732622
+# mas "Xcode", id: 497799835
 
 # VSCODE
 # vscode "vscodevim.vim"
