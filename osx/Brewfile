@@ -43,6 +43,11 @@ brew "lsd" #brew "exa"
 brew "fd"
 brew "fzf"
 brew "jq"
+brew "fx"
+# brew "otree"
+# brew "noahgorstein/tap/jqp"
+# brew "serpl" # Should build binary => https://github.com/yassinebridi/serpl
+# brew "tabiew" # Should build binary => https://github.com/shshemi/tabiew
 brew "helix"
 brew "bash" # mac default bash(/bin/bash)는 버전이 낮음. symlink도 걸어줘야하나..
 # brew "direnv"
@@ -177,6 +182,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "tabby"
 # cask "cursor"
 # cask "bartender"
+# cask "hiddenbar"
 # cask "fig"
 
 # FOR NETWORK
@@ -193,6 +199,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "forklift" # -> 유료
 # cask "dash" # -> 유료
 # cask "filezilla" # cask는 아니지만 ftp client
+# cask "sidenotes"
 
 # File Sync
 # brew "unison"
@@ -205,6 +212,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # FOR KEYBOARD
 # cask "via"
 # cask "vial"
+# cask "linearmouse" #mouse accelerator
 
 mas "KakaoTalk", id: 869223134
 mas "RunCat", id: 1429033973
@@ -218,6 +226,7 @@ mas "RunCat", id: 1429033973
 # mas "Translation Tooltip", id: 1591769658
 # mas "Tip", id: 1495732622
 # mas "Xcode", id: 497799835
-
+# mas "One Thing", id: 1604176982  
+# mas "Spaced", id: 1666327168  
 # VSCODE
 # vscode "vscodevim.vim"

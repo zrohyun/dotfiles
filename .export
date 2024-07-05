@@ -43,4 +43,5 @@ if command -v kubectl &>/dev/null; then
         # 파일들을 ':'로 연결하여 KUBECONFIG 변수에 할당
         export KUBECONFIG=$(IFS=:; echo "${files[*]}")
     }; set_kubeconfig;
+    # unset -f set_kubeconfig;
 fi

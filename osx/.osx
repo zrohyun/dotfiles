@@ -17,6 +17,15 @@ defaults write -g ApplePressAndHoldEnabled -bool false # for global key repeatin
 # for hotkeys or shortcuts ( 아래의 명령어처럼 defaults를 이용해 shortcuts을 바꿀 수 있음.)
 # defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 79 "{enabled = 1; value = { parameters = (65535, 124, 262144); type = standard; }; }"
 
+# Auto Show/Hide Dock
+# From https://colecaccamise.notion.site/Auto-Show-Hide-Dock-df299877627a4311a8aad8c7ba7dbc75
+# 1. keep smooth animation time, but remove delay:
+# defaults write com.apple.dock autohide-delay -float 0; killall Dock
+# 2. instantly reveal:
+# defaults write com.apple.dock autohide-time-modifier -int 0; killall Dock
+# 3. restore default behavior:
+# defaults delete com.apple.dock autohide-delay; killall Dock
+
 # Keyboard > Keyboard Shortcuts... >
 # Fucntion Keys >
 # 1. Use F1,F2 etc. keys as standard function keys [ON]
