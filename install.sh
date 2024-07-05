@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# TODO: debugging mode로 shell script 변경하기
 source ./functions.sh
 
 macServiceStart=false
