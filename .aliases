@@ -14,6 +14,8 @@ alias c='clear'
 alias now='date'
 alias hg='history|grep'
 alias shell='echo $SHELL'
+# neofetch alternative
+# from: https://itsfoss.com/neofetch-alternatives/
 
 if [[ -f /etc/hosts ]]; then
     #TODO: if $UID =0 no sudo
@@ -517,6 +519,7 @@ select_kubeconfig() {
         # 선택한 파일 경로
         selected_file="${files[$file_index]}"
     fi
+
 
     # 선택된 파일이 있으면 KUBECONFIG에 할당
     if [ -n "$selected_config" ]; then

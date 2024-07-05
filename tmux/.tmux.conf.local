@@ -5,7 +5,7 @@
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
 # session 시작시 기본 쉘 지정
-set-option -g default-command "if command -v zsh &>/dev/null; then zsh; else bash; fi;"
+# set-option -g default-command "if command -v zsh &>/dev/null; then zsh; else bash; fi;"
 
 # -- session creation ----------------------------------------------------------
 

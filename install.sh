@@ -241,7 +241,8 @@ echo "ln -s -f $DOTFILES/vim/.{vimrc,ideavimrc} $HOME/" && ln -s -f $DOTFILES/vi
 backup_file_to_bak $HOME/.zshrc
 backup_file_to_bak $HOME/.p10k.zsh
 backup_file_to_bak $HOME/.zprofile
-echo "ln -s -f $DOTFILES/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/" && ln -s -f $DOTFILES/zsh/.{zshrc,p10k.zsh,zprofile} $HOME/
+backup_file_to_bak $HOME/.zshenv
+echo "ln -s -f $DOTFILES/zsh/.{zshrc,zshenv,zlogin,p10k.zsh,zprofile} $HOME/" && ln -s -f $DOTFILES/zsh/.{zshrc,zshenv,zlogin,p10k.zsh,zprofile} $HOME/
 
 # copy mackup config
 backup_file_to_bak $HOME/.mackup.cfg
