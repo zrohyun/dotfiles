@@ -20,76 +20,48 @@ install_omz() {
     # omz install and link plugins and themes
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
     if [[ $machine == "Linux" ]]; then
-        if check_sudo; then
-            echo "chsh -s $(which zsh)" && chsh -s "$(which zsh)"
-        elif [ $? -eq 1 ]; then
-            echo "sudo chsh -s $(which zsh)" && sudo chsh -s "$(which zsh)"
-        else
-            echo "User does not have necessary privileges or sudo command not found."
-        fi
+        run_command chsh -s $(which zsh)
     fi
 
-    # git clone version
-    # backup_file_to_bak $HOME/.oh-my-zsh
-    echo "[[ ! -d $HOME/.oh-my-zsh ]] && git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh"
-    [[ ! -d $HOME/.oh-my-zsh ]] && git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
-    # zsh-syntax-highlighting
-    echo "[[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    # zsh-autosuggestions
-    echo "[[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    # powerlevel10k
-    echo "[[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k"
-    [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
-
-    #! submodule 사용시 (deprecated)
-    # mkdir -p $PWD/zsh/{plugins,themes}
-    # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $PWD/zsh/plugins/zsh-syntax-highlighting
-    # git clone https://github.com/zsh-users/zsh-autosuggestions $PWD/zsh/plugins/zsh-autosuggestions
-    # git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $PWD/zsh/themes/powerlevel10k
-    # git submodule update --init --recursive
-    # ln -s -f $PWD/zsh/plugins/* ${ZSH:-~/.oh-my-zsh}/plugins/
-    # ln -s -f $PWD/zsh/themes/* ${ZSH:-~/.oh-my-zsh}/themes/
+    if [[ ! -d $HOME/.oh-my-zsh ]]; then 
+        git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+    fi
+    if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]]; then
+        # zsh-syntax-highlighting
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    fi
+    if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]]; then
+        # zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    fi
+    if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
+        # powerlevel10k
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+    fi
 }
 
 if [[ $machine == "Linux" ]]; then
+    export DEBIAN_FRONTEND="noninteractive"
+    
+    # update and upgrade
+    install_cli_tool -u -g
 
-    # first install_cli_tool은 update를 수행해야한다.
-    echo install_cli_tool && install_cli_tool # for just update
-
-    if check_sudo; then
-        echo install_cli_tool software-properties-common && install_cli_tool software-properties-common true && install_cli_tool
-    elif [[ $? -eq 1 ]]; then
-        echo install_cli_tool software-properties-common && install_cli_tool software-properties-common true && install_cli_tool
-    else
-        echo "User does not have necessary privileges or sudo command not found."
-    fi
+    install_cli_tool software-properties-common
 
     # INSTALL MUST HAVE TOOLS
-
-    #TODO: async???
     #TODO: Optimize install logic
-    # install_cli_tool tmux & install_cli_tool trash-cli & disown
     if check_sudo; then
         echo "ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     elif [ $? -eq 1 ]; then
         echo "sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-    else
-        echo "User does not have necessary privileges or sudo command not found."
     fi
     
-    install_cli_tool tzdata true
-    install_cli_tool exa # 추후 혹은 다른 linux배판의 경우 lsd로 교체할 수 있음
-    tools=("curl" "vim" "tmux" "trash-cli" "tldr" "jq" "fzf" "thefuck" "fd-find" "ripgrep" "neofetch" "btop" "git" "nvim")
+    #TODO: exa -> lsd
+    tools=(tzdata curl vim tmux trash-cli tldr jq fzf thefuck fd-find ripgrep neofetch btop git exa)
+    install_cli_tool ${tools[@]}
 
-    for tool in "${tools[@]}"; do
-        install_cli_tool "$tool"
-    done
-    
     # LSP
-    install_cli_tool pyright
-    install_cli_tool gopls
+    install_cli_tool pyright gopls
     #! (NOT WORKING) 
     # TODO: install_cli_tool bash-language-server
 
@@ -118,43 +90,21 @@ if [[ $machine == "Linux" ]]; then
     # source ./nvim/lazyvim_starter_setup.sh
     
     # INSTALL HELIX
-    if check_sudo; then
-        echo "add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
-        add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true 
-    elif [ $? -eq 1 ]; then 
-        echo "sudo add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
-        sudo add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true
-    else
-        echo "User does not have necessary privileges or sudo command not found."
-    fi
-
-
-    #! Deprecated install tools
-    # curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash # install zoxide
-    #? 음.. 우선 command로 하지 말고 alias에 curl 사용하는 함수 alias로 등록해둠
     # if check_sudo; then
-    #     # https://github.com/chubin/cheat.sh
-    #     echo "curl -s https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh && chmod +x /usr/local/bin/cht.sh" && curl -s https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh && chmod +x /usr/local/bin/cht.sh
-    # elif [ $? -eq 1 ]; then
-    #     echo "curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh" && curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh
+    #     echo "add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
+    #     add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true 
+    # elif [ $? -eq 1 ]; then 
+    #     echo "sudo add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
+    #     sudo add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true
     # else
     #     echo "User does not have necessary privileges or sudo command not found."
     # fi
 
+
     # copy fonts
-    echo "backup_file_to_bak $HOME/.fonts" &&  backup_file_to_bak $HOME/.fonts
+    backup_file_to_bak $HOME/.fonts
     echo "ln -s -f $DOTFILES/fonts $HOME/.fonts" &&  ln -s -f $DOTFILES/fonts $HOME/.fonts
     
-    #! (Deprecated) vscode의 설정은 mackup의 간헐적 동작으로 백업을 수행한다.
-    #? 아래처럼 할 수도 있지만 생각보다 고려해야할 게 좀 있으니 나중에. 아니면 설정 자체를 모든 프로파일마다 적용할 수 있으면서 백업할 수 있는 방법을 생각해봐야겠다.
-    # 일단 자동화하지 않고 그냥 vscode setting으로 설정하는 게 나을듯
-    # if [[ $machine == "Linux" ]]; then
-    #     mkdir -p $HOME/.vscode-server/data/Machine && touch $HOME/.vscode-server/data/Machine/settings.json
-    #     jq '. + {"editor.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
-    #     jq '. + {"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font"}' $HOME/.vscode-server/data/Machine/settings.json > temp.json && mv temp.json $HOME/.vscode-server/data/Machine/settings.json
-    #     rm tmp.json
-    # fi
-
 elif [[ $machine == "Mac" ]]; then
 
     # PREREQUISITE
@@ -213,18 +163,19 @@ fi
 
 # copy base config
 # files array
+#TODO: symlink, file backup 함수 정리
 files=(.aliases .export .extra .path .env .bashrc .envrc)
 # loop over files array
 for file in "${files[@]}"; do
     # backup file
-    echo "backup_file_to_bak $HOME/$file" && backup_file_to_bak $HOME/$file
+    backup_file_to_bak $HOME/$file
     # create symbolic link
     echo "ln -s -f $DOTFILES/$file $HOME/" && ln -s -f $DOTFILES/$file $HOME/
 done
 
 # copy tmux config
-echo "backup_file_to_bak $HOME/.tmux.conf" && backup_file_to_bak $HOME/.tmux.conf
-echo "backup_file_to_bak $HOME/.tmux.conf.local" && backup_file_to_bak $HOME/.tmux.conf.local
+backup_file_to_bak $HOME/.tmux.conf
+backup_file_to_bak $HOME/.tmux.conf.local
 echo "ln -s -f $DOTFILES/tmux/.tmux.conf{,.local} $HOME/" && ln -s -f $DOTFILES/tmux/.tmux.conf{,.local} $HOME/
 if command -v tmux &>/dev/null; then
     echo "tmux source $HOME/.tmux.conf" && tmux source $HOME/.tmux.conf
@@ -233,8 +184,8 @@ if command -v tmux &>/dev/null; then
 fi
 
 # copy vim config
-echo "backup_file_to_bak $HOME/.vimrc" && backup_file_to_bak $HOME/.vimrc
-echo "backup_file_to_bak $HOME/.ideavimrc" &&  backup_file_to_bak $HOME/.ideavimrc
+backup_file_to_bak $HOME/.vimrc
+backup_file_to_bak $HOME/.ideavimrc
 echo "ln -s -f $DOTFILES/vim/.{vimrc,ideavimrc} $HOME/" && ln -s -f $DOTFILES/vim/.{vimrc,ideavimrc} $HOME/
 
 # copy zsh config
@@ -248,10 +199,12 @@ echo "ln -s -f $DOTFILES/zsh/.{zshrc,zshenv,zlogin,p10k.zsh,zprofile} $HOME/" &&
 backup_file_to_bak $HOME/.mackup.cfg
 echo "ln -s -f $DOTFILES/osx/.mackup.cfg $HOME/" && ln -s -f $DOTFILES/osx/.mackup.cfg $HOME/
 
-#!(Deprecated) copy git config - devcontianer 사용시 host git config 자동 마운트(setting 옵션에 있음), 
-# backup_file_to_bak $HOME/.gitignore
-# backup_file_to_bak $HOME/.gitconig
-# echo "ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/
+if [[ $machine == "Mac" ]]; then
+    #!(Deprecated in linux[devconatiner]) copy git config - devcontianer 사용시 host git config 자동 마운트(setting 옵션에 있음), 
+    backup_file_to_bak $HOME/.gitignore
+    backup_file_to_bak $HOME/.gitconig
+    echo "ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/
+fi
 
 # copy helix config
 backup_file_to_bak $HOME/.config/helix/config.toml
@@ -277,7 +230,7 @@ if [[ $machine == "Mac" ]]; then
 fi
 
 # INSTALL Oh-My-Zsh
-install_omz 
+install_omz
 
 #?
 # terminal

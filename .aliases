@@ -27,6 +27,13 @@ if [[ -f /etc/hosts ]]; then
     alias hosts='cat /etc/hosts'
 fi
 
+# TODO: https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+# TODO: Refactor with this clause
+# if [ $UID -ne 0 ]; then
+#     alias reboot='sudo reboot'
+#     alias update='sudo apt-get upgrade'
+# fi
+
 # TODO: 
 # hosts
 # hardware: sudo lshw -short
