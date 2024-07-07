@@ -1,19 +1,32 @@
 #!/bin/bash
-# TODO: debugging mode로 shell script 변경하기
-source ./functions.sh
+
+# PWD
+DOTFILES=$PWD
+# TODO: move configfile to XDG_CONFIG_HOME
+
+# LOGFILE
+#? TODO: set log level like LOGLEVEL=[DEBUG|INFO|WARN|ERROR]
+LOGFILE="./log.log.$(date +%Y%m%d.%H%M%S)" # "${TEMPDIR:-/tmp}/log.log.$(date +%Y%m%d.%H%M%S)"
+
+# exec 3>&-
+exec > >(tee -a "$LOGFILE") 2>&1
+
+verbose=true
+xtrace=false
+
+if $verbose; then
+    set -v
+fi
+if $xtrace; then
+    set -x
+fi
 
 macServiceStart=false
 
-#PWD
-DOTFILES=$PWD
 echo "PWD(DOTFILES): $DOTFILES"
 
-osType="$(uname -s)"
-case "${osType}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    *)          echo "NOT SUPPORTED:${osType}";exit 1
-esac
+source ./.export
+source ./functions.sh
 
 install_omz() {
     echo "install_omz"
@@ -44,62 +57,39 @@ if [[ $machine == "Linux" ]]; then
     export DEBIAN_FRONTEND="noninteractive"
     
     # update and upgrade
-    install_cli_tool -u -g
+    install_cli_tools -u -g
 
-    install_cli_tool software-properties-common
+    install_cli_tools software-properties-common
 
     # INSTALL MUST HAVE TOOLS
-    #TODO: Optimize install logic
-    if check_sudo; then
-        echo "ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-    elif [ $? -eq 1 ]; then
-        echo "sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime" && sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-    fi
+    run_command ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     
     #TODO: exa -> lsd
     tools=(tzdata curl vim tmux trash-cli tldr jq fzf thefuck fd-find ripgrep neofetch btop git exa)
-    install_cli_tool ${tools[@]}
+    install_cli_tools ${tools[@]}
 
     # LSP
-    install_cli_tool pyright gopls
+    install_cli_tools pyright gopls
     #! (NOT WORKING) 
-    # TODO: install_cli_tool bash-language-server
+    # TODO: install_cli_tools bash-language-server
 
     # ZSH
-    install_cli_tool zsh
+    install_cli_tools zsh
     echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 
-    # INSTALL NEOVIM # install_cli_tool neovim
-    # TODO apt-get은 nvim 버전이 낮아서 lazyvim을 쓸 수가 없음.
-    # brew로 패키지매니저를 바꿔야하나.. 아니면 nvim만..?? (회사에서는 neovim-ppa 통신이 안되는 것 같음...)
-    # 일단 nvim 설치는 apt-get으로만. ppa는 보류
-    # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    # if check_sudo; then
-    #     echo "add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true" 
-    #     add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
-    #     # brew install neovim
-    # elif [ $? -eq 1 ]; then
-    #     echo "sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool -y neovim true" 
-    #     sudo add-apt-repository -y ppa:neovim-ppa/unstable && install_cli_tool neovim true
-    #     # sudo brew install neovim
-    # else
-    #     echo "User does not have necessary privileges or sudo command not found."
-    # fi
+    # INSTALL NEOVIM
+    # TODO: (2024.07 기준 neovim v0.9 확인 - lazyvim 사용 가능) ~~apt-get은 nvim 버전이 낮아서 lazyvim을 쓸 수가 없음.~~
+    # (일단 nvim 설치는 apt-get으로만. ppa는 보류) 
+    # exec_with_auto_privilege add-apt-repository -y ppa:neovim-ppa/unstable
+    install_cli_tools neovim
+
     # neovim config
     #! 낮은 버전 nvim(apt-get)은 lazyvim을 사용할 수 없음
     # source ./nvim/lazyvim_starter_setup.sh
     
     # INSTALL HELIX
-    # if check_sudo; then
-    #     echo "add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
-    #     add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true 
-    # elif [ $? -eq 1 ]; then 
-    #     echo "sudo add-apt-repository ppa:maveonair/helix-editor && install_cli_tool helix true" 
-    #     sudo add-apt-repository -y ppa:maveonair/helix-editor && install_cli_tool helix true
-    # else
-    #     echo "User does not have necessary privileges or sudo command not found."
-    # fi
-
+    # exec_with_auto_privilege add-apt-repository -y ppa:maveonair/helix-editor
+    # install_cli_tools helix
 
     # copy fonts
     backup_file_to_bak $HOME/.fonts
@@ -163,7 +153,7 @@ fi
 
 # copy base config
 # files array
-#TODO: symlink, file backup 함수 정리
+# TODO: symlink, file backup 함수 정리 -> .config 파일은 XDG_CONFIG_HOME으로 이동
 files=(.aliases .export .extra .path .env .bashrc .envrc)
 # loop over files array
 for file in "${files[@]}"; do
