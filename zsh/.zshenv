@@ -1,5 +1,12 @@
 #!/bin/bash
 
 # export XDG_CONFIG_HOME="$HOME/.config"
-alias neofetch='f() {curl -fsSL https://raw.githubusercontent.com/ThatOneCalculator/NerdFetch/main/nerdfetch | sh -s -- ${1:--c}}; f'
-neofetch
+if command -v curl &> /dev/null; then
+    nerdfetch() {
+        curl -fsSL https://raw.githubusercontent.com/ThatOneCalculator/NerdFetch/main/nerdfetch | sh -s -- ${1:--c}
+    }
+    # curl -fsSL https://raw.githubusercontent.com/ThatOneCalculator/NerdFetch/main/nerdfetch | sh
+    nerdfetch
+    alias nerdfetch=nerdfetch
+    alias neofetch=nerdfetch
+fi
