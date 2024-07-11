@@ -27,8 +27,8 @@ if [[ -f /etc/hosts ]]; then
     alias hosts='cat /etc/hosts'
 fi
 
-# TODO: https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
-# TODO: Refactor with this clause
+#TODO: https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+#TODO: Refactor with this clause
 # if [ $UID -ne 0 ]; then
 #     alias reboot='sudo reboot'
 #     alias update='sudo apt-get upgrade'
@@ -82,6 +82,8 @@ function print_my_ip_info() {
 alias myip=print_my_ip_info
 alias ip=myip
 
+alias zshrc="vi $HOME/.zshrc"
+alias bashrc="vi $HOME/.bashrc"
 if [[ $SHELL == *"zsh"* ]]; then
     alias reload="source $HOME/.zshrc"
     # alias reload="omz reload"
@@ -153,33 +155,24 @@ set_workspace
 if [[ $machine == 'Mac' ]]; then
     if [[ -d $HOME ]]; then
         alias home="cd $HOME"
-        alias Home=home
     fi
 
     if [[ -d $HOME/Desktop ]]; then
-        alias desktop="cd $HOME/Desktop"
-        alias Desktop=desktop
-        alias desk=desktop
+        alias desk="cd $HOME/Desktop"
     fi
 
     if [[ -d $HOME/Downloads ]]; then
-        alias downloads="cd $HOME/Downloads"
-        alias Downloads=downloads
-        alias download=downloads
-        alias Download=downloads
-        alias down=downloads
+        alias download="cd $HOME/Downloads"
     fi
 
     if [[ -d $HOME/obsidian-zro ]]; then
         alias obsidian="cd $HOME/obsidian-zro"
-        alias obsi="cd $HOME/obsidian-zro"
     fi
 fi
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
-alias hey='tmux new -As main'
-alias hi=hey
+alias hi='tmux new -As main'
 
 # vim command
 if command -v vim &> /dev/null; then
@@ -239,9 +232,7 @@ fi
 if command -v exa &>/dev/null; then
     alias ls='exa --icons'
     alias la='ls -lah'
-fi
-
-if command -v lsd &>/dev/null; then
+elif command -v lsd &>/dev/null; then
     alias ls='lsd'
     alias la='lsd -lah'
     alias ll='lsd -lh'
@@ -266,10 +257,10 @@ if command -v kubectl &>/dev/null; then
     # alias kap='f() { [ "$1" ] && kubectl apply -f $1 } ; f'
     alias kcl='k config get-clusters'
     #TODO: cluster 선택받기 script 함수
-    alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
-    alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
+    alias kx='kx() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; kx'
+    alias kn='kn() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; kn'
     # k8s network troubleshooting
-    alias knetshoot='f() { kubectl run netshoot --rm -it --image ${1:-nicolaka/netshoot} -- bash } ; f'
+    alias knetshoot='knetshoot() { kubectl run netshoot --rm -it --image ${1:-nicolaka/netshoot} -- bash } ; knetshoot'
     alias kubuntu='f() { kubectl run ubuntu --rm -it --image ${1:-ubuntu:24.04} -- bash } ; f'
     alias kbusybox='f() { kubectl run ubuntu --rm -it --image ${1:-busybox} -- bash } ; f'
 fi
@@ -281,12 +272,10 @@ alias dubuntu=docker_ubuntu
 if command -v batcat &>/dev/null; then
     alias bat='batcat'
 fi
-
 # duf
 if command -v duf &>/dev/null; then
     alias df='duf'
 fi
-
 # dust
 if command -v dust &>/dev/null; then
     alias du='dust'

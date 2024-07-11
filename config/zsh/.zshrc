@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -85,6 +85,8 @@ plugins=(
     zsh-autosuggestions
     aliases
     # common-aliases # command not found: pygmentize 에러 발생 
+    # autoenv
+    # dotenv
     brew
     macos
     z
@@ -132,12 +134,10 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 
-osType="$(uname -s)"
-case "${osType}" in
-Linux*)     machine=Linux;;
-Darwin*)    machine=Mac;;
-*)          echo "NOT SUPPORTED:${osType}";exit 1
-esac
+
+
+# KUBECTL
+# source <(kubectl completion zsh)
 
 # if [[ $machine == "Mac" ]]; then
 #   eval "$(zoxide init zsh)"
@@ -146,16 +146,57 @@ esac
 
 #nvm
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # zsh users - add the following line to your ~/.zshrc
 # eval "$(direnv hook zsh)"
 
 # mkdir -p $HOME/.cache/zsh && compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
 [[ -f $HOME/.extra ]] && source $HOME/.extra
-[[ -f $HOME/.env ]] && source $HOME/.env
+# [[ -f $HOME/.env ]] && source $HOME/.env
 [[ -f $HOME/.path ]] && source $HOME/.path
 [[ -f $HOME/.export ]] && source $HOME/.export
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
 [[ -f $HOME/.p10k.zsh ]] && source $HOME/.p10k.zsh
+
+# 자동완성 함수 정의
+_cdd_completion() {
+    local -a options
+    options=('a' 'b' 'c')
+    _describe 'command' options
+}
+
+# 자동완성 설정
+compdef _cdd_completion cdd
+
+# cdd 함수 정의 (선택사항)
+cdd() {
+    case $1 in
+        a|b|c)
+            echo "Selected option: $1"
+            ;;
+        *)
+            echo "Invalid option. Please use 'a', 'b', or 'c'."
+            ;;
+    esac
+}
+
+# 자동완성 함수 정의
+_kn_completion() {
+    local cur
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    
+    if [ $COMP_CWORD -eq 1 ]; then
+        local namespaces
+        # namespaces=$(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}')
+        namespace=( a b c )
+        COMPREPLY=( $(compgen -W "${namespaces}" -- ${cur}) )
+    fi
+    
+    return 0
+}
+
+# 자동완성 설정
+complete -F _kn_completion kn

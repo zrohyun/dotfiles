@@ -10,3 +10,5 @@ if command -v curl &> /dev/null; then
     alias nerdfetch=nerdfetch
     alias neofetch=nerdfetch
 fi
+
+# export XDG_CONFIG_HOME="$HOME/.config"

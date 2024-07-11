@@ -44,6 +44,7 @@ brew "fd"
 brew "fzf"
 brew "jq"
 brew "fx"
+# brew newman
 # brew "otree"
 # brew "noahgorstein/tap/jqp"
 # brew "serpl" # Should build binary => https://github.com/yassinebridi/serpl
