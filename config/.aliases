@@ -8,21 +8,22 @@ alias ln="ln -v"
 alias mkdir="mkdir -vp"
 
 # handy short cuts #
-alias h='history'
-alias j='jobs -l'
-alias c='clear'
-alias now='date'
-alias hg='history|grep'
-alias shell='echo $SHELL'
+alias h="history"
+alias j="jobs -l"
+alias c="clear"
+alias now="date"
+alias hg="history|grep"
+alias shell="echo $SHELL"
 
 if [[ -f /etc/hosts ]]; then
     #TODO: if $UID =0 no sudo
+    host_file=/etc/hosts
     if [[ $UID == 0 ]]; then
-        alias vihosts='vi hosts'
+        alias vihosts="vi $host_file"
     else
-        alias vihosts='sudo vi hosts'
+        alias vihosts="sudo vi $host_file"
     fi
-    alias hosts='cat /etc/hosts'
+    alias hosts="cat $host_file"
 fi
 
 #TODO: https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
@@ -32,13 +33,23 @@ fi
 #     alias update='sudo apt-get upgrade'
 # fi
 
-alias zshrc="vi $HOME/.zshrc"
+_ZSHRC="${XDG_CONFIG_HOME:+$XDG_CONFIG_HOME/zsh/.zshrc}"
+_ZSHRC="${ZSHRC:-$HOME/.zshrc}"
+alias zshrc="vi $_ZSHRC"
+alias vizsh=zshrc
+
+_BASHRC="${XDG_CONFIG_HOME:+$XDG_CONFIG_HOME/bash/.bashrc}"
+_BASHRC="${BASHRC:-$HOME/.bashrc}"
 alias bashrc="vi $HOME/.bashrc"
+alias vibash=bashrc
+
 if [[ $SHELL == *"zsh"* ]]; then
-    alias reload="source $HOME/.zshrc"
-    # alias reload="omz reload"
-elif [[ $SHELL == *"bash"* ]] && [[ -e $HOME/.bashrc ]]; then
-    alias reload=". $HOME/.bashrc"
+    alias reload="source $_ZSHRC"
+    alias reomz="omz reload"
+    # zshrc
+    alias sourcezsh=reload
+elif [[ $SHELL == *"bash"* ]] && [[ -e $_BASHRC ]]; then
+    alias reload=". $_BASHRC"
 fi
 
 
@@ -50,8 +61,6 @@ elif [[ $machine == 'Mac' ]]; then
     alias catos=os
 fi
 
-# zshrc
-alias sourcezsh="source $HOME/.zshrc"
 
 # Pretty print the path
 alias hi='tmux new -As main'
