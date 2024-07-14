@@ -102,10 +102,12 @@ plugins=(
     docker 
     kubectl
     docker-compose
+    ubuntu
     command-not-found
     # common-aliases # command not found: pygmentize 에러 발생 
     # autoenv
     # dotenv
+    # direnv
     # composer 
     # fasd
     # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh

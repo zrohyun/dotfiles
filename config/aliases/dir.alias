@@ -44,3 +44,5 @@ if [[ $machine == 'Mac' ]]; then
         alias obsidian="cd $HOME/obsidian-zro"
     fi
 fi
+
+alias chssh="cd $HOME/.ssh"

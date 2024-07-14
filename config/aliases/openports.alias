@@ -1,6 +1,4 @@
-
 #!/bin/bash
-
 
 # network
 openports() {
@@ -113,3 +111,6 @@ openports() {
     echo "No suitable command found for checking open ports."
     return 1
 }
+
+alias ops=openports
+alias op=ops
