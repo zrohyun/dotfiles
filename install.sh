@@ -4,23 +4,22 @@
 curl_install_dotfiles() {
     # CASE dowloaded with curl
     # Check if current directory is not .dotfiles, then clone the repository
-    TARGET_DIR=${1:-$HOME/.dotfiles}
     if [[ ! "$(basename $PWD)" == ".dotfiles" ]]; then
+        dotfiles_dir="$HOME/.dotfiles"
         if command -v git &>/dev/null; then
-            if [[ -d $TARET_DIR ]]; then
-                echo "backup $TARGET_DIR to $TARGET_DIR"
-                mv $TARGET_DIR "${TARGET_DIR}.bak"
+            if [[ -d $dotfiles_dir ]]; then
+                echo "backup $dotfiles_dir to ${dotfiles_dir}.bak"
+                mv $dotfiles_dir "${dotfiles_dir}.bak"
             fi
-            #TODO: specify target directory installing with curl
-            git clone  --depth=1 -b main https://github.com/zrohyun/dotfiles.git $TARGET_DIR
-            cd $HOME/.dotfiles
+            git clone  --depth=1 -b main https://github.com/zrohyun/dotfiles.git $dotfiles_dir
+            cd $dotfiles_dir
             source ./install.sh
         else
             echo "git is not installed"
             exit 1
         fi
     fi
-    PWD=$HOME/.dotfiles
+    PWD=$dotfiles_dir
 }
 curl_install_dotfiles
 
