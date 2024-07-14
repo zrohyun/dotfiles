@@ -1,0 +1,12 @@
+#compdef kn
+compdef _kn kn
+
+# 자동완성 함수 정의
+_kn() {
+    local -a namespaces
+    namespaces=($(kubectl get namespaces -o name 2>/dev/null | cut -d/ -f2))
+    
+    _describe 'Kubernetes namespaces' namespaces
+}
+
+compdef _kn kn
