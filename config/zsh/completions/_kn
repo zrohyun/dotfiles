@@ -1,6 +1,8 @@
 #compdef kn
 compdef _kn kn
 
+#TODO: omz 기여
+
 # 자동완성 함수 정의
 _kn() {
     local -a namespaces

@@ -42,7 +42,7 @@ export ZSHZ_DATA=${ZSH_CACHE_DIR:-$HOME}/.z
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -108,9 +108,9 @@ plugins=(
     # dotenv
     # composer 
     # fasd
+    # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
     # TODO: tmux-plugin?, oh-my-tmux?
     # tmux #! plugin 에러 발생  
-    # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -159,47 +159,3 @@ export NVM_DIR="$HOME/.nvm"
 
 # zsh users - add the following line to your ~/.zshrc
 # eval "$(direnv hook zsh)"
-
-
-#TODO 자동완성 설정 (kn, kx, select_kubeconfig)
-#TODO omz 기여
-# 자동완성 함수 정의
-_cdd_completion() {
-    local -a options
-    options=('a' 'b' 'c')
-    _describe 'command' options
-}
-
-# 자동완성 설정
-compdef _cdd_completion cdd
-
-# cdd 함수 정의 (선택사항)
-cdd() {
-    case $1 in
-        a|b|c)
-            echo "Selected option: $1"
-            ;;
-        *)
-            echo "Invalid option. Please use 'a', 'b', or 'c'."
-            ;;
-    esac
-}
-
-# 자동완성 함수 정의
-_kn_completion() {
-    local cur
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    
-    if [ $COMP_CWORD -eq 1 ]; then
-        local namespaces
-        # namespaces=$(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}')
-        namespace=( a b c )
-        COMPREPLY=( $(compgen -W "${namespaces}" -- ${cur}) )
-    fi
-    
-    return 0
-}
-
-# 자동완성 설정
-complete -F _kn_completion kn
