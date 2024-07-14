@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# export XDG_CONFIG_HOME="$HOME/.config"
-if command -v curl &> /dev/null; then
-    nerdfetch() {
-        curl -fsSL https://raw.githubusercontent.com/ThatOneCalculator/NerdFetch/main/nerdfetch | sh -s -- ${1:--c}
-    }
-    # curl -fsSL https://raw.githubusercontent.com/ThatOneCalculator/NerdFetch/main/nerdfetch | sh
-    nerdfetch
-    alias nerdfetch=nerdfetch
-    alias neofetch=nerdfetch
-fi
+[[ -f ${XDG_CONFIG_HOME:-$HOME}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME}/.env
 
-# export XDG_CONFIG_HOME="$HOME/.config"
+export ZSH_CONFIG_DIR=$XDG_CONFIG_HOME/zsh
+export ZSH_CACHE_DIR=$XDG_CACHE_HOME/zsh
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+    mkdir -p $ZSH_CACHE_DIR
+fi

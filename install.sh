@@ -1,225 +1,73 @@
 #!/bin/bash
 
+curl_install_dotfiles() {
+    # CASE dowloaded with curl
+    # Check if current directory is not .dotfiles, then clone the repository
+    if [[ ! "$(basename $PWD)" == ".dotfiles" ]]; then
+        if command -v git &>/dev/null; then
+            git clone https://github.com/zrohyun/dotfiles.git $HOME/.dotfiles
+            cd $HOME/.dotfiles
+            source ./install.sh
+        else
+            echo "git is not installed"
+            exit 1
+        fi
+    fi
+}
+curl_install_dotfiles
+
 # PWD
 DOTFILES=$PWD
-# TODO: move configfile to XDG_CONFIG_HOME
 
-# LOGFILE
-#? TODO: set log level like LOGLEVEL=[DEBUG|INFO|WARN|ERROR]
-LOGFILE="./log.log.$(date +%Y%m%d.%H%M%S)" # "${TEMPDIR:-/tmp}/log.log.$(date +%Y%m%d.%H%M%S)"
+set_for_logging() {
+    # LOGFILE
+    #? TODO: set log level like LOGLEVEL=[DEBUG|INFO|WARN|ERROR]
+    LOGFILE="./log.log.$(date +%Y%m%d.%H%M%S)" # "${TEMPDIR:-/tmp}/log.log.$(date +%Y%m%d.%H%M%S)"
 
-# exec 3>&-
-exec > >(tee -a "$LOGFILE") 2>&1
+    # exec 3>&-
+    exec > >(tee -a "$LOGFILE") 2>&1
 
-verbose=true
-xtrace=false
+    verbose=true
+    xtrace=true
 
-if $verbose; then
-    set -v
-fi
-if $xtrace; then
-    set -x
-fi
+    if $verbose; then
+        set -v
+    fi
+    if $xtrace; then
+        set -x
+    fi
+}
+set_for_logging
 
 macServiceStart=false
 
 echo "PWD(DOTFILES): $DOTFILES"
 
-source ./.export
-source ./functions.sh
-
-install_omz() {
-    echo "install_omz"
-    # omz install and link plugins and themes
-    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-    if [[ $machine == "Linux" ]]; then
-        run_command chsh -s $(which zsh)
-    fi
-
-    if [[ ! -d $HOME/.oh-my-zsh ]]; then 
-        git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
-    fi
-    if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]]; then
-        # zsh-syntax-highlighting
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    fi
-    if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]]; then
-        # zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    fi
-    if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
-        # powerlevel10k
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
-    fi
-}
+source ./config/.env
+source ./config/functions/functions.sh
 
 if [[ $machine == "Linux" ]]; then
-    export DEBIAN_FRONTEND="noninteractive"
-    
-    # update and upgrade
-    install_cli_tools -u -g
-
-    install_cli_tools software-properties-common
-
-    # INSTALL MUST HAVE TOOLS
-    run_command ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-    
-    #TODO: exa -> lsd
-    tools=(tzdata curl vim tmux trash-cli tldr jq fzf thefuck fd-find ripgrep neofetch btop git exa)
-    install_cli_tools ${tools[@]}
-
-    # LSP
-    install_cli_tools pyright gopls
-    #! (NOT WORKING) 
-    # TODO: install_cli_tools bash-language-server
-
-    # ZSH
-    install_cli_tools zsh
-    echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-
-    # INSTALL NEOVIM
-    # TODO: (2024.07 기준 neovim v0.9 확인 - lazyvim 사용 가능) ~~apt-get은 nvim 버전이 낮아서 lazyvim을 쓸 수가 없음.~~
-    # (일단 nvim 설치는 apt-get으로만. ppa는 보류) 
-    # exec_with_auto_privilege add-apt-repository -y ppa:neovim-ppa/unstable
-    install_cli_tools neovim
-
-    # neovim config
-    #! 낮은 버전 nvim(apt-get)은 lazyvim을 사용할 수 없음
-    # source ./nvim/lazyvim_starter_setup.sh
-    
-    # INSTALL HELIX
-    # exec_with_auto_privilege add-apt-repository -y ppa:maveonair/helix-editor
-    # install_cli_tools helix
-
-    # copy fonts
-    backup_file_to_bak $HOME/.fonts
-    echo "ln -s -f $DOTFILES/fonts $HOME/.fonts" &&  ln -s -f $DOTFILES/fonts $HOME/.fonts
-    
+    source ./config/functions/setup_linux.sh
+    setup_linux
 elif [[ $machine == "Mac" ]]; then
-
-    # PREREQUISITE
-    # xcode-select --install
-    # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && eval $(/opt/homebrew/bin/brew shellenv)
-    BREW_BUNDLE=./osx/Brewfile
-
-    # copy Brewfile
-    backup_file_to_bak "$HOME/Brewfile"
-    echo "ln -s -f $DOTFILES/osx/Brewfile $HOME/" && ln -s -f "$DOTFILES/osx/Brewfile" "$HOME/"
-    BREW_BUNDLE=$HOME/Brewfile
-    # echo "ln -s -f $DOTFILES/osx/Brewfile{,.lock.json} $HOME/" && ln -s -f $DOTFILES/osx/Brewfile{,.lock.json} $HOME/
-
-    # Update Homebrew recipes
-    echo "brew update && brew upgrade" && brew update && brew upgrade
-    echo "brew bundle --file=$BREW_BUNDLE" && brew bundle --file=$BREW_BUNDLE # lock.json 파일은 BREW_BUNDLE 위치에 생성됨
-
-    if [[ $macServiceStart == true ]]; then 
-        # 서비스 시작 원할 시 service_start
-        service_start() {
-            # List of commands
-            commands=("colima" "code-server")
-
-            # Loop through the commands
-            for cmd in "${commands[@]}"
-            do
-                # Check if the command is installed
-                if which "$cmd" &>/dev/null; then # if command -v "$cmd" &> /dev/null
-                    echo "$cmd is installed. Starting the service..."
-                    echo "brew services start $cmd" && brew services start $cmd
-                    sleep 5
-                else
-                    echo "$cmd is not installed. Please install $cmd first."
-                fi
-            done
-        }
-        service_start
-    fi
-
-    # 시스템 단축키, iterm2, raycast
-    system_files=(
-        "com.apple.symbolichotkeys.plist"
-        "com.googlecode.iterm2.plist"
-        "com.raycast.macos"
-    )
-    for file in "${system_files[@]}"
-    do 
-        if [[ -f "$HOME/Library/Preferences/$file" ]]; then
-            backup_file_to_bak "$HOME/Library/Preferences/$file"
-            echo "cp $DOTFILES/osx/$file $HOME/Library/Preferences/$file" && cp $DOTFILES/osx/$file $HOME/Library/Preferences/$file
-            # putil --convert xml1 symbolichotkeys.plist
-        fi
-    done
-    
+    source ./config/functions/setup_mac.sh
+    setup_mac
 fi
 
-# copy base config
-# files array
-# TODO: symlink, file backup 함수 정리 -> .config 파일은 XDG_CONFIG_HOME으로 이동
-files=(.aliases .export .extra .path .env .bashrc .envrc)
-# loop over files array
-for file in "${files[@]}"; do
-    # backup file
-    backup_file_to_bak $HOME/$file
-    # create symbolic link
-    echo "ln -s -f $DOTFILES/$file $HOME/" && ln -s -f $DOTFILES/$file $HOME/
-done
-
-# copy tmux config
-backup_file_to_bak $HOME/.tmux.conf
-backup_file_to_bak $HOME/.tmux.conf.local
-echo "ln -s -f $DOTFILES/tmux/.tmux.conf{,.local} $HOME/" && ln -s -f $DOTFILES/tmux/.tmux.conf{,.local} $HOME/
-if command -v tmux &>/dev/null; then
-    echo "tmux source $HOME/.tmux.conf" && tmux source $HOME/.tmux.conf
-    # Optional
-    # tmux new -ds main
-fi
-
-# copy vim config
-backup_file_to_bak $HOME/.vimrc
-backup_file_to_bak $HOME/.ideavimrc
-echo "ln -s -f $DOTFILES/vim/.{vimrc,ideavimrc} $HOME/" && ln -s -f $DOTFILES/vim/.{vimrc,ideavimrc} $HOME/
-
-# copy zsh config
-backup_file_to_bak $HOME/.zshrc
-backup_file_to_bak $HOME/.p10k.zsh
-backup_file_to_bak $HOME/.zprofile
-backup_file_to_bak $HOME/.zshenv
-echo "ln -s -f $DOTFILES/zsh/.{zshrc,zshenv,zlogin,p10k.zsh,zprofile} $HOME/" && ln -s -f $DOTFILES/zsh/.{zshrc,zshenv,zlogin,p10k.zsh,zprofile} $HOME/
-
-# copy mackup config
-backup_file_to_bak $HOME/.mackup.cfg
-echo "ln -s -f $DOTFILES/osx/.mackup.cfg $HOME/" && ln -s -f $DOTFILES/osx/.mackup.cfg $HOME/
-
-if [[ $machine == "Mac" ]]; then
-    #!(Deprecated in linux[devconatiner]) copy git config - devcontianer 사용시 host git config 자동 마운트(setting 옵션에 있음), 
-    backup_file_to_bak $HOME/.gitignore
-    backup_file_to_bak $HOME/.gitconig
-    echo "ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/" && ln -s -f $DOTFILES/git/.{gitignore,gitconfig} $HOME/
-fi
-
-# copy helix config
-backup_file_to_bak $HOME/.config/helix/config.toml
-backup_file_to_bak $HOME/.config/helix/languages.toml
-echo "[[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix" && [[ ! -d $HOME/.config/helix ]] && mkdir -p $HOME/.config/helix
-echo "ln -s -f $DOTFILES/helix/{config,languages}.toml $HOME/.config/helix" && ln -s -f $DOTFILES/helix/{config,languages}.toml $HOME/.config/helix
+source ./config/functions/backup.sh
+backup # backup dotfiles to /tmp/dotfiles.bak
+symlink_dotfiles
 
 # copy k9s config
-if [[ $machine == "Linux" ]]; then
-    OUT="${XDG_CONFIG_HOME:-$HOME/.config}/k9s"
-elif [[ $machine == "Mac" ]]; then
-    OUT="${XDG_CONFIG_HOME:-$HOME/Library/Application Support}/k9s"
-fi
-backup_file_to_bak "$OUT"
-echo 'mkdir -p $OUT' && mkdir -p "$OUT"
-echo "ln -s -f $DOTFILES/k9s/{config.yaml,skins} $OUT" && ln -s -f $DOTFILES/k9s/{config.yaml,skins} "$OUT"
-
-# copy karabiner config
-if [[ $machine == "Mac" ]]; then
-    backup_file_to_bak $HOME/.config/karabiner/karabiner.json
-    echo "mkdir -p $HOME/.config/karabiner" && mkdir -p $HOME/.config/karabiner
-    echo "ln -s -f $DOTFILES/karabiner/karabiner.json $HOME/.config/karabiner/" && ln -s -f $DOTFILES/karabiner/karabiner.json $HOME/.config/karabiner/
-fi
+# if [[ $machine == "Mac" ]]; then
+#     OUT="${XDG_CONFIG_HOME:-$HOME/Library/Application Support}/k9s"
+# fi
+# backup_file_to_bak "$OUT"
+# mkdir -p "$OUT"
+# ln -snfbS $DOTFILES/k9s "$OUT"
 
 # INSTALL Oh-My-Zsh
+source ./config/functions/install_omz.sh
 install_omz
 
 #?

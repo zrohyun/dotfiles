@@ -604,3 +604,45 @@
 [2024-02-13 18:21:35.291]	 Aborting.
 [2024-02-13 18:21:35.315]	 Done.
 
+[2024-07-13 16:06:04.853]	 List of discovered tpm plugins: tmux-plugins/tmux-copycat tmux-plugins/tmux-cpu tmux-plugins/tmux-resurrect tmux-plugins/tmux-continuum Ctrl-hjkl theme
+[2024-07-13 16:06:04.859]	 Invoking /root/.config/tmux/plugins/tpm/bin/install_plugins
+[2024-07-13 16:06:04.888]	 Installing "tmux-copycat"
+[2024-07-13 16:06:04.889]	 Installing "theme"
+[2024-07-13 16:06:04.889]	 Installing "tmux-cpu"
+[2024-07-13 16:06:04.890]	 Installing "tmux-continuum"
+[2024-07-13 16:06:04.890]	 Installing "tmux-resurrect"
+[2024-07-13 16:06:04.891]	 Installing "Ctrl-hjkl"
+[2024-07-13 16:06:05.284]	   "theme" download fail
+[2024-07-13 16:06:05.305]	   "Ctrl-hjkl" download fail
+[2024-07-13 16:06:05.923]	   "tmux-continuum" download success
+[2024-07-13 16:06:06.036]	   "tmux-copycat" download success
+[2024-07-13 16:06:06.072]	   "tmux-cpu" download success
+[2024-07-13 16:06:06.901]	   "tmux-resurrect" download success
+[2024-07-13 16:06:06.907]	 Done.
+
+[2024-07-13 16:06:42.191]	 List of discovered tpm plugins: tmux-plugins/tmux-copycat tmux-plugins/tmux-cpu tmux-plugins/tmux-resurrect tmux-plugins/tmux-continuum Ctrl-hjkl theme
+[2024-07-13 16:06:42.197]	 Invoking /root/.config/tmux/plugins/tpm/bin/install_plugins
+[2024-07-13 16:06:42.216]	 Installing "Ctrl-hjkl"
+[2024-07-13 16:06:42.216]	 Installing "theme"
+[2024-07-13 16:06:42.218]	 Already installed "tmux-copycat"
+[2024-07-13 16:06:42.219]	 Already installed "tmux-continuum"
+[2024-07-13 16:06:42.219]	 Already installed "tmux-resurrect"
+[2024-07-13 16:06:42.221]	 Already installed "tmux-cpu"
+[2024-07-13 16:06:42.571]	   "Ctrl-hjkl" download fail
+[2024-07-13 16:06:42.580]	   "theme" download fail
+[2024-07-13 16:06:42.590]	 Invoking /root/.config/tmux/plugins/tpm/bin/update_plugins all
+[2024-07-13 16:06:42.602]	 Updating all plugins!
+[2024-07-13 16:06:42.602]	 
+[2024-07-13 16:06:43.350]	   "tmux-continuum" update success
+[2024-07-13 16:06:43.350]	     | failed to store: -25299
+[2024-07-13 16:06:43.350]	     | failed to store: -25299
+[2024-07-13 16:06:43.350]	     | Already up to date.
+[2024-07-13 16:06:43.389]	   "tmux-cpu" update success
+[2024-07-13 16:06:43.391]	     | Already up to date.
+[2024-07-13 16:06:43.463]	   "tmux-resurrect" update success
+[2024-07-13 16:06:43.464]	     | Already up to date.
+[2024-07-13 16:06:43.467]	   "tmux-copycat" update success
+[2024-07-13 16:06:43.467]	     | Already up to date.
+[2024-07-13 16:06:43.474]	 Invoking /root/.config/tmux/plugins/tpm/bin/clean_plugins all
+[2024-07-13 16:06:43.498]	 Done.
+

@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="${XDG_CONFIG_HOME:-$HOME}/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -17,6 +17,15 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
+export POWERLEVEL9K_CONFIG_FILE="${ZSH_CONFIG_DIR:-$HOME}/.p10k.zsh"
+export HISTFILE=$ZSH_CACHE_DIR/.zsh_history
+export ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump-$HOST
+export ZDOTDIR=$ZSH_CONFIG_DIR # zsh config dir
+# https://github.com/agkozak/zsh-z
+export ZSHZ_DATA=${ZSH_CACHE_DIR:-$HOME}/.z
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -84,9 +93,6 @@ plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
     aliases
-    # common-aliases # command not found: pygmentize 에러 발생 
-    # autoenv
-    # dotenv
     brew
     macos
     z
@@ -97,10 +103,13 @@ plugins=(
     kubectl
     docker-compose
     command-not-found
+    # common-aliases # command not found: pygmentize 에러 발생 
+    # autoenv
+    # dotenv
     # composer 
     # fasd
     # TODO: tmux-plugin?, oh-my-tmux?
-    # tmux # plugin 에러 발생  
+    # tmux #! plugin 에러 발생  
     # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
 )
 
@@ -135,7 +144,6 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 
 
-
 # KUBECTL
 # source <(kubectl completion zsh)
 
@@ -152,14 +160,9 @@ export NVM_DIR="$HOME/.nvm"
 # zsh users - add the following line to your ~/.zshrc
 # eval "$(direnv hook zsh)"
 
-# mkdir -p $HOME/.cache/zsh && compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
-[[ -f $HOME/.extra ]] && source $HOME/.extra
-# [[ -f $HOME/.env ]] && source $HOME/.env
-[[ -f $HOME/.path ]] && source $HOME/.path
-[[ -f $HOME/.export ]] && source $HOME/.export
-[[ -f $HOME/.aliases ]] && source $HOME/.aliases
-[[ -f $HOME/.p10k.zsh ]] && source $HOME/.p10k.zsh
 
+#TODO 자동완성 설정 (kn, kx, select_kubeconfig)
+#TODO omz 기여
 # 자동완성 함수 정의
 _cdd_completion() {
     local -a options

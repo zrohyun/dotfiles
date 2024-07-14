@@ -62,3 +62,4 @@ set wildmode=longest,list
 set relativenumber
 
 set history=256     " 히스토리 기억 개수 설정
+set paste

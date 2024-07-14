@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./functions.sh
+source ./config/function/functions.sh
 
 install_cli_tool # for update
 
@@ -20,10 +20,12 @@ cli_tools=(
     # "neofetch"
     # "ripgrep"
     # "exa"
+    # "lsd"
     # "fd-find"
     # "fzf"
     # "jq"
     # "trash-cli"
+    # "python3-pip"
 
     # "neovim"
     # "tig"
@@ -31,6 +33,7 @@ cli_tools=(
     # "lazygit"
     # "htop"
     # "zsh"
+    # "thefuck"
 
     # "dust" #https://github.com/bootandy/dust
     # "duf" #https://github.com/muesli/duf

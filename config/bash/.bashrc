@@ -99,9 +99,10 @@ fi
 
 # bash users - add the following line to your ~/.bashrc
 # eval "$(direnv hook bash)"
+[[ -f ${XDG_CONFIG_HOME:-$HOME}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME}/.env
 
-[[ ! -f $HOME/.aliases ]] || source $HOME/.aliases
-[[ ! -f $HOME/.export ]] || source $HOME/.export
-[[ ! -f $HOME/.extra ]] || source $HOME/.extra
-[[ ! -f $HOME/.env ]] || source $HOME/.env
-[[ ! -f $HOME/.path ]] || source $HOME/.path
+export BASH_CACHE_DIR=$XDG_CACHE_HOME/bash
+if [[ ! -d $BASH_CACHE_DIR ]]; then
+    mkdir -p $BASH_CACHE_DIR
+fi
+HISTFILE=$BASH_CACHE_DIR/.bash_history
