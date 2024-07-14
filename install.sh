@@ -14,12 +14,12 @@ curl_install_dotfiles() {
             git clone  --depth=1 -b xdg https://github.com/zrohyun/dotfiles.git $dotfiles_dir
             cd $dotfiles_dir
             source ./install.sh
+            exit 0
         else
             echo "git is not installed"
             exit 1
         fi
     fi
-    PWD=$dotfiles_dir
 }
 curl_install_dotfiles
 
