@@ -53,14 +53,6 @@ source ./config/functions/backup.sh
 backup # backup dotfiles to /tmp/dotfiles.bak
 symlink_dotfiles
 
-# copy k9s config
-# if [[ $machine == "Mac" ]]; then
-#     OUT="${XDG_CONFIG_HOME:-$HOME/Library/Application Support}/k9s"
-# fi
-# backup_file_to_bak "$OUT"
-# mkdir -p "$OUT"
-# ln -snfbS $DOTFILES/k9s "$OUT"
-
 # INSTALL Oh-My-Zsh
 source ./config/functions/install_omz.sh
 install_omz
