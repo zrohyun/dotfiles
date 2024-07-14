@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# dotfiles
+if [[ -d $HOME/.dotfiles ]]; then
+    alias dotfiles="cd $HOME/.dotfiles"
+    alias dotfile=dotfiles
+    alias dot=dotfiles
+fi
+
+# Create and enter directory
+mkcd() {
+    mkdir -vp "$1" && cd "$_"
+}
+
+# workspace
+set_workspace() {
+    WORKSPACE=$HOME
+    if [[ -d $HOME/workspace ]]; then
+        WORKSPACE=$HOME/workspace
+    elif [[ -d $HOME/Desktop/workspace ]]; then
+        WORKSPACE=$HOME/Desktop/workspace
+    fi
+    alias workspace="cd $WORKSPACE"
+    alias works=workspace
+    alias wsp=workspace
+}
+set_workspace
+
+# machine directory alias
+if [[ $machine == 'Mac' ]]; then
+    if [[ -d $HOME ]]; then
+        alias home="cd $HOME"
+    fi
+
+    if [[ -d $HOME/Desktop ]]; then
+        alias desk="cd $HOME/Desktop"
+    fi
+
+    if [[ -d $HOME/Downloads ]]; then
+        alias download="cd $HOME/Downloads"
+    fi
+
+    if [[ -d $HOME/obsidian-zro ]]; then
+        alias obsidian="cd $HOME/obsidian-zro"
+    fi
+fi

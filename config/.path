@@ -1,6 +1,13 @@
 #!/bin/bash
 
 # kubectl krew
-if [ -d "${KREW_ROOT:-$HOME/.krew}" ]; then
-    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# if [ -d "${KREW_ROOT:-$HOME/.krew}" ]; then
+#     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# fi
+
+alias path='echo $PATH | tr -s ":" "\n"'
+
+if [[ -d $HOME/.local/bin ]]; then
+    export PATH="$PATH:$HOME/.local/bin"
 fi
+#TODO: autocompletion fpath 추가

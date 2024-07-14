@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# IP
+function print_my_ip_info() {
+    # Private IP 찾기
+    local private_ip=""
+    if command -v ifconfig &> /dev/null; then
+        private_ip=$(ifconfig | grep -A 5 -E 'eth0:|en0:' | grep 'inet ' | awk '{ print $2 }')
+    fi
+
+    # Public IP 찾기
+    local public_ip=""
+    if curl -s --max-time 1 ifconfig.me > /dev/null; then
+        public_ip=$(curl -s ifconfig.me)
+    elif curl -s --max-time 1 icanhazip.com > /dev/null; then
+        public_ip=$(curl -s icanhazip.com)
+    elif command -v dig &> /dev/null; then
+        public_ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
+    fi
+
+    # IP 정보 출력
+    echo "Private IP: $private_ip"
+    echo "Public IP: $public_ip"
+}
+
+alias myip=print_my_ip_info
+alias ip=myip
+
+# if command -v ifconfig &> /dev/null; then
+#     alias privateip="ifconfig | grep -A 5 -E 'eth0:|en0:' | grep 'inet ' | awk '{ print $2 }'"
+# fi
+# if curl -s --max-time 1 ifconfig.me > /dev/null; then
+#     alias myip='curl ifconfig.me'
+#     alias ip=myip
+# elif curl -s --max-time 1 icanhazip.com > /dev/null; then
+#     alias myip='curl icanhazip.com'
+#     alias ip=myip
+# elif command -v dig &> /dev/null; then
+#     alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+#     alias ip=myip
+#     # alias myip="dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'\"' '{ print \$2 }'"
+# fi

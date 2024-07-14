@@ -1,0 +1,115 @@
+
+#!/bin/bash
+
+
+# network
+openports() {
+    #TODO: -P option 추가
+    local sudo_cmd=""
+    local cmd_option=""
+    local commands=("lsof" "netstat" "nmap" "ss")
+    local machine=$(uname)
+
+    # Transform long options to short ones
+    for arg in "$@"; do
+    shift
+    case "$arg" in
+        '--help')       set -- "$@" '-h'   ;;
+        '--verbose')    set -- "$@" '-v'   ;;
+        *)              set -- "$@" "$arg" ;;
+    esac
+    done
+
+    # Default behavior
+    number=0; rest=false; ws=false
+    verbose=false
+    while getopts "hvx" opt; do
+        case ${opt} in
+            h )
+                echo "Usage: openports [sudo] [command]"
+                echo "Options:"
+                echo "  sudo          : Run with elevated privileges (requires sudo)"
+                echo "  command       : Specify a specific command (netstat, lsof, nmap, ss)"
+                echo "  -h, --help    : print this help and exit"
+                echo "  -v, --verbose : diplay verbose output"
+                echo "  -x xtrace     : debug and trace function code"
+                echo "  -P            : [TODO]Show the PID of open ports"
+                # TODO: Header column별로 filtering하기
+                return 0
+                ;;
+            v )
+                verbose=true
+                ;;
+            x )
+                set -x;
+                ;;
+            \? )
+                echo "Invalid option: $OPTARG" 1>&2
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND -1))
+
+    local arg="${1:-default}"
+
+    if [[ "$arg" == "sudo" ]]; then
+        if command -v sudo &>/dev/null; then
+            if sudo -v &>/dev/null; then
+                sudo_cmd="sudo"
+                arg="${2:-default}"
+            else
+                echo "Error: sudo permission is required to run this command."
+                return 1
+            fi
+        else
+            echo "Error: sudo command not found. Please install sudo."
+            return 1
+        fi
+    fi
+    # echo "$commands"
+    for cmd in "${commands[@]}"; do
+        if [[ $arg == "default" ]] || [[ $cmd == $arg ]]; then
+            if command -v "$cmd" &>/dev/null; then
+                echo "Checking open ports using $cmd..."
+                case "$cmd" in
+                    "lsof")
+                        $verbose && echo "$sudo_cmd lsof -i -P -n | awk 'NR==1 {print $1, $2, $3, $8, $9} $NF ~ /LISTEN/ {print $1, $2, $3, $8, $9}' | column -t"
+                        $sudo_cmd lsof -i -P -n | awk 'NR==1 {print $1, $2, $3, $8, $9} $NF ~ /LISTEN/ {print $1, $2, $3, $8, $9}' | column -t
+                        ;;
+                    "netstat")
+                        replace_column="sed -e 's/Local Address/LocalAddress/' -e 's/Foreign Address/ForeignAddress/' -e 's/Program name/ProgramName/'"
+                        print_columns() {    
+                            # awk_print_command="awk '{print \$1, \$4, \$5, \$6, \$7, \$9}'"
+                            awk '{print $1, $4, $5, $6, $7, $9}'
+                        }
+                        if [[ $machine == "Darwin" ]]; then 
+                            $verbose && echo "$sudo_cmd netstat -anv -ptcp | awk 'NR==2 || /LISTEN/' | $replace_column | $awk_print_command | column -t"
+                            $sudo_cmd netstat -anv -ptcp | awk 'NR==2 || /LISTEN/' | eval $replace_column | print_columns | column -t
+                        elif [[ $machine == "Linux" ]]; then
+                            echo "$sudo_cmd netstat -tulpneav tcp | awk 'NR==2 || /LISTEN/' | $replace_column | print_columns | column -t"
+                            $sudo_cmd netstat -tulpneav tcp | awk 'NR==2 || /LISTEN/' | eval $replace_column | print_columns | column -t
+                        fi
+                        ;;
+                    "ss")
+                        if $verbose; then
+                            echo "$sudo_cmd ss -tuln | grep LISTEN"
+                        fi
+                        $sudo_cmd ss -tuln | grep LISTEN
+                        ;;
+                    "nmap")
+                        $verbose && echo "$sudo_cmd nmap -p 1-65535 localhost"
+                        $sudo_cmd nmap -p 1-65535 localhost
+                        ;;
+                esac
+                return 0
+            # else
+            #     echo "$cmd is not installed"
+            #     return 1
+            fi
+        fi
+    done
+
+    echo "No suitable command found for checking open ports."
+    return 1
+}
