@@ -2,24 +2,28 @@
 
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/main/install.sh)
 curl_install_dotfiles() {
-    # CASE dowloaded with curl
-    # Check if current directory is not .dotfiles, then clone the repository
-    if [[ ! "$(basename $PWD)" == ".dotfiles" ]]; then
-        dotfiles_dir="$HOME/.dotfiles"
-        if command -v git &>/dev/null; then
-            if [[ -d $dotfiles_dir ]]; then
-                echo "backup $dotfiles_dir to ${dotfiles_dir}.bak"
-                mv $dotfiles_dir "${dotfiles_dir}.bak"
-            fi
-            git clone  --depth=1 -b xdg https://github.com/zrohyun/dotfiles.git $dotfiles_dir
-            cd $dotfiles_dir
-            source ./install.sh
-            exit 0
-        else
-            echo "git is not installed"
-            exit 1
+    if ! command -v git &>/dev/null; then
+        echo "git is not installed"
+        exit 1
+    fi
+
+    # 현재 디렉토리가 git 프로젝트인지 확인
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
+        remote_url=$(git config --get remote.origin.url)
+        if [[ "$remote_url" == "https://github.com/zrohyun/dotfiles.git" ]]; then
+            return 0
         fi
     fi
+
+    dotfiles_dir="$HOME/.dotfiles"
+    if [[ -d $dotfiles_dir ]]; then
+        echo "backup $dotfiles_dir to ${dotfiles_dir}.bak"
+        mv $dotfiles_dir "${dotfiles_dir}.bak"
+    fi
+    git clone  --depth=1 -b xdg https://github.com/zrohyun/dotfiles.git $dotfiles_dir
+    cd $dotfiles_dir
+    source ./install.sh
+    exit 0
 }
 curl_install_dotfiles
 
