@@ -11,7 +11,6 @@ if command -v kubectl &>/dev/null; then
     #TODO: print node info with label or taint or something
     # alias kap='f() { [ "$1" ] && kubectl apply -f $1 } ; f'
     alias kcl='k config get-clusters'
-    #TODO: cluster 선택받기 script 함수
     alias kx='kx() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; kx'
     alias kn='kn() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; kn'
     # k8s network troubleshooting
