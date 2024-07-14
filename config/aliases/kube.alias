@@ -23,6 +23,10 @@ fi
 select_kubeconfig() {
     # Select a config file from the files in the $HOME/.kube directory
     export KUBE_DIR=${1:-"$HOME/.kube"}
+    if [[ ! -d "$KUBE_DIR" ]]; then
+        # echo "Directory $KUBE_DIR does not exist."
+        return 0
+    fi
     # 파일 목록 가져오기
     files=($(find "$KUBE_DIR" -type f -name "*config*"))
     
