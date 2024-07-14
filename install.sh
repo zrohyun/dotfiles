@@ -1,11 +1,17 @@
 #!/bin/bash
 
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/main/install.sh)
 curl_install_dotfiles() {
     # CASE dowloaded with curl
     # Check if current directory is not .dotfiles, then clone the repository
     if [[ ! "$(basename $PWD)" == ".dotfiles" ]]; then
         if command -v git &>/dev/null; then
-            git clone https://github.com/zrohyun/dotfiles.git $HOME/.dotfiles
+            if [[ -d $HOME/.dotfiles ]]; then
+                echo "backup .dotfiles to .dotfiles.bak"
+                mv $HOME/.dotfiles $HOME/.dotfiles.bak
+            fi
+            #TODO: specify target directory installing with curl
+            git clone  --depth=1 -b main https://github.com/zrohyun/dotfiles.git $HOME/.dotfiles
             cd $HOME/.dotfiles
             source ./install.sh
         else
@@ -19,24 +25,8 @@ curl_install_dotfiles
 # PWD
 DOTFILES=$PWD
 
-set_for_logging() {
-    # LOGFILE
-    #? TODO: set log level like LOGLEVEL=[DEBUG|INFO|WARN|ERROR]
-    LOGFILE="./log.log.$(date +%Y%m%d.%H%M%S)" # "${TEMPDIR:-/tmp}/log.log.$(date +%Y%m%d.%H%M%S)"
-
-    # exec 3>&-
-    exec > >(tee -a "$LOGFILE") 2>&1
-
-    verbose=true
-    xtrace=true
-
-    if $verbose; then
-        set -v
-    fi
-    if $xtrace; then
-        set -x
-    fi
-}
+#LOGGING
+source ./tools/logging.sh
 set_for_logging
 
 macServiceStart=false
@@ -69,8 +59,3 @@ symlink_dotfiles
 # INSTALL Oh-My-Zsh
 source ./config/functions/install_omz.sh
 install_omz
-
-#?
-# terminal
-# alacritty
-# kitty
