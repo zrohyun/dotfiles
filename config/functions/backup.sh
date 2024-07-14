@@ -11,7 +11,7 @@ backup_file_to_bak() {
 
 backup() {
     # Create backup directory with today's date
-    backup_dir="/tmp/dotfiles.bak/.bak.$(date +%Y%m%d.%H%M%S)"
+    backup_dir="/tmp/dotfiles.bak/.bak.$(date +%Y%m%d.%H%M%S)/"
     mkdir -p "$backup_dir"
 
     # # Create symlink to backup directory in home
