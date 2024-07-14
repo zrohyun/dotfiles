@@ -22,6 +22,12 @@ backup() {
     for file in "${files[@]}"; do
         backup_file_to_bak $HOME/$file "$backup_dir"
     done
+
+    # backup default files
+    files=(.oh-my-zsh .bash_history .zsh_history .zsh_sessions .zcompdump-$HOSTNAME .zcompdump-$HOSTNAME.zwc )
+    for file in "${files[@]}"; do
+        backup_file_to_bak "$HOME/$file" "$backup_dir"
+    done
 }
 
 symlink_dotfiles() {
@@ -39,5 +45,5 @@ symlink_dotfiles() {
     ln -snfbS .bak $DOTFILES/config/git/.gitignore $HOME
 
     ln -snfbS .bak $DOTFILES/config/vim/.ideavimrc $HOME
-    ln -snfbS .bak $DOTFILES/config/vim/.vimrc $HOME
+    # ln -snfbS .bak $DOTFILES/config/vim/.vimrc $HOME
 }
