@@ -11,7 +11,7 @@ curl_install_dotfiles() {
                 echo "backup $dotfiles_dir to ${dotfiles_dir}.bak"
                 mv $dotfiles_dir "${dotfiles_dir}.bak"
             fi
-            git clone  --depth=1 -b main https://github.com/zrohyun/dotfiles.git $dotfiles_dir
+            git clone  --depth=1 -b xdg https://github.com/zrohyun/dotfiles.git $dotfiles_dir
             cd $dotfiles_dir
             source ./install.sh
         else
