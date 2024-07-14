@@ -18,7 +18,7 @@ backup() {
     ln -snfbS .bak /tmp/dotfiles.bak $HOME/.bak
 
     # Move .config, .local, .cache to backup directory
-    files=(.config .local .cache .zshenv .zshrc .bashrc .gitconfig .gitignore)
+    files=(.config .local .cache .zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc)
     for file in "${files[@]}"; do
         backup_file_to_bak $HOME/$file "$backup_dir"
     done
@@ -29,9 +29,15 @@ symlink_dotfiles() {
     ln -snfbS .bak $DOTFILES/config $HOME/.config
     ln -snfbS .bak $DOTFILES/local $HOME/.local
     ln -snfbS .bak $DOTFILES/cache $HOME/.cache
+
     ln -snfbS .bak $DOTFILES/config/zsh/.zshenv $HOME/
     ln -snfbS .bak $DOTFILES/config/zsh/.zshrc $HOME/
+
     ln -snfbS .bak $DOTFILES/config/bash/.bashrc $HOME/
+
     ln -snfbS .bak $DOTFILES/config/git/.gitconfig $HOME
     ln -snfbS .bak $DOTFILES/config/git/.gitignore $HOME
+
+    ln -snfbS .bak $DOTFILES/config/vim/.ideavimrc $HOME
+    ln -snfbS .bak $DOTFILES/config/vim/.vimrc $HOME
 }
