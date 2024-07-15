@@ -157,6 +157,8 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "flux" # 화면 색상 조절
 # cask "Upscalyl" # 사진 해상도 조절(upscaling)
 # cask "cleanmymac" # 유료
+# cask "rewind"
+# cask "steam"
 
 # JETBRAINS
 # cask "goland@2022.3.4"
@@ -229,5 +231,6 @@ mas "RunCat", id: 1429033973
 # mas "Xcode", id: 497799835
 # mas "One Thing", id: 1604176982  
 # mas "Spaced", id: 1666327168  
+# mas "Card Diary", id: 1536247273
 # VSCODE
 # vscode "vscodevim.vim"
