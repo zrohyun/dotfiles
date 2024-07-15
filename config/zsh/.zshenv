@@ -7,3 +7,8 @@ export ZSH_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.config}/zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
     mkdir -p $ZSH_CACHE_DIR
 fi
+
+# nerdfetch
+if command -v nerdfetch &> /dev/null; then
+    nerdfetch
+fi

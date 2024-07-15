@@ -161,3 +161,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # zsh users - add the following line to your ~/.zshrc
 # eval "$(direnv hook zsh)"
+
+# alias overwrite
+load_aliases
