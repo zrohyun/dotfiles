@@ -1,7 +1,7 @@
 #!/bin/bash
-##############################################################################
-########################### zrohyun custom aliases ###########################
-##############################################################################
+######################################################################################
+########################### zrohyun custom aliases(global) ###########################
+######################################################################################
 
 # Unix
 alias ln="ln -v"
@@ -61,6 +61,24 @@ elif [[ $machine == 'Mac' ]]; then
     alias catos=os
 fi
 
-
 # Pretty print the path
 alias hi='tmux new -As main'
+
+load_functions(){
+    # source ${XDG_CONFIG_HOME:-$HOME}/functions/functions.sh
+    # Load all functions from ${XDG_CONFIG_HOME:-$HOME}/functions
+    for file in ${XDG_CONFIG_HOME:-$HOME}/functions/**/*.sh; do
+        if [[ -f $file ]]; then
+            source "$file"
+        fi
+    done 2>/dev/null
+}
+
+load_aliases(){
+    # Load all .alias files from ${XDG_CONFIG_HOME:-$HOME}/aliases
+    for file in ${XDG_CONFIG_HOME:-$HOME}/aliases/**/*.alias; do
+        if [[ -f $file ]]; then
+            source "$file"
+        fi
+    done 2>/dev/null
+}

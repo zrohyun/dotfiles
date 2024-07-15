@@ -19,7 +19,7 @@ export ZSH="${XDG_CONFIG_HOME:-$HOME}/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 export POWERLEVEL9K_CONFIG_FILE="${ZSH_CONFIG_DIR:-$HOME}/.p10k.zsh"
-export HISTFILE=$ZSH_CACHE_DIR/.zsh_history
+export HISTFILE=${XDG_STATE_HOME:-$XDG_CACHE_HOME}/zsh/.zsh_history
 export ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump-$HOST
 export ZDOTDIR=$ZSH_CONFIG_DIR # zsh config dir
 # https://github.com/agkozak/zsh-z
@@ -155,12 +155,12 @@ source $ZSH/oh-my-zsh.sh
 # fi
 
 #nvm
-export NVM_DIR="$HOME/.nvm"
+# export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # zsh users - add the following line to your ~/.zshrc
 # eval "$(direnv hook zsh)"
 
-# alias overwrite
+# load custom aliases(alias overwrite)
 load_aliases
