@@ -9,7 +9,9 @@ fi
 
 # Create and enter directory
 mkcd() {
-    mkdir -vp "$1" && cd "$_"
+    # if ! type mkdir &>/dev/null || ! type mkdir | grep -q "alias"; then
+    # origin mkdir command not alias using '\'
+    \mkdir -vp "$1" && cd "$_"
 }
 
 # workspace
@@ -45,4 +47,4 @@ if [[ $machine == 'Mac' ]]; then
     fi
 fi
 
-alias chssh="cd $HOME/.ssh"
+alias cdssh="cd $HOME/.ssh"
