@@ -9,7 +9,7 @@ setup_linux(){
     install_cli_tools software-properties-common
 
     # INSTALL MUST HAVE TOOLS
-    run_command ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+    exec_with_auto_privilege ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     
     tools=(tzdata curl wget vim tmux trash-cli tldr jq fzf fd-find ripgrep neofetch btop git lsd bsdmainutils)
     install_cli_tools ${tools[@]}

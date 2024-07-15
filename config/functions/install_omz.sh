@@ -5,7 +5,7 @@ install_omz() {
     # omz install and link plugins and themes
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
     if [[ $machine == "Linux" ]]; then
-        run_command chsh -s $(which zsh)
+        exec_with_auto_privilege chsh -s $(which zsh)
     fi
 
     if [[ ! -d ${XDG_CONFIG_HOME:-$HOME}/.oh-my-zsh ]]; then 

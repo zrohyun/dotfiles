@@ -105,4 +105,5 @@ export BASH_CACHE_DIR=$XDG_CACHE_HOME/bash
 if [[ ! -d $BASH_CACHE_DIR ]]; then
     mkdir -p $BASH_CACHE_DIR
 fi
-HISTFILE=$BASH_CACHE_DIR/.bash_history
+export HISTFILE=$BASH_CACHE_DIR/.bash_history
+# export HISTFILE="$XDG_STATE_HOME"/bash/history
