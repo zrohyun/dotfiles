@@ -37,7 +37,4 @@ setup_linux(){
     # exec_with_auto_privilege add-apt-repository -y ppa:maveonair/helix-editor
     # install_cli_tools helix
 
-    #! copy fonts
-    # backup_file_to_bak $HOME/.fonts
-    # echo "ln -s -f $DOTFILES/fonts $HOME/.fonts" &&  ln -s -f $DOTFILES/fonts $HOME/.fonts
 }
