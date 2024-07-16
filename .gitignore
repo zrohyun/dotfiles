@@ -36,6 +36,15 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
 
+
+# custom ignore
 # dotfiles symlink
+log.*
 cache/**/*
 local/share/**/*
+local/state/**/*
+
+# app ignore
+config/raycast/**/*
+config/docker/**/*
+config/thefuck/**/*
