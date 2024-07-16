@@ -45,6 +45,7 @@ local/share/**/*
 local/state/**/*
 
 # app ignore
+config/.oh-my-zsh/**/*
 config/raycast/**/*
 config/docker/**/*
 config/thefuck/**/*
