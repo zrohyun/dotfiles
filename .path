@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# kubectl krew
-if [ -d "${KREW_ROOT:-$HOME/.krew}" ]; then
-    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-fi

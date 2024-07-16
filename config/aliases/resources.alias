@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# TODO: 
+# hosts
+# hardware: sudo lshw -short
+# cpu: cat /proc/cpuinfo
+# ram: cat /proc/meminfo
+# hdd: fdisk -l
+# gpu: nvidia-smi or lspci | grep VGA or sudo lshw -C display or nvtop or nvitop or gpustat

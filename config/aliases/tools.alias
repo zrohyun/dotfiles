@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# vim command
+if command -v vim &> /dev/null; then
+    alias vi=vim
+elif command -v hx &> /dev/null; then
+    alias vi=hx
+# else
+#   echo "'hx', 'vim' command is not installed"
+fi
+
+alias e="$EDITOR"
+alias v="$VISUAL"
+
+if command -v curl &> /dev/null; then
+    # neofetch alternative
+    # from: https://itsfoss.com/neofetch-alternatives/
+    nerdfetch() {
+        curl -fsSL https://raw.githubusercontent.com/ThatOneCalculator/NerdFetch/main/nerdfetch | sh -s -- ${1:--c}
+    }
+    # curl -fsSL https://raw.githubusercontent.com/ThatOneCalculator/NerdFetch/main/nerdfetch | sh
+    # nerdfetch
+    # alias nerdfetch=nerdfetch
+    # alias neofetch=nerdfetch
+fi
+
+# tldr command -> cht
+if command -v tldr &> /dev/null; then
+    alias man='tldr'
+elif command -v cht.sh &>/dev/null; then
+    alias man='cht.sh'
+elif command -v curl &>/dev/null; then
+    function cht() {
+        curl cht.sh/$1 # https://github.com/chubin/cheat.sh
+    }
+    alias man=cht
+# else
+#     echo "'tldr' command is not installed"
+fi
+
+# trash command
+if command -v trash &> /dev/null; then
+    alias rm='trash -v'
+    alias rm-list='trash-list'
+# else
+#   echo "'trash' command is not installed"
+fi 
+
+# trash command
+if command -v btop &> /dev/null; then
+    alias top='btop'
+elif command -v htop &>/dev/null; then
+    alias top='htop'
+# else
+#   echo "'trash' command is not installed"
+fi
+
+# bat
+if command -v batcat &>/dev/null; then
+    alias bat='batcat'
+fi
+# duf
+if command -v duf &>/dev/null; then
+    alias df='duf'
+fi
+# dust
+if command -v dust &>/dev/null; then
+    alias du='dust'
+fi
+
+# exa
+if command -v exa &>/dev/null; then
+    alias ls='exa --icons'
+    alias la='ls -lah'
+elif command -v lsd &>/dev/null; then
+    alias ls='lsd'
+    alias la='lsd -lah'
+    alias ll='lsd -lh'
+fi
+
+# thefuck command
+if command -v thefuck &>/dev/null; then
+    eval $(thefuck --alias)
+# else
+    # echo "'thefuck' command is not installed"
+fi
+
+# fd
+if command -v fdfind &>/dev/null; then
+    alias fd='fdfind -aI'
+    alias find=fd
+fi
+
+
+
+#! alias 등록하려고 했으나 cd했을 때 $HOME으로 안감.
+# 추후 수정하거나 그냥 alias 등록하지 않는 것으로 해야할 듯
+# if command -v z &>/dev/null; then
+#   alias cd=z
+# fi

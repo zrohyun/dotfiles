@@ -1,0 +1,84 @@
+#!/bin/bash
+######################################################################################
+########################### zrohyun custom aliases(global) ###########################
+######################################################################################
+
+# Unix
+alias ln="ln -v"
+alias mkdir="mkdir -vp"
+
+# handy short cuts #
+alias h="history"
+alias j="jobs -l"
+alias c="clear"
+alias now="date"
+alias hg="history|grep"
+alias shell="echo $SHELL"
+
+if [[ -f /etc/hosts ]]; then
+    #TODO: if $UID =0 no sudo
+    host_file=/etc/hosts
+    if [[ $UID == 0 ]]; then
+        alias vihosts="vi $host_file"
+    else
+        alias vihosts="sudo vi $host_file"
+    fi
+    alias hosts="cat $host_file"
+fi
+
+#TODO: https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+#TODO: Refactor with this clause
+# if [ $UID -ne 0 ]; then
+#     alias reboot='sudo reboot'
+#     alias update='sudo apt-get upgrade'
+# fi
+
+_ZSHRC="${XDG_CONFIG_HOME:+$XDG_CONFIG_HOME/zsh/.zshrc}"
+_ZSHRC="${ZSHRC:-$HOME/.zshrc}"
+alias zshrc="vi $_ZSHRC"
+alias vizsh=zshrc
+
+_BASHRC="${XDG_CONFIG_HOME:+$XDG_CONFIG_HOME/bash/.bashrc}"
+_BASHRC="${BASHRC:-$HOME/.bashrc}"
+alias bashrc="vi $HOME/.bashrc"
+alias vibash=bashrc
+
+if [[ $SHELL == *"zsh"* ]]; then
+    alias reload="source $_ZSHRC"
+    alias reomz="omz reload"
+    # zshrc
+    alias sourcezsh=reload
+elif [[ $SHELL == *"bash"* ]] && [[ -e $_BASHRC ]]; then
+    alias reload=". $_BASHRC"
+fi
+
+
+if [[ $machine == 'Linux' ]]; then
+    alias os="uname -a && cat /etc/os-release"
+    alias catos="cat /etc/os-release"
+elif [[ $machine == 'Mac' ]]; then
+    alias os="uname -a && sw_vers && system_profiler SPSoftwareDataType"
+    alias catos=os
+fi
+
+# Pretty print the path
+alias hi='tmux new -As main'
+
+load_functions(){
+    # source ${XDG_CONFIG_HOME:-$HOME}/functions/functions.sh
+    # Load all functions from ${XDG_CONFIG_HOME:-$HOME}/functions
+    for file in ${XDG_CONFIG_HOME:-$HOME}/functions/**/*.sh; do
+        if [[ -f $file ]]; then
+            source "$file"
+        fi
+    done 2>/dev/null
+}
+
+load_aliases(){
+    # Load all .alias files from ${XDG_CONFIG_HOME:-$HOME}/aliases
+    for file in ${XDG_CONFIG_HOME:-$HOME}/aliases/**/*.alias; do
+        if [[ -f $file ]]; then
+            source "$file"
+        fi
+    done 2>/dev/null
+}

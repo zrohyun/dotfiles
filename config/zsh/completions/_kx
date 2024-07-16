@@ -1,0 +1,13 @@
+#compdef kx
+compdef _kx kx
+
+# 자동완성 함수 정의
+_kx() {
+    local -a contexts
+    contexts=($(kubectl config get-contexts -o name 2>/dev/null))
+    
+    _describe 'Kubernetes contexts' contexts
+}
+
+# 자동완성 설정
+compdef _kx kx

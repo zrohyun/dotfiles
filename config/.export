@@ -1,0 +1,93 @@
+#!/bin/bash
+
+export osType="$(uname -s)"
+case "${osType}" in
+    Linux*)     export machine=Linux;;
+    Darwin*)    export machine=Mac;;
+    *)          echo "NOT SUPPORTED:${osType}";exit 1
+esac
+
+set_xdg_base_dir() {
+    echo "pass" &>dev/null;
+    # reference: https://wiki.archlinux.org/title/XDG_Base_Directory
+    # GOlang
+    # export GOPATH="$XDG_DATA_HOME/go"
+    # export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
+
+    # aws
+    # export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
+    # export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+
+    # docker
+    # export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
+    # kubernetes(k8s)
+    # export KUBECONFIG="$XDG_CONFIG_HOME/kube" 
+    # export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
+
+    # k9s
+    # export K9SCONFIG="$XDG_CONFIG_HOME/k9s"
+
+    # minikube
+    # export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
+
+    # asdf
+    # export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
+    # export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
+
+    # nvm
+    # export NVM_DIR="${XDG_DATA_HOME:-$HOME}/nvm"
+}
+
+# global environment variable
+if command -v fzf &>/dev/null; then
+    export FZF_BASE=$(which fzf)
+fi
+
+if command -v vim &>/dev/null; then
+    export EDITOR=vim
+    export VISUAL=vim
+elif command -v hx &>/dev/null; then
+    export EDITOR=hx
+    export VISUAL=hx
+elif command -v vi &>/dev/null; then
+    export EDITOR=vi
+    export VISUAL=vi
+elif command -v nano &>/dev/null; then
+    export EDITOR=nano
+    export VISUAL=nano
+elif command -v emacs &>/dev/null; then
+    export EDITOR=emacs
+    export VISUAL=emacs
+fi
+
+# KUBERNETES(K8S)/CKA/CKAD/CKS
+if command -v kubectl &>/dev/null; then
+    export oy='-oyaml'
+    export dry="--dry-run=client $oy"       # k create deploy nginx --image=nginx $do
+    export now="--force --grace-period 0"   # k delete pod x $now
+    
+    #! 이렇게 다량의 cluster config를 KUBECONFIG로 추가하면 extension에 부담이 될 수가 있다.
+    #TODO: 자주 사용하는 것은 config로 기본 설정으로 하고
+    # 다른 shell을 이용해 매번 단일 config를 load하고 마지막 load한 config를 기억하는 방식으로 하는 것이
+    # 혹시 탐색되는 cluster가 너무 많을 때 extension에 가해지는 부담을 줄일 수도 있을 것 같다.
+    set_kubeconfig(){
+        export KUBE_DIR=${1:-"$HOME/.kube"}
+        if [[ ! -d $KUBE_DIR ]]; then
+            # echo "KUBE_DIR($KUBE_DIR) is not exist."
+            export KUBECONFIG=""
+            return 0
+        fi
+        
+        alias kube="cd $KUBE_DIR" #'cd $KUBE_DIR && ls -al && cd -'
+        alias cdkube=kube #'cd $KUBE_DIR && ls -al && cd -'
+        
+        # 파일 목록 가져오기
+        # export KUBECONFIG=$(find ~/.kube -type f | tr '\n' ':')
+        files=($(find "$KUBE_DIR" -maxdepth 1 -type f -name "*config*"))
+        # 파일들을 ':'로 연결하여 KUBECONFIG 변수에 할당
+        export KUBECONFIG=$(IFS=:; echo "${files[*]}")
+    }; 
+    set_kubeconfig;
+    # unset -f set_kubeconfig;
+fi

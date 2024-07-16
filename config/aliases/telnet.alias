@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# nc, telnet
+if command -v nc &>/dev/null; then
+    alias nc='echo -ne "99||\x00" | nc -v'
+    alias telnet=nc
+    #?
+    # alias conn=nc
+    # alias acl=nc
+elif command -v telnet &>/dev/null; then
+    conn() {
+        # Usage Example
+        # $ conn localhost 80
+        echo "Connecting with telnet"
+        echo -e "^]" | telnet $1 $2
+    }
+    alias nc=conn
+    alias telnet=nc
+elif command -v $(which bash) &>/dev/null; then
+    conn() {
+        verbose=0
+        while getopts ":v" opt; do
+            case ${opt} in
+                v )
+                    verbose=1
+                    ;;
+                \? )
+                    echo "Invalid option: $OPTARG" 1>&2
+                    return 1
+                    ;;
+            esac
+        done
+        shift $((OPTIND -1))
+
+        host=$1
+        port=$2
+
+        if [ $verbose -eq 1 ]; then
+            echo "Verbose mode on"
+            echo "Connecting to $host on port $port"
+        fi
+
+        if [ $# -lt 2 ]; then
+            echo "Usage: nc [-v verbose] [host] [port]"
+            return 1
+        fi
+        echo "$(which bash) -c echo > '/dev/tcp/$host/$port' 2>/dev/null"
+        $(which bash) -c "echo > /dev/tcp/$host/$port" 2>/dev/null
+        if [ $? -eq 0 ]; then
+            echo "Connection to $host port $port succeeded!"
+        else
+            echo "Connection to $host port $port failed!"
+        fi
+    }
+    alias nc=conn
+    alias telnet=nc
+elif command -v curl &>/dev/null; then
+    conn() {
+        verbose=0
+        while getopts ":v" opt; do
+            case ${opt} in
+                v )
+                    verbose=1
+                    ;;
+                \? )
+                    echo "Invalid option: $OPTARG" 1>&2
+                    return 1
+                    ;;
+            esac
+        done
+        shift $((OPTIND -1))
+
+        host=$1
+        port=$2
+
+        if [ $# -lt 2 ]; then
+            echo "Usage: nc [-v verbose] [host] [port]"
+            return 1
+        fi
+
+        if [ $verbose -eq 1 ]; then
+            echo "Verbose mode on"
+            echo "Connecting to $host on port $port"
+            curl -v telnet://$host:$port
+        else
+            curl telnet://$host:$port
+        fi 
+    }
+    alias nc=conn
+    alias telnet=nc
+fi
