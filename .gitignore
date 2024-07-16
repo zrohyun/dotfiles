@@ -39,7 +39,7 @@ Temporary Items
 
 # custom ignore
 # dotfiles symlink
-log.*
+*log.*
 cache/**/*
 local/share/**/*
 local/state/**/*
