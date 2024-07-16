@@ -7,34 +7,37 @@ case "${osType}" in
     *)          echo "NOT SUPPORTED:${osType}";exit 1
 esac
 
-# reference: https://wiki.archlinux.org/title/XDG_Base_Directory
-# GOlang
-export GOPATH="$XDG_DATA_HOME"/go
-export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
+set_xdg_base_dir() {
+    echo "pass" &>dev/null;
+    # reference: https://wiki.archlinux.org/title/XDG_Base_Directory
+    # GOlang
+    # export GOPATH="$XDG_DATA_HOME/go"
+    # export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 
-# aws
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+    # aws
+    # export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
+    # export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 
-# docker
-export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+    # docker
+    # export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
-# kubernetes(k8s)
-# export KUBECONFIG="$XDG_CONFIG_HOME/kube" 
-# export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
+    # kubernetes(k8s)
+    # export KUBECONFIG="$XDG_CONFIG_HOME/kube" 
+    # export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
 
-# k9s
-export K9SCONFIG="$XDG_CONFIG_HOME"/k9s
+    # k9s
+    # export K9SCONFIG="$XDG_CONFIG_HOME/k9s"
 
-# minikube
-export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
+    # minikube
+    # export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
 
-# asdf
-export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
-export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
+    # asdf
+    # export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
+    # export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 
-# nvm
-export NVM_DIR="$XDG_DATA_HOME:-$HOME"/nvm
+    # nvm
+    # export NVM_DIR="${XDG_DATA_HOME:-$HOME}/nvm"
+}
 
 # global environment variable
 if command -v fzf &>/dev/null; then

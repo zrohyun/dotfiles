@@ -19,9 +19,9 @@ export ZSH="${XDG_CONFIG_HOME:-$HOME}/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 export POWERLEVEL9K_CONFIG_FILE="${ZSH_CONFIG_DIR:-$HOME}/.p10k.zsh"
-export HISTFILE=${XDG_STATE_HOME:-$XDG_CACHE_HOME}/zsh/.zsh_history
-export ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump-$HOST
 export ZDOTDIR=$ZSH_CONFIG_DIR # zsh config dir
+export HISTFILE=${ZSH_STATE_DIR}/.zsh_history
+export ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump-$HOST
 # https://github.com/agkozak/zsh-z
 export ZSHZ_DATA=${ZSH_CACHE_DIR:-$HOME}/.z
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
