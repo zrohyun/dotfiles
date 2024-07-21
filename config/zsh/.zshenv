@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#             _                     
+#            | |                    
+#     _______| |__   ___ _ ____   __
+#    |_  / __| '_ \ / _ \ '_ \ \ / /
+#   _ / /\__ \ | | |  __/ | | \ V / 
+#  (_)___|___/_| |_|\___|_| |_|\_/  
+
 [[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/.env
 
 export ZSH_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/zsh

@@ -1,4 +1,10 @@
 ###########################################################################################
+# _                        __ _ _      
+# | |                      / _(_) |     
+# | |__  _ __ _____      _| |_ _| | ___ 
+# | '_ \| '__/ _ \ \ /\ / /  _| | |/ _ \
+# | |_) | | |  __/\ V  V /| | | | |  __/
+# |_.__/|_|  \___| \_/\_/ |_| |_|_|\___|
 # BREWFILE
 ## Mac 초기 세팅 할때 xcode-select 사용 or Homebrew 사용
 #1. xcode-select
@@ -139,6 +145,8 @@ cask "logi-options-plus"
 # cask "remote-desktop-manager"
 cask "shottr" # 구매하지 않으면 앱 시작시 팝업이 뜨지만 무료라 참는다.
 # cask "termius"
+cask "cakebrew"
+cask "cakebrewjs"
 cask "devtoys"
 cask "maccy"
 cask "cheatsheet"

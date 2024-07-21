@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#   _           _        _ _       _     
+#  (_)         | |      | | |     | |    
+#   _ _ __  ___| |_ __ _| | |  ___| |__  
+#  | | '_ \/ __| __/ _` | | | / __| '_ \ 
+#  | | | | \__ \ || (_| | | |_\__ \ | | |
+#  |_|_| |_|___/\__\__,_|_|_(_)___/_| |_|
+
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/main/install.sh)
 curl_install_dotfiles() {
     if ! command -v git &>/dev/null; then
