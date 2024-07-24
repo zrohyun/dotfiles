@@ -68,6 +68,14 @@ elif [[ $machine == 'Mac' ]]; then
     alias catos=os
 fi
 
+
+# Install
+# if [[ $machine == 'Linux' ]]; then
+#     alias install="apt install"
+# elif [[ $machine == 'Mac' ]]; then
+#     alias install="brew install"
+# fi
+
 # Pretty print the path
 alias hi='tmux new -As main'
 
