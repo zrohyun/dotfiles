@@ -104,7 +104,7 @@ plugins=(
     macos
     z
     asdf
-    ripgrep
+    # ripgrep
     colorize 
     docker 
     kubectl

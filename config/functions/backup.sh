@@ -32,8 +32,20 @@ backup() {
 
 symlink_dotfiles() {
     # Create symlinks for .config, .local, .cache
-    ln -snfbS .bak $DOTFILES/config $HOME/.config
+    # TODO: 기존에 .config .local .cache에 있던 파일 처리 및 backup directory 코드 분리
+    if [[ -d "$HOME/.config" && ! -L "$HOME/.config" ]]; then
+        mv "$HOME/.config" "$HOME/.config.origin.bak"
+    fi
+    ln -snfbS "$DOTFILES/config" "$HOME/.config"
+    
+    if [[ -d "$HOME/.local" && ! -L "$HOME/.local" ]]; then
+        mv "$HOME/.local" "$HOME/.local.origin.bak"
+    fi
     ln -snfbS .bak $DOTFILES/local $HOME/.local
+
+    if [[ -d "$HOME/.cache" && ! -L "$HOME/.cache" ]]; then
+        mv "$HOME/.cache" "$HOME/.cache.origin.bak"
+    fi
     ln -snfbS .bak $DOTFILES/cache $HOME/.cache
 
     ln -snfbS .bak $DOTFILES/config/zsh/.zshenv $HOME/
