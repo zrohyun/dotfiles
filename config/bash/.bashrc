@@ -100,6 +100,7 @@ fi
 # bash users - add the following line to your ~/.bashrc
 # eval "$(direnv hook bash)"
 [[ -f ${XDG_CONFIG_HOME:-$HOME}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME}/.env
+[[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/.env
 
 export BASH_CACHE_DIR=$XDG_CACHE_HOME/bash
 if [[ ! -d $BASH_CACHE_DIR ]]; then
