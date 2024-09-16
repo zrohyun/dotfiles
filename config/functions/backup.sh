@@ -53,10 +53,14 @@ symlink_dotfiles() {
     # backup_and_symlink "$DOTFILES/local" "$HOME/.local" "$backup_suffix"
     # backup_and_symlink "$DOTFILES/cache" "$HOME/.cache" "$backup_suffix"
 
-    configs=(zsh bash git helix tmux vim)
+    app_dirs=(zsh bash git helix tmux vim aliases functions)
+    for app in "${app_dirs[@]}"; do
+        backup_and_symlink "$DOTFILES/config/$app" "$HOME/.config/" "$backup_suffix"
+    done
 
-    for config in "${configs[@]}"; do
-        backup_and_symlink "$DOTFILES/config/$config" "$HOME/.config/" "$backup_suffix"
+    dot_configs=(zsh bash git helix tmux vim aliases functions)
+    for configs in "${dot_configs[@]}"; do
+        backup_and_symlink "$DOTFILES/config/$configs" "$HOME/.config/" "$backup_suffix"
     done
 
     backup_and_symlink "$DOTFILES/config/zsh/.zshenv" "$HOME/.zshenv" "$backup_suffix"
