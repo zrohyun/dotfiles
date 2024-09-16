@@ -37,6 +37,19 @@ curl_install_dotfiles
 # PWD
 DOTFILES=$PWD
 
+#TODO: backup 로직에 합치기
+# if [[ "$DOTFILES" != "$HOME/.dotfiles" ]]; then
+#     backup_and_symlink "$DOTFILES" "$HOME/.dotfiles"
+# fi
+if [[ "$DOTFILES" != "$HOME/.dotfiles" ]]; then
+    if [[ -d "$HOME/.dotfiles" ]]; then
+        echo "backup $HOME/.dotfiles to $HOME/.dotfiles.bak"
+        mv "$HOME/.dotfiles" "$HOME/.dotfiles.bak"
+    fi
+    ln -sfn "$DOTFILES" "$HOME/.dotfiles"
+    DOTFILES="$HOME/.dotfiles"
+fi
+
 #LOGGING
 source ./tools/logging.sh
 set_for_logging
@@ -59,6 +72,7 @@ fi
 source ./config/functions/backup.sh
 backup # backup dotfiles to /tmp/dotfiles.bak
 symlink_dotfiles
+
 
 # INSTALL Oh-My-Zsh
 source ./config/functions/install_omz.sh
