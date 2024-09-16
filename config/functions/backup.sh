@@ -58,7 +58,7 @@ symlink_dotfiles() {
         backup_and_symlink "$DOTFILES/config/$app" "$HOME/.config/" "$backup_suffix"
     done
 
-    dot_configs=(zsh bash git helix tmux vim aliases functions)
+    dot_configs=(.aliases .env .export .path)
     for configs in "${dot_configs[@]}"; do
         backup_and_symlink "$DOTFILES/config/$configs" "$HOME/.config/" "$backup_suffix"
     done
