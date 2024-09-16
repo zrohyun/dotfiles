@@ -17,7 +17,7 @@ curl_install_dotfiles() {
     # 현재 디렉토리가 git 프로젝트인지 확인
     if git rev-parse --is-inside-work-tree &>/dev/null; then
         remote_url=$(git config --get remote.origin.url)
-        if [[ "$remote_url" == "https://github.com/zrohyun/dotfiles.git" ]]; then
+        if [[ "$remote_url" == "https://github.com/zrohyun/dotfiles" ]]; then
             return 0
         fi
     fi
@@ -27,7 +27,7 @@ curl_install_dotfiles() {
         echo "backup $dotfiles_dir to ${dotfiles_dir}.bak"
         mv $dotfiles_dir "${dotfiles_dir}.bak"
     fi
-    git clone  --depth=1 -b xdg https://github.com/zrohyun/dotfiles.git $dotfiles_dir
+    git clone  --depth=1 -b main https://github.com/zrohyun/dotfiles.git $dotfiles_dir
     cd $dotfiles_dir
     source ./install.sh
     exit 0
