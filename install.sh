@@ -22,7 +22,7 @@ curl_install_dotfiles() {
         fi
     fi
 
-    dotfiles_dir="$HOME/.dotfiles"
+    dotfiles_dir="$HOME/.dotfiles" # $HOME/dotfiles
     if [[ -d $dotfiles_dir ]]; then
         echo "backup $dotfiles_dir to ${dotfiles_dir}.bak"
         mv $dotfiles_dir "${dotfiles_dir}.bak"

@@ -18,7 +18,8 @@ backup() {
     ln -snfbS .bak /tmp/dotfiles.bak $HOME/.bak
 
     # Move .config, .local, .cache to backup directory
-    files=(.config .local .cache .zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc)
+    # files=(.config .local .cache .zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc)
+    files=(.zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc)
     for file in "${files[@]}"; do
         backup_file_to_bak $HOME/$file "$backup_dir"
     done
@@ -30,7 +31,53 @@ backup() {
     done
 }
 
+backup_and_symlink() {
+    local src=$1
+    local dest=$2
+    local backup_suffix=${3:-"~"}
+
+    # Check if the destination exists and is not a symlink
+    if [[ -e "$dest" && ! -L "$dest" ]]; then
+        mv "$dest" "$dest$backup_suffix"
+    fi
+
+    # Create the symlink
+    ln -snf "$src" "$dest"
+}
+
 symlink_dotfiles() {
+    local backup_suffix=".bak"
+
+    # Create symlinks for .config, .local, .cache
+    # backup_and_symlink "$DOTFILES/config" "$HOME/.config" "$backup_suffix"
+    # backup_and_symlink "$DOTFILES/local" "$HOME/.local" "$backup_suffix"
+    # backup_and_symlink "$DOTFILES/cache" "$HOME/.cache" "$backup_suffix"
+
+    configs=(zsh bash git helix tmux vim)
+
+    for config in "${configs[@]}"; do
+        backup_and_symlink "$DOTFILES/config/$config" "$HOME/.config/" "$backup_suffix"
+    done
+
+    backup_and_symlink "$DOTFILES/config/zsh/.zshenv" "$HOME/.zshenv" "$backup_suffix"
+    backup_and_symlink "$DOTFILES/config/zsh/.zshrc" "$HOME/.zshrc" "$backup_suffix"
+
+    backup_and_symlink "$DOTFILES/config/bash/.bashrc" "$HOME/.bashrc" "$backup_suffix"
+
+    backup_and_symlink "$DOTFILES/config/git/.gitconfig" "$HOME/.gitconfig" "$backup_suffix"
+    backup_and_symlink "$DOTFILES/config/git/.gitignore" "$HOME/.gitignore" "$backup_suffix"
+
+    # Uncomment if needed
+    # backup_and_symlink "$DOTFILES/config/ideavim/.ideavimrc" "$HOME/.ideavimrc" "$backup_suffix"
+    # backup_and_symlink "$DOTFILES/config/vim/.vimrc" "$HOME/.vimrc" "$backup_suffix"
+
+    # 폴더 모니터링 용 symlink
+    backup_and_symlink "$HOME/.config" "$DOTFILES/monitoring/config"
+    backup_and_symlink "$HOME/.local" "$DOTFILES/monitoring/local"
+    backup_and_symlink "$HOME/.cache" "$DOTFILES/monitoring/cache"
+}
+
+symlink_dotfiles_v1() {
     # Create symlinks for .config, .local, .cache
     # TODO: 기존에 .config .local .cache에 있던 파일 처리 및 backup directory 코드 분리
     if [[ -d "$HOME/.config" && ! -L "$HOME/.config" ]]; then
