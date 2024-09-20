@@ -34,9 +34,10 @@ brew "httpie"
 brew "asdf"
 brew "code-server" #, restart_service: true
 brew "docker"
-brew "devpod"
 brew "docker-compose"
 brew "colima" #, restart_service: true
+# brew "devpod"
+# brew "orbstack"
 brew "tmux"
 brew "tree"
 brew "telnet"
