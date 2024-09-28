@@ -36,8 +36,10 @@ brew "code-server" #, restart_service: true
 brew "docker"
 brew "docker-compose"
 brew "colima" #, restart_service: true
+# brew "gh"
 # brew "devpod"
 # brew "orbstack"
+# curl -fsSL https://get.jetify.com/devbox | bash
 brew "tmux"
 brew "tree"
 brew "telnet"
@@ -52,6 +54,7 @@ brew "fd"
 brew "fzf"
 brew "jq"
 brew "fx"
+brew "sshs"
 # brew newman
 # brew "otree"
 # brew "noahgorstein/tap/jqp"
@@ -105,6 +108,7 @@ brew "nvm"
 # brew "koekeishiya/formulae/skhd"
 
 # ANALYSIS or Hacking
+brew "termshark"
 # brew "tcpdump"
 # brew "nmap"
 # brew "httpflow"
@@ -129,6 +133,7 @@ cask "visual-studio-code"
 # cask "appcleaner" # raycast 기능으로 대체 가능
 # cask "chatgpt"
 # cask "arc" # mobile과의 연동성 + multi device 사용시 열려있던 tab이 갑자기 모두 닫히는 이유 + 업데이트 이후 급 성능이슈 일단 사용중지
+# cask "zen-browser"
 cask "google-chrome"
 # cask "brave-browser" # 사내 내규상 사용불가
 cask "microsoft-edge"

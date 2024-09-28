@@ -111,6 +111,7 @@ plugins=(
     docker-compose
     ubuntu
     command-not-found
+    gh
     # common-aliases # command not found: pygmentize 에러 발생 
     # autoenv
     # dotenv

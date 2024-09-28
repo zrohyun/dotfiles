@@ -12,6 +12,8 @@ setup_linux(){
     exec_with_auto_privilege ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     
     tools=(tzdata curl wget vim tmux trash-cli tldr jq fzf fd-find ripgrep neofetch btop git lsd bsdmainutils)
+    # additional tools
+    # tools+=(termshark sshs gh)
     install_cli_tools ${tools[@]}
 
     # LSP
@@ -37,4 +39,6 @@ setup_linux(){
     # exec_with_auto_privilege add-apt-repository -y ppa:maveonair/helix-editor
     # install_cli_tools helix
 
+    # INSTALL DEVBOX
+    # curl -fsSL https://get.jetify.com/devbox | bash
 }
