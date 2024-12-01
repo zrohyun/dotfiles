@@ -11,7 +11,8 @@ setup_linux(){
     # INSTALL MUST HAVE TOOLS
     exec_with_auto_privilege ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     
-    tools=(tzdata curl wget vim tmux trash-cli tldr jq fzf fd-find ripgrep neofetch btop git lsd bsdmainutils)
+
+    tools=(tzdata curl wget vim tmux trash-cli tldr jq fd-find ripgrep neofetch btop git lsd bsdmainutils)
     # additional tools
     # tools+=(termshark sshs gh)
     install_cli_tools ${tools[@]}
@@ -24,6 +25,13 @@ setup_linux(){
     # ZSH
     install_cli_tools zsh
     echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+
+    # FZF
+    # NOTE: apt install로 하지 않음 (fzf-에러,git install)
+    # TODO: fzf 다운로드 위치에 대해 고민해보기
+    git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+    $HOME/.fzf/install
+    .fzf/install --key-bindings --completion --all
 
     # INSTALL NEOVIM
     # TODO: (2024.07 기준 neovim v0.9 확인 - lazyvim 사용 가능) ~~apt-get은 nvim 버전이 낮아서 lazyvim을 쓸 수가 없음.~~

@@ -7,6 +7,7 @@
 #  | | | | \__ \ || (_| | | |_\__ \ | | |
 #  |_|_| |_|___/\__\__,_|_|_(_)___/_| |_|
 
+# TODO: 한번 예외처리 로깅 정리하기
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/main/install.sh)
 curl_install_dotfiles() {
     if ! command -v git &>/dev/null; then

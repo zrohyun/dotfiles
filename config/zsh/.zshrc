@@ -118,10 +118,16 @@ plugins=(
     # direnv
     # composer 
     # fasd
-    fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
+    # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
     # TODO: tmux-plugin?, oh-my-tmux?
     # tmux #! plugin 에러 발생  
 )
+
+if command -v fzf &>/dev/null; then
+    plugins+=(fzf)
+# else
+    # echo "fzf command not found. Skipping fzf plugin."
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -172,3 +178,5 @@ source $ZSH/oh-my-zsh.sh
 
 # load custom aliases(alias overwrite)
 load_aliases
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

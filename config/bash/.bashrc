@@ -108,3 +108,5 @@ if [[ ! -d $BASH_CACHE_DIR ]]; then
 fi
 export HISTFILE=$BASH_CACHE_DIR/.bash_history
 # export HISTFILE="$XDG_STATE_HOME"/bash/history
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
