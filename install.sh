@@ -17,7 +17,8 @@ curl_install_dotfiles() {
     # 현재 디렉토리가 git 프로젝트인지 확인
     if git rev-parse --is-inside-work-tree &>/dev/null; then
         remote_url=$(git config --get remote.origin.url)
-        if [[ "$remote_url" == "https://github.com/zrohyun/dotfiles" ]]; then
+        if [[ "$remote_url" == "https://github.com/zrohyun/dotfiles.git" ]]; then
+            echo "Already in dotfiles directory"
             return 0
         fi
     fi
