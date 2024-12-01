@@ -118,7 +118,7 @@ plugins=(
     # direnv
     # composer 
     # fasd
-    # fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
+    fzf # linux fzf 에러발생중 임시 주석 #fzf_setup_using_debian:source:40: no such file or directory: /usr/share/doc/fzf/examples/key-bindings.zsh
     # TODO: tmux-plugin?, oh-my-tmux?
     # tmux #! plugin 에러 발생  
 )

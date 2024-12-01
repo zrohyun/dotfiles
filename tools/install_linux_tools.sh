@@ -104,11 +104,14 @@ install_docker() {
     # https://docs.docker.com/engine/install/ubuntu/
     # TODO: automation docker install 
     # -> when creating workstation instance dynamically
+    return
 }
+
 intall_minikube() {
     # from
     # https://minikube.sigs.k8s.io/docs/start/
     # TODO: minikube install automation
+    return
 }
 install_krew() {
     # FROM

@@ -35,6 +35,7 @@ brew "asdf"
 brew "code-server" #, restart_service: true
 brew "docker"
 brew "docker-compose"
+# brew "devcontainer"
 brew "colima" #, restart_service: true
 # brew "gh"
 # brew "devpod"
@@ -62,6 +63,7 @@ brew "sshs"
 # brew "tabiew" # Should build binary => https://github.com/shshemi/tabiew
 brew "helix"
 brew "bash" # mac default bash(/bin/bash)는 버전이 낮음. symlink도 걸어줘야하나..
+# brew "nushell"
 # brew "direnv"
 # brew "kubectl"
 brew "duf"
@@ -159,6 +161,8 @@ cask "maccy"
 cask "cheatsheet"
 cask "dropzone"
 cask "obsidian"
+# cask "reflect"
+# "reor" # no brew app
 cask "contexts"
 cask "deepl"
 cask "zed"
