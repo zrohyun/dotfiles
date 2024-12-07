@@ -1,8 +1,13 @@
 [
   "obsidian-excalidraw-plugin",
-  "table-editor-obsidian",
-  "dataview",
   "obsidian-auto-link-title",
   "omnisearch",
-  "obsidian-vimrc-support"
+  "obsidian-vimrc-support",
+  "obsidian-kanban",
+  "chronology",
+  "floating-toc",
+  "markdown-table-editor",
+  "editor-width-slider",
+  "another-sticky-headings",
+  "surfing"
 ]

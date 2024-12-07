@@ -1,3 +1,4 @@
 {
-  "folder": "ncsoft/daily"
+  "folder": "ncsoft/daily",
+  "format": "YYYY-MM-DD"
 }

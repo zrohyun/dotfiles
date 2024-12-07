@@ -1,0 +1,52 @@
+.view-content {
+  position: relative;
+}
+.sticky-headings-root {
+  height: fit-content;
+  /* transition: height 0.05s linear; */
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.sticky-headings-container {
+	font-size: 12px;
+	max-width: var(--file-line-width);
+	margin: 0 auto;
+	padding-left: 32px;
+}
+.sticky-headings-item {
+	line-height: 18px;
+	display: flex;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 18px;
+	cursor: var(--cursor-link);
+}
+.sticky-headings-item:last-of-type {
+	padding-bottom: 10px;
+  height: 28px;
+}
+.sticky-headings-item svg {
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	color: var(--link-color);
+}
+.sticky-headings-level-2 {
+	padding-left: 1em;
+}
+.sticky-headings-level-3 {
+	padding-left: 2em;
+}
+.sticky-headings-level-4 {
+	padding-left: 3em;
+}
+.sticky-headings-level-5 {
+	padding-left: 4em;
+}
+.sticky-headings-level-6 {
+	padding-left: 5em;
+}

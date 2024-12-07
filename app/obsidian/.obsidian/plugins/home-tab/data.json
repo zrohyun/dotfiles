@@ -1,0 +1,54 @@
+{
+  "logoType": "default",
+  "logo": {
+    "lucideIcon": "",
+    "imagePath": "",
+    "imageLink": ""
+  },
+  "logoScale": 1.2,
+  "iconColorType": "default",
+  "wordmark": "Obsidian",
+  "customFont": "interfaceFont",
+  "fontSize": "4em",
+  "fontColorType": "default",
+  "fontWeight": 600,
+  "maxResults": 5,
+  "showbookmarkedFiles": true,
+  "showRecentFiles": false,
+  "maxRecentFiles": 5,
+  "storeRecentFile": true,
+  "showPath": true,
+  "selectionHighlight": "default",
+  "showShortcuts": true,
+  "markdownOnly": false,
+  "unresolvedLinks": false,
+  "recentFilesStore": [
+    {
+      "filepath": "Vault/Dev/Math&ML&DL/ML/Reinforce Learning/GPT & Prompt.md",
+      "timestamp": 1721833939617
+    },
+    {
+      "filepath": "Vault/Books/List.md",
+      "timestamp": 1721833911392
+    },
+    {
+      "filepath": "Vault/Infra/OS/Applications.md",
+      "timestamp": 1721833887894
+    },
+    {
+      "filepath": "Vault/Dev/Tools/Obsidian.md",
+      "timestamp": 1721833800769
+    },
+    {
+      "filepath": "Vault/zArchive(Bear)/Developer blog(개발자 블로그).md",
+      "timestamp": 1721833767421
+    }
+  ],
+  "bookmarkedFileStore": [],
+  "searchDelay": 0,
+  "replaceNewTabs": true,
+  "newTabOnStart": true,
+  "closePreviousSessionTabs": false,
+  "omnisearch": false,
+  "showOmnisearchExcerpt": true
+}

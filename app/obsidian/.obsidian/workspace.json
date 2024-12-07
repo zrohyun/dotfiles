@@ -4,93 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "63b7e4b6156be935",
+        "id": "e048e07ff9285b2a",
         "type": "tabs",
         "children": [
           {
-            "id": "19ba573da83c8470",
+            "id": "791c1cfbcc0d8ecd",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "daily/2023-12-19.md",
+                "file": "Vault/Dev/Library/아몰랑/아몰랑웹/아몰랑프론트/프론트(frontend).md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "프론트(frontend)"
             }
           },
           {
-            "id": "34a5f1b7359824be",
+            "id": "51225fc0552b7799",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Vault/zArchive(Bear)/시스템 트레이딩.md",
+                "file": "Vault/Dev/TODO.md",
                 "mode": "source",
                 "source": false
-              }
-            }
-          },
-          {
-            "id": "dba268123dbd9ef0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Vault/Books/k8s101.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "63cf2c8f8cb41eba",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ncsoft/daily/2024-03-29.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "3c64da3e287d6987",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Vault/Study/Certificate/Certified Kubernetes(CKA, CKAD, CKS).md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "3842d6a1b6f77203",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "Untitled Diagram.svg"
-              }
-            }
-          },
-          {
-            "id": "aba8546d098e5888",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Vault/Dev/Language/Language 101 Basic.md",
-                "mode": "source",
-                "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "TODO"
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -110,7 +56,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -122,10 +70,12 @@
                 "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
-                "collapseAll": true,
+                "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -133,16 +83,16 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 343.50124740600586,
-    "collapsed": true
+    "width": 426.50418853759766
   },
   "right": {
     "id": "e2bd6219cb3c6f4f",
@@ -158,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Vault/Dev/Language/Language 101 Basic.md",
+                "file": "Bedrock AWS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -166,7 +116,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Bedrock AWS"
             }
           },
           {
@@ -175,10 +127,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Vault/Dev/Language/Language 101 Basic.md",
+                "file": "Bedrock AWS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Bedrock AWS"
             }
           },
           {
@@ -189,7 +143,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -198,8 +154,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Vault/Dev/Language/Language 101 Basic.md"
-              }
+                "file": "Bedrock AWS.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Bedrock AWS"
             }
           },
           {
@@ -211,7 +169,9 @@
                 "sortOrder": "frequency",
                 "showSearch": false,
                 "searchQuery": ""
-              }
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
             }
           },
           {
@@ -219,81 +179,150 @@
             "type": "leaf",
             "state": {
               "type": "advanced-tables-toolbar",
-              "state": {}
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          },
+          {
+            "id": "5c44042f9318e621",
+            "type": "leaf",
+            "state": {
+              "type": "chronology-calendar-view",
+              "state": {},
+              "icon": "clock",
+              "title": "Chronology"
+            }
+          },
+          {
+            "id": "54c7c7c52e4fe9f4",
+            "type": "leaf",
+            "state": {
+              "type": "liked-video-list",
+              "state": {
+                "videos": []
+              },
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          },
+          {
+            "id": "68a414f21c72b05f",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-view",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          },
+          {
+            "id": "9ddd9fc9ff6703d7",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-chat-view",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          },
+          {
+            "id": "2fddaa5d5da95543",
+            "type": "leaf",
+            "state": {
+              "type": "copilot-chat-view",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          },
+          {
+            "id": "e1f5acbbf7b8fd66",
+            "type": "leaf",
+            "state": {
+              "type": "chat-view",
+              "state": {
+                "file": "Chats/New Chat.md"
+              },
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 533.5,
     "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
-      "omnisearch:Omnisearch": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "obsidian-kanban:Create new board": false,
+      "omnisearch:Omnisearch": false,
+      "chronology:Open Chronology": false,
+      "markdown-table-editor:Open Markdown Table Editor": false
     }
   },
-  "active": "aba8546d098e5888",
+  "active": "51225fc0552b7799",
   "lastOpenFiles": [
-    "Untitled Diagram.svg",
-    "Vault/Dev/Language/Language 101 Basic.md",
-    "kakao 단톡방 공지.md",
-    "ncsoft/daily/2024-05-17.md",
-    "Vault/Study/Certificate/Untitled.md",
-    "Vault/Study/Certificate/Certified Kubernetes(CKA, CKAD, CKS).md",
-    "Excalidraw/varco_mt_controller.drawio",
-    "자주 사용하는.md",
-    "Vault/Books/k8s101.md",
-    "daily/2023-12-19.md",
-    "Vault/Books/k8s tips.md",
-    "Vault/Infra/Skills/Container/K8S Tips.md",
-    "ncsoft/daily/2024-03-19.md",
-    "ncsoft/chatgpt/2024-2-21/0-40-58-______________.md",
-    "Vault/Books/24단계 실습으로 정복하는 쿠버네티스.md",
-    "Vault/Infra/Skills/Container/container.md",
-    "container.md",
-    "TODO-zrohyun-MD8EE.md",
-    "Vault/Study/Certificate/attachments/Pasted image 20240511182705.png",
-    "ncsoft/daily/2024-05-09.md",
-    "ncsoft/daily/2024-05-11.md",
-    "container handson.md",
-    "Excalidraw/zrohyun_배포파이프라인(deploypipeline).drawio.crswap",
-    "Excalidraw/zrohyun_배포파이프라인(deploypipeline).drawio",
-    "Excalidraw/studioplatform배포1.drawio",
-    "Excalidraw/Untitled-2023-10-30-0135.excalidraw",
-    "Excalidraw/attachments/test_2.svg",
-    "Excalidraw/attachments/test_1.svg",
-    "Excalidraw/attachments/test_0.svg",
-    "ncsoft/daily/2024-03-29.md",
-    "Excalidraw/attachments/test.svg",
-    "Excalidraw/Scripts/Downloaded/Create DrawIO file.svg",
-    "Excalidraw/Scripts/Downloaded/Create DrawIO file.md",
-    "Excalidraw/studioplatform배포.drawio.html",
-    "Excalidraw/제목 없음-2024-01-25-0052.excalidraw",
-    "Excalidraw/my backup and sync system for my future home lab.excalidraw.md",
-    "Excalidraw/k8s_addon.excalidraw.md",
-    "Excalidraw/instant_dev_env.excalidraw.md",
-    "Excalidraw/k8s architecture 그려보기.png",
+    "Vault/zArchive(Bear)/운영체제 다시 정리하기.md",
+    "ncsoft/daily/2024-10-23.md",
+    "ncsoft/daily/2024-12-03.md",
+    "ncsoft/daily/2024-12-05.md",
+    "ncsoft/daily/2024-12-06.md",
+    "ncsoft/daily/2024-12-08.md",
     "Excalidraw/k8s architecture 그려보기.md",
-    "Excalidraw/k8s architecture 그려보기.svg",
-    "Excalidraw/studioplatform배포.drawio",
-    "Untitled Diagram 3.svg",
-    "kubernetes.canvas",
-    "Untitled 3.canvas",
-    "withNCU-414140456-150324-1819-192.pdf",
-    "자격취득 신청 품의 및 비용 청구 가이드.pdf",
+    "Vault/zArchive(Bear)/알고리즘 일단 시작하기.md",
+    "Vault/Dev/Library/아몰랑/아몰랑웹/아몰랑프론트/프론트(frontend).md",
+    "Vault/Work/NCSOFT/work/multimodal/infra/attachments/Pasted image 20241206140656.png",
+    "Vault/Work/NCSOFT/work/multimodal/infra/attachments/Pasted image 20241206140546.png",
+    "Vault/Work/NCSOFT/work/multimodal/infra/attachments",
+    "Vault/Work/NCSOFT/work/multimodal/infra/클러스터(cluster).md",
+    "Clustering.md",
+    "Vault/Work/NCSOFT/work/multimodal/논문 리뷰(paper review).md",
+    "ncsoft/Genspark.md",
+    "ncsoft/perplextiy/2024-12-05_22-21-37_Perplexity.ai_I want to understand advanced techniques and best practices....md",
+    "ncsoft/perplextiy/2024-12-05_22-22-00_Perplexity.ai_개발망에 비정형 데이터(주로 video)를 저장하고 processing할 수 있는 hadoop, spark....md",
+    "ncsoft/perplextiy/2024-12-05_22-22-04_Perplexity.ai_llava-onvision 모델과 논문에 대해서 설명해줘....md",
+    "ncsoft/perplextiy/2024-12-05_22-21-32_Perplexity.ai_ai 관련 보안 방법론 중 암호화된 데이터로 훈련을 시키고 추론시키는 방법론이 있는지 찾아줘. 영어로된 자료도....md",
+    "ncsoft/perplextiy/2024-12-05_22-20-49_Perplexity.ai_pycharm에서 file은 local에서 유지하고 실행은 remote 서버에서 실행하는 기능 알아....md",
+    "ncsoft/perplextiy/2024-12-05_22-21-16_Perplexity.ai_ZeRO를 사용할 때 메모리 절약 효과는 얼마나 되나요....md",
+    "ncsoft/perplextiy/2024-12-05_22-21-10_Perplexity.ai_ZeRO를 사용할 때 메모리 사용량을 최적화하는 방법은....md",
+    "Vault/Work/NCSOFT/work/multimodal/infra/하둡 클러스터 구축(hadoop Cluster).md",
+    "Vault/Work/NCSOFT/work/multimodal/infra",
+    "Vault/Work/NCSOFT/work/multimodal",
+    "ncsoft/chatgpt/2024-12-1/16-58-27-Dotfiles________.md",
+    "ncsoft/chatgpt/2024-11-28/21-35-30-Django_vs_FastAPI___.md",
+    "ncsoft/chatgpt/2024-12-4/14-58-28-Multi_GPU_Training_Inference.md",
+    "ncsoft/chatgpt/2024-12-2/15-53-19-Pydantic____________.md",
+    "ncsoft/chatgpt/2024-12-4",
+    "ncsoft/chatgpt/2024-12-2",
+    "ncsoft/chatgpt/2024-12-1",
+    "ncsoft/chatgpt/2024-11-28/22-25-53-LLM___________.md",
+    "ncsoft/chatgpt/2024-11-28",
+    "Vault/Work/Dobby/attachments/Pasted image 20241128221314.png",
+    "Vault/Work/NCSOFT/skills/attachments/Pasted image 20241128185944.png",
+    "Vault/Dev/Skills/attachments/Pasted image 20241128182954.png",
+    "Vault/Dev/Skills/attachments/Pasted image 20241128182519.png",
+    "Vault/Dev/Skills/attachments/Pasted image 20241128181029.png",
+    "ncsoft/chatgpt/2024-11-27",
+    "ncsoft/chatgpt/2024-11-26",
+    "ncsoft/chatgpt/2024-11-25",
+    "Vault/Dev/Tools/Git/attachments/Pasted image 20241127203333.png",
+    "Vault/Dev/Tools/Git/attachments/Pasted image 20241127203324.png",
+    "Vault/Dev/Tools/Git/attachments/Pasted image 20241127202613.png",
+    "Untitled 1.canvas",
     "Untitled 2.canvas",
     "Untitled.canvas",
-    "Untitled 1.canvas"
+    "kubernetes.canvas",
+    "Untitled 3.canvas"
   ]
 }
