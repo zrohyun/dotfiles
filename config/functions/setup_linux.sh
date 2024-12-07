@@ -30,7 +30,8 @@ setup_linux(){
     # NOTE: apt install로 하지 않음 (fzf-에러,git install)
     # TODO: fzf 다운로드 위치에 대해 고민해보기
     git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-    # $HOME/.fzf/install --key-bindings --completion --all
+    # TODO: input(yes) 받지 않아도 설정할 수 있도록 설정
+    # yes | $HOME/.fzf/install --key-bindings --completion --xdg --bin --all
 
     # INSTALL NEOVIM
     # TODO: (2024.07 기준 neovim v0.9 확인 - lazyvim 사용 가능) ~~apt-get은 nvim 버전이 낮아서 lazyvim을 쓸 수가 없음.~~
