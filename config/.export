@@ -9,13 +9,6 @@
 #             | |                   
 #             |_|                   
 
-export osType="$(uname -s)"
-case "${osType}" in
-    Linux*)     export machine=Linux;;
-    Darwin*)    export machine=Mac;;
-    *)          echo "NOT SUPPORTED:${osType}";exit 1
-esac
-
 set_xdg_base_dir() {
     echo "pass" &>dev/null;
     # reference: https://wiki.archlinux.org/title/XDG_Base_Directory
