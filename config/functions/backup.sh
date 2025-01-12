@@ -25,10 +25,14 @@ backup() {
     done
 
     # backup default files
+    #TODO: zcompdump를 prefix로 갖는 모든 파일 옮기기.
     files=(.oh-my-zsh .bash_history .zsh_history .zsh_sessions .zcompdump .zcompdump-$HOSTNAME .zcompdump-$HOSTNAME.zwc )
     for file in "${files[@]}"; do
         backup_file_to_bak "$HOME/$file" "$backup_dir"
     done
+
+    # backup 후에 zip하기
+    # zip -r $backup_dir.zip $backup_dir
 }
 
 backup_and_symlink() {

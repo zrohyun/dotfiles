@@ -2,13 +2,13 @@
 
 source ./config/functions/functions.sh
 
-set_default_shell_zsh(){
-    if command -v zsh &> /dev/null; then
-        if ! exec_with_auto_privilege chsh -s $(which zsh); then
-            echo "Error: Failed to set zsh as default shell"
-        fi
-    fi
-}
+# set_default_shell_zsh(){
+#     if command -v zsh &> /dev/null; then
+#         if ! exec_with_auto_privilege chsh -s $(which zsh); then
+#             echo "Error: Failed to set zsh as default shell"
+#         fi
+#     fi
+# }
 
 setup_linux(){
     export DEBIAN_FRONTEND="noninteractive"
@@ -60,5 +60,5 @@ setup_linux(){
     # INSTALL DEVBOX
     # curl -fsSL https://get.jetify.com/devbox | bash
 
-    set_default_shell_zsh
+    # set_default_shell_zsh
 }
