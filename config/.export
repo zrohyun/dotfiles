@@ -73,7 +73,7 @@ if command -v kubectl &>/dev/null; then
     #TODO: 자주 사용하는 것은 config로 기본 설정으로 하고
     # 다른 shell을 이용해 매번 단일 config를 load하고 마지막 load한 config를 기억하는 방식으로 하는 것이
     # 혹시 탐색되는 cluster가 너무 많을 때 extension에 가해지는 부담을 줄일 수도 있을 것 같다.
-    set_kubeconfig(){
+    set_kubeconfig_all(){
         export KUBE_DIR=${1:-"$HOME/.kube"}
         if [[ ! -d $KUBE_DIR ]]; then
             # echo "KUBE_DIR($KUBE_DIR) is not exist."
@@ -90,6 +90,6 @@ if command -v kubectl &>/dev/null; then
         # 파일들을 ':'로 연결하여 KUBECONFIG 변수에 할당
         export KUBECONFIG=$(IFS=:; echo "${files[*]}")
     }; 
-    set_kubeconfig;
-    # unset -f set_kubeconfig;
+    # set_kubeconfig_all;
+    # unset -f set_kubeconfig_all;
 fi

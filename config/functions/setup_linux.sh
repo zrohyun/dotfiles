@@ -1,5 +1,12 @@
 #!/bin/bash
 
+
+set_default_shell_zsh(){
+    if command -v zsh &> /dev/null; then
+        chsh -s $(which zsh)
+    fi
+}
+
 setup_linux(){
     export DEBIAN_FRONTEND="noninteractive"
     
@@ -49,4 +56,6 @@ setup_linux(){
 
     # INSTALL DEVBOX
     # curl -fsSL https://get.jetify.com/devbox | bash
+
+    set_default_shell_zsh
 }

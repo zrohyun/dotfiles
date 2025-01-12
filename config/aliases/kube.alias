@@ -11,16 +11,61 @@ if command -v kubectl &>/dev/null; then
     #TODO: print node info with label or taint or something
     # alias kap='f() { [ "$1" ] && kubectl apply -f $1 } ; f'
     alias kcl='k config get-clusters'
-    alias kx='kx() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; kx'
-    alias kn='kn() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; kn'
-    # k8s network troubleshooting
-    alias knetshoot='knetshoot() { kubectl run netshoot --rm -it --image ${1:-nicolaka/netshoot} -- bash } ; knetshoot'
-    alias kubuntu='f() { kubectl run ubuntu --rm -it --image ${1:-ubuntu:24.04} -- bash } ; f'
-    alias kbusybox='f() { kubectl run ubuntu --rm -it --image ${1:-busybox} -- bash } ; f'
+
+    : '
+    # !NOTE
+    # kubeconfig path를 ':'로 여러 파일 연결해서 설정할 경우 `k config use-context $context_name` 명령어를 사용했을 때 config에서 출돌발생
+    # a context가 존재하지 않는 b_config 혹은 그 반대의 경우에도 current-context가 모두 $context_name으로 설정된다. 그렇게 되면 단일 파일로 config를 설정하게 되면
+    # 아예 존재하지 않는 context로 설정이 되어버리는 에러가 발생할 수 있음. 이런 문제 때문에 config use-context를 사용하면서 ':'로 여러 파일을 연결하는 게 좋지 않음.
+    '
+
+    kx() {
+        # !NOTE: alias시에 omz에서 함수라고 인식 못함.
+        # alias kx='kx() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; kx'
+        [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ;
+    }
+    kn() {
+        # alias kn='kn() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; kn'
+        [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ;
+    }
+    ku_kx() {
+        kx $1
+    }
+    ku_kn() {
+        kn $1
+    }
+    # # k8s network troubleshooting
+    kubenet() {
+        # alias knetshoot='knetshoot() { kubectl run netshoot --rm -it --image ${1:-nicolaka/netshoot} -- bash } ; knetshoot'
+        kubectl run netshoot --rm -it --image ${1:-nicolaka/netshoot} -- bash
+    }
+    kububuntu() {
+        # alias kubuntu='f() { kubectl run ubuntu --rm -it --image ${1:-ubuntu:24.04} -- bash } ; f'
+        kubectl run ubuntu --rm -it --image ${1:-ubuntu:24.04} -- bash
+    }
+    kubbusybox() {
+        # alias kbusybox='f() { kubectl run ubuntu --rm -it --image ${1:-busybox} -- bash } ; f'
+        kubectl run ubuntu --rm -it --image ${1:-busybox} -- bash
+    }
 fi
 
 select_kubeconfig() {
     # Select a config file from the files in the $HOME/.kube directory
+    # Usage: select_kubeconfig [KUBE_DIR]
+    # KUBE_DIR: Optional parameter to specify the directory containing kubeconfig files (default: $HOME/.kube)
+
+    # Check if help is requested
+    if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+        echo "Usage: select_kubeconfig [KUBE_DIR]"
+        echo "KUBE_DIR: Optional parameter to specify the directory containing kubeconfig files (default: $HOME/.kube)"
+        return 0
+    fi
+
+        # If no argument is provided, inform the user about the default KUBE_DIR
+    if [[ -z "$1" ]]; then
+        echo "No KUBE_DIR specified. Using default: $HOME/.kube"
+    fi
+
     export KUBE_DIR=${1:-"$HOME/.kube"}
     if [[ ! -d "$KUBE_DIR" ]]; then
         # echo "Directory $KUBE_DIR does not exist."
