@@ -1,9 +1,12 @@
 #!/bin/bash
 
+source ./config/functions/functions.sh
 
 set_default_shell_zsh(){
     if command -v zsh &> /dev/null; then
-        chsh -s $(which zsh)
+        if ! exec_with_auto_privilege chsh -s $(which zsh); then
+            echo "Error: Failed to set zsh as default shell"
+        fi
     fi
 }
 
