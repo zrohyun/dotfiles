@@ -62,7 +62,7 @@ symlink_dotfiles() {
         backup_and_symlink "$DOTFILES/config/$app" "$HOME/.config/" "$backup_suffix"
     done
 
-    dot_configs=(.aliases .env .export .path)
+    dot_configs=(.aliases .env .export .path .secrets)
     for configs in "${dot_configs[@]}"; do
         backup_and_symlink "$DOTFILES/config/$configs" "$HOME/.config/" "$backup_suffix"
     done
@@ -80,6 +80,7 @@ symlink_dotfiles() {
     # backup_and_symlink "$DOTFILES/config/vim/.vimrc" "$HOME/.vimrc" "$backup_suffix"
 
     # 폴더 모니터링 용 symlink
+    # !NOTE: or config에 있는 사용하는 app config만 symlink를 걸까..?
     backup_and_symlink "$HOME/.config" "$DOTFILES/monitoring/config"
     backup_and_symlink "$HOME/.local" "$DOTFILES/monitoring/local"
     backup_and_symlink "$HOME/.cache" "$DOTFILES/monitoring/cache"

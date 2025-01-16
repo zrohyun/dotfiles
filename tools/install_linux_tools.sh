@@ -113,6 +113,12 @@ intall_minikube() {
     # TODO: minikube install automation
     return
 }
+# TODO: install nfs
+install_nfs() {
+    # sudo apt-get install -y nfs-common
+    return 
+}
+
 install_krew() {
     # FROM
     # https://krew.sigs.k8s.io/docs/user-guide/setup/install/
