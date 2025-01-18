@@ -31,7 +31,7 @@ backup() {
         backup_file_to_bak "$HOME/$file" "$backup_dir"
     done
 
-    # backup 후에 zip하기
+    # TODO: backup 후에 zip하기
     # zip -r $backup_dir.zip $backup_dir
 }
 
