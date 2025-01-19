@@ -184,6 +184,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "cleanmymac" # 유료
 # cask "rewind"
 # cask "steam"
+# cask "msk" # https://github.com/x0054/MKS
 
 # JETBRAINS
 # cask "goland@2022.3.4"
