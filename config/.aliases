@@ -20,6 +20,14 @@ alias j="jobs -l"
 alias c="clear"
 alias now="date"
 alias hg="history|grep"
+function hist-top10() {
+    # report history
+    # alias hist-freq='history | awk "{print \$2}" | sort | uniq -c | sort -rn'
+    # alias hist-alpha='history | awk "{$1=\"\"; print substr(\$0,2)}" | sort -u'
+    # alias hist-top10='history | awk "{CMD[\$2]++;count++;}END { for (a in CMD)print CMD[a] \" \" CMD[a]/count*100 \"% \" a;}" | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n10'
+    local num=${1:-10}
+    history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n$num
+}
 alias shell="echo $SHELL"
 
 if [[ -f /etc/hosts ]]; then
