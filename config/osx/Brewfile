@@ -1,7 +1,7 @@
 ###########################################################################################
-# _                        __ _ _      
-# | |                      / _(_) |     
-# | |__  _ __ _____      _| |_ _| | ___ 
+# _                        __ _ _
+# | |                      / _(_) |
+# | |__  _ __ _____      _| |_ _| | ___
 # | '_ \| '__/ _ \ \ /\ / /  _| | |/ _ \
 # | |_) | | |  __/\ V  V /| | | | |  __/
 # |_.__/|_|  \___| \_/\_/ |_| |_|_|\___|
@@ -130,7 +130,6 @@ brew "termshark"
 # AZURE
 # brew "azure-cli"
 # https://learn.microsoft.com/ko-kr/cli/azure/install-azure-cli
-
 # CASK
 cask "raycast"
 cask "visual-studio-code"
@@ -150,6 +149,7 @@ cask "microsoft-edge"
 cask "httpie"
 cask "iterm2"
 cask "warp"
+# cask "wave"
 cask "itsycal"
 # cask "ghostty"
 # cask "keka"
@@ -171,12 +171,13 @@ cask "obsidian"
 # "reor" # no brew app
 cask "contexts"
 cask "deepl"
+cask "one-switch"
 cask "zed"
 cask "drawio"
 cask "removebg"
 cask "karabiner-elements"
 cask "rocket" # emoji shortcut
-cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight 
+cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "hazeover" # 창 투명도 조절
@@ -197,7 +198,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "datagrip"
 
 # KUBERNETES
-# cask "openlens" # or lens 
+# cask "openlens" # or lens
 # cask "aptakube"
 # cask "kubernetic"
 # cask 'headlamp'
@@ -256,8 +257,8 @@ mas "RunCat", id: 1429033973
 # mas "Translation Tooltip", id: 1591769658
 # mas "Tip", id: 1495732622
 # mas "Xcode", id: 497799835
-# mas "One Thing", id: 1604176982  
-# mas "Spaced", id: 1666327168  
+# mas "One Thing", id: 1604176982
+# mas "Spaced", id: 1666327168
 # mas "Card Diary", id: 1536247273
 # VSCODE
 # vscode "vscodevim.vim"
