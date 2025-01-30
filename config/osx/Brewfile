@@ -38,6 +38,10 @@ brew "docker-compose"
 # brew "devcontainer"
 brew "colima" #, restart_service: true
 # brew "gh"
+# gh copilot
+# https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/installing-github-copilot-in-the-cli, 
+# https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-the-command-line
+
 # brew "devpod"
 # brew "orbstack"
 # curl -fsSL https://get.jetify.com/devbox | bash
