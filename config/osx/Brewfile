@@ -37,6 +37,7 @@ brew "docker"
 brew "docker-compose"
 # brew "devcontainer"
 brew "colima" #, restart_service: true
+# brew "ollama"
 # brew "gh"
 # gh copilot
 # https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/installing-github-copilot-in-the-cli, 
@@ -242,6 +243,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 
 # FOR LLM
 # cask "notesollama"
+# cask "ollama"
 # cask "lm-studio"
 
 # FOR KEYBOARD
