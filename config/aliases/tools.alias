@@ -98,3 +98,30 @@ fi
 # if command -v z &>/dev/null; then
 #   alias cd=z
 # fi
+
+
+# Function to execute a command on a remote host via SSH
+function remote_exec() {
+    if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+        echo "Usage: remote_exec [user] [remote_host] [ssh_option] <command>"
+        echo "  user        - SSH username (default: ubuntu)"
+        echo "  remote_host - Remote host address (default: localhost)"
+        echo "  ssh_option  - SSH option (default: -t)"
+        echo "  command     - Command to execute on the remote host"
+        return 0
+    fi
+
+    local user=${1:-ubuntu}
+    local remote_host=${2:-localhost}
+    local ssh_option=${3:--t}
+    shift 3
+    local command="$@"
+
+    if [[ -z "$command" ]]; then
+        echo "Error: Missing required arguments."
+        echo "Usage: remote_exec [user] [remote_host] [ssh_option] <command>"
+        return 1
+    fi
+
+    ssh "${ssh_option}" "${user}@${remote_host}" "${command}"
+}
