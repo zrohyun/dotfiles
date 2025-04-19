@@ -60,3 +60,25 @@ setup_mac() {
         fi
     done
 }
+
+
+# Mac 전용: Command Line Tools 설치 확인/설치
+install_command_line_tools() {
+    if xcode-select -p &>/dev/null; then
+        log_success "Command Line Tools 이미 설치됨"
+    else
+        log "Command Line Tools 설치 중..."
+        xcode-select --install
+        
+        # 사용자가 설치를 완료할 때까지 대기
+        log "Command Line Tools 설치 창이 열렸습니다. 설치를 완료한 후 Enter 키를 눌러주세요..."
+        read -r
+        
+        if xcode-select -p &>/dev/null; then
+            log_success "Command Line Tools 설치 완료"
+        else
+            log_error "Command Line Tools 설치 실패"
+            exit 1
+        fi
+    fi
+}

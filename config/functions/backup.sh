@@ -19,7 +19,7 @@ backup() {
 
     # Move .config, .local, .cache to backup directory
     # files=(.config .local .cache .zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc)
-    files=(.zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc)
+    files=(.zshenv .zshrc .bashrc .gitignore .vimrc .ideavimrc) # .gitconfig
     for file in "${files[@]}"; do
         backup_file_to_bak $HOME/$file "$backup_dir"
     done
@@ -72,7 +72,7 @@ symlink_dotfiles() {
 
     backup_and_symlink "$DOTFILES/config/bash/.bashrc" "$HOME/.bashrc" "$backup_suffix"
 
-    backup_and_symlink "$DOTFILES/config/git/.gitconfig" "$HOME/.gitconfig" "$backup_suffix"
+    # backup_and_symlink "$DOTFILES/config/git/.gitconfig" "$HOME/.gitconfig" "$backup_suffix"
     backup_and_symlink "$DOTFILES/config/git/.gitignore" "$HOME/.gitignore" "$backup_suffix"
 
     # Uncomment if needed
