@@ -17,16 +17,13 @@
 LOGFILE=""
 
 init_logging() {
-    # 로그 파일 설정
-    local log_dir
-    if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-        # curl로 실행된 경우
-        log_dir="/tmp"
-    else
-        # 로컬에서 실행된 경우
-        log_dir="$PWD"
-    fi
+    # 로그 디렉토리 설정 - 항상 홈 디렉토리에 저장
+    local log_dir="$HOME/.dotfiles_logs"
     
+    # 로그 디렉토리가 없으면 생성
+    mkdir -p "$log_dir"
+    
+    # 로그 파일 설정
     LOGFILE="${log_dir}/install_log_$(date +%Y%m%d_%H%M%S).log"
     echo "로그 파일: $LOGFILE"
     
@@ -115,6 +112,7 @@ curl_install_dotfiles() {
     
     # 로컬 스크립트 실행
     log "로컬 install.sh 스크립트를 실행합니다..."
+    export DOTFILES_INTERNAL_SOURCE=1
     source ./install.sh || exit 1
     exit 0
 }
@@ -187,11 +185,14 @@ main() {
     init_logging
     
     # 스크립트가 curl로 실행되었는지 확인
-    if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-        # 소스로 실행된 경우 (curl로 실행)
+    if [[ "${BASH_SOURCE[0]}" != "${0}" && -z "${DOTFILES_INTERNAL_SOURCE}" ]]; then
+        # 소스로 실행된 경우 (curl로 실행) 그리고 내부 소스가 아닌 경우
         curl_install_dotfiles
         return
     fi
+    
+    # 내부 소스 플래그 초기화
+    unset DOTFILES_INTERNAL_SOURCE
     
     # 로컬에서 직접 실행된 경우
     log "설치 스크립트 시작"
