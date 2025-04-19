@@ -13,7 +13,27 @@
 # 1. curl 실행: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/main/install.sh)"
 # 2. 로컬 실행: ./install.sh
 
-# 로깅 함수
+# 로깅 설정
+LOGFILE=""
+
+init_logging() {
+    # 로그 파일 설정
+    local log_dir
+    if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+        # curl로 실행된 경우
+        log_dir="/tmp"
+    else
+        # 로컬에서 실행된 경우
+        log_dir="$PWD"
+    fi
+    
+    LOGFILE="${log_dir}/install_log_$(date +%Y%m%d_%H%M%S).log"
+    echo "로그 파일: $LOGFILE"
+    
+    # 모든 출력을 로그 파일과 터미널에 동시에 기록
+    exec > >(tee -a "$LOGFILE") 2>&1
+}
+
 log() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - $1"
 }
@@ -51,26 +71,26 @@ curl_install_dotfiles() {
     fi
 
     # Git이 설치되어 있는지 확인
-    if ! command -v git &>/dev/null; then
-        log "Git이 설치되어 있지 않습니다. 운영체제에 맞는 설치를 진행합니다."
-        machine=$(detect_os)
+    machine=$(detect_os)
+    
+    if [[ $machine == "Mac" ]]; then
+        # Mac에서는 Homebrew를 먼저 확인하고 설치
+        install_homebrew
         
-        if [[ $machine == "Mac" ]]; then
-            install_homebrew
+        # Homebrew로 Git 설치 여부 확인
+        if ! brew list git &>/dev/null; then
+            log "Git이 설치되어 있지 않습니다. Homebrew를 통해 설치합니다."
             install_git
-        elif [[ $machine == "Linux" ]]; then
-            # Linux에서 Git 설치
-            if command -v apt-get &>/dev/null; then
-                log "apt-get을 사용하여 Git 설치 중..."
-                sudo apt-get update && sudo apt-get install -y git
-            else
-                log_error "지원되지 않는 Linux 배포판입니다. Git을 수동으로 설치해주세요."
-                exit 1
-            fi
-        else
-            log_error "지원되지 않는 운영체제입니다."
-            exit 1
         fi
+    elif [[ $machine == "Linux" ]]; then
+        # Linux에서 Git 설치 여부 확인
+        if ! command -v git &>/dev/null; then
+            log "Git이 설치되어 있지 않습니다. 운영체제에 맞는 설치를 진행합니다."
+            install_git
+        fi
+    else
+        log_error "지원되지 않는 운영체제입니다."
+        exit 1
     fi
 
     # dotfiles 디렉토리가 이미 존재하는지 확인
@@ -130,38 +150,42 @@ install_homebrew() {
 
 # Git 설치 확인/설치 (Mac 및 Linux)
 install_git() {
-    if command -v git &>/dev/null; then
-        log_success "Git 이미 설치됨"
-    else
-        machine=$(detect_os)
-        
-        if [[ $machine == "Mac" ]]; then
+    machine=$(detect_os)
+    
+    if [[ $machine == "Mac" ]]; then
+        # Mac에서는 Homebrew로 Git 설치 여부 확인
+        if brew list git &>/dev/null; then
+            log_success "Git 이미 설치됨"
+        else
             log "Git 설치 중 (Mac)..."
             brew install git
-        elif [[ $machine == "Linux" ]]; then
-            log "Git 설치 중 (Linux)..."
-            if command -v apt-get &>/dev/null; then
-                sudo apt-get update && sudo apt-get install -y git
-            else
-                log_error "지원되지 않는 Linux 배포판입니다."
-                exit 1
-            fi
+        fi
+    elif [[ $machine == "Linux" ]]; then
+        log "Git 설치 중 (Linux)..."
+        if command -v apt-get &>/dev/null; then
+            sudo apt-get update && sudo apt-get install -y git
         else
-            log_error "지원되지 않는 운영체제입니다."
+            log_error "지원되지 않는 Linux 배포판입니다."
             exit 1
         fi
-        
-        if command -v git &>/dev/null; then
-            log_success "Git 설치 완료"
-        else
-            log_error "Git 설치 실패"
-            exit 1
-        fi
+    else
+        log_error "지원되지 않는 운영체제입니다."
+        exit 1
+    fi
+    
+    if command -v git &>/dev/null; then
+        log_success "Git 설치 완료"
+    else
+        log_error "Git 설치 실패"
+        exit 1
     fi
 }
 
 # 메인 함수
 main() {
+    # 로깅 초기화
+    init_logging
+    
     # 스크립트가 curl로 실행되었는지 확인
     if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
         # 소스로 실행된 경우 (curl로 실행)
@@ -182,8 +206,14 @@ main() {
     # 운영체제별 초기 설정
     if [[ $machine == "Mac" ]]; then
         # Mac 초기 설정 확인
+        install_homebrew
+        # Homebrew로 Git 설치 여부 확인
+        if ! brew list git &>/dev/null; then
+            install_git
+        fi
+    elif [[ $machine == "Linux" ]]; then
+        # Linux 초기 설정 확인
         if ! command -v git &>/dev/null; then
-            install_homebrew
             install_git
         fi
     fi
