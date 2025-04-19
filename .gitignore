@@ -49,3 +49,4 @@ config/.oh-my-zsh/**/*
 config/raycast/**/*
 config/docker/**/*
 config/thefuck/**/*
+monitoring/**/*
