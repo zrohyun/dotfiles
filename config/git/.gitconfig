@@ -33,8 +33,8 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
-[user]
-  name = zrohyun
-  email = zrohyun@gmail.com
+# [user]
+#   name = zrohyun
+#   email = zrohyun@gmail.com
 [credential]
 	helper = "!f() { /root/.vscode-server/bin/f1e16e1e6214d7c44d078b1f0607b2388f29d729/node /tmp/vscode-remote-containers-694dd1fc-4b5b-4e8d-bf94-601bcc47ad3d.js git-credential-helper $*; }; f"
