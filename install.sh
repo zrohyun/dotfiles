@@ -130,9 +130,11 @@ install_homebrew() {
             eval "$(/opt/homebrew/bin/brew shellenv)"
             
             # 쉘 프로필에 Homebrew 환경변수 추가
-            if [[ -f "$HOME/.zshrc" ]]; then
-                echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zshrc"
+            if [[ -f "$HOME/.zprofile" ]]; then
+                echo >> "$HOME/.zprofile"
+                echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
             elif [[ -f "$HOME/.bash_profile" ]]; then
+                echo >> "$HOME/.bash_profile"
                 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.bash_profile"
             fi
         fi
@@ -228,8 +230,9 @@ main() {
         source ./config/functions/setup_linux.sh
         setup_linux
     elif [[ $machine == "Mac" ]]; then
-        source ./config/functions/setup_mac.sh
-        setup_mac
+        # source ./config/functions/setup_mac.sh
+        # setup_mac
+        echo ""
     fi
     
     # 공통 설정
