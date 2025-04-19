@@ -6,16 +6,9 @@
 # | |_) | | |  __/\ V  V /| | | | |  __/
 # |_.__/|_|  \___| \_/\_/ |_| |_|_|\___|
 # BREWFILE
-## Mac 초기 세팅 할때 xcode-select 사용 or Homebrew 사용
-#1. xcode-select
-#`$ xcode-select --install && git --version # Command Line Developer tools는 git 포함 여러 툴이 포함되어 있음.`
-#2. Homebrew
+## Mac 초기 세팅
+# Homebrew
 #`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git && git --version`
-#
-#
-### Reference
-#- [맥에서 명령어 라인 도구(Command Line Tools) 설치하는 방법](https://www.lainyzine.com/ko/article/how-to-install-command-line-tools-on-macos/)
-#- [MacOS에서 Git 설치하는 방법](https://www.lainyzine.com/ko/article/how-to-install-latest-version-of-git-on-macos/)
 ###########################################################################################
 
 # tap
@@ -30,15 +23,16 @@ tap "daipeihust/tap"
 
 # brew
 brew "mas"
+# brew "git"
 brew "httpie"
 brew "asdf"
-brew "code-server" #, restart_service: true
+# brew "code-server"
 brew "docker"
-brew "docker-compose"
+# brew "docker-compose"
 # brew "devcontainer"
-brew "colima" #, restart_service: true
+brew "colima" #, restart_service: true # macOS용 컨테이너 런타임 (Docker 대체) 
 # brew "ollama"
-# brew "gh"
+brew "gh"
 # gh copilot
 # https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/installing-github-copilot-in-the-cli, 
 # https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-the-command-line
@@ -55,21 +49,21 @@ brew "tldr"
 brew "neofetch"
 brew "ripgrep"
 brew "btop"
-brew "macmon"
-# brew "mactop"
-brew "lsd" #brew "exa"
+brew "macmon"             # macOS 시스템 모니터링
+# brew "mactop"           # macOS 시스템 모니터링
+brew "lsd"
 brew "fd"
 brew "fzf"
-brew "jq"
-brew "fx"
+brew "jq"                 # JSON
+brew "fx"                 # JSON
 brew "sshs"
-# brew newman
+# brew "newman"
 # brew "otree"
 # brew "noahgorstein/tap/jqp"
-# brew "serpl" # Should build binary => https://github.com/yassinebridi/serpl
-# brew "tabiew" # Should build binary => https://github.com/shshemi/tabiew
+# brew "serpl"            # JSON/YAML # Should build binary => https://github.com/yassinebridi/serpl
+# brew "tabiew"
 brew "helix"
-brew "bash" # mac default bash(/bin/bash)는 버전이 낮음. symlink도 걸어줘야하나..
+# brew "bash"             # mac default bash(/bin/bash)는 버전이 낮음. symlink도 걸어줘야하나..
 # brew "nushell"
 # brew "direnv"
 # brew "kubectl"
@@ -77,17 +71,16 @@ brew "duf"
 brew "dust"
 # brew "wget"
 # brew "thefuck"
-brew "mackup" # [GitHub - lra/mackup: Keep your application settings in sync (OS X/Linux)](https://github.com/lra/mackup)
-brew "im-select" # brew "daipeihust/tap/im-select"
-# brew "stow" # for dotfiles symlink
+brew "mackup"
+brew "im-select"
+# brew "stow"
 #LSP
 brew "bash-language-server"
-brew "pyright" # python lsp
-brew "golang"
-brew "gopls"
-brew "nvm"
+brew "pyright"              # python lsp
+# brew "golang"
+# brew "gopls"
+# brew "nvm"
 # brew "bat"
-# brew "git" # xcode-select로 해결
 # brew "grpc"
 # brew "grpcui"
 # brew "grpcurl"
@@ -111,23 +104,23 @@ brew "nvm"
 # PYENV
 # brew "pyenv"
 # brew "pyenv-virtualenv"
-# brew "mrkai77/cask/loop" # window manager
-# brew "zsh" # mac default shell
+# brew "mrkai77/cask/loop"  # window manager
+# brew "zsh"
 # 나중에 shortcut 활용할 일이 있을 때
 # brew "koekeishiya/formulae/skhd"
 
 # ANALYSIS or Hacking
-brew "termshark"
+# brew "termshark"          # Wireshark
 # brew "tcpdump"
 # brew "nmap"
 # brew "httpflow"
 # brew "tcpreply"
 # brew "tcptrace"
 # brew "whireshark"
-# brew "aircrack-ng"
+# brew "aircrack-ng"        # 네트워크 보안
 
 # CLOUD
-# brew terraform
+# brew "terraform"
 # AWS
 # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 # GCP
@@ -138,14 +131,14 @@ brew "termshark"
 # CASK
 cask "raycast"
 cask "visual-studio-code"
-# cask "appcleaner" # raycast 기능으로 대체 가능
+# cask "appcleaner"
 # cask "chatgpt"
 # cask "perplexity"
 # cask "claude"
-# cask "arc" # mobile과의 연동성 + multi device 사용시 열려있던 tab이 갑자기 모두 닫히는 이유 + 업데이트 이후 급 성능이슈 일단 사용중지
+# cask "arc"
 # cask "zen-browser"
 cask "google-chrome"
-# cask "brave-browser" # 사내 내규상 사용불가
+# cask "brave-browser"
 cask "microsoft-edge"
 # cask "microsoft-edge@dev"
 # cask "postman"
@@ -160,81 +153,81 @@ cask "itsycal"
 # cask "keka"
 # cask "github"
 # cask "sourcetree"
-cask "logi-options-plus"
+# cask "logi-options-plus"
 # cask "microsoft-remote-desktop"
 # cask "remote-desktop-manager"
-cask "shottr" # 구매하지 않으면 앱 시작시 팝업이 뜨지만 무료라 참는다.
+cask "shottr"               # 구매하지 않으면 앱 시작시 팝업이 뜨지만 무료라 참는다.
 # cask "termius"
-cask "cakebrew"
-cask "cakebrewjs"
+# cask "cakebrew"           # Homebrew GUI
+# cask "cakebrewjs"         # Homebrew GUI (JS)
 cask "devtoys"
 cask "maccy"
 cask "cheatsheet"
 cask "dropzone"
 cask "obsidian"
-# cask "reflect"
-# "reor" # no brew app
+# cask "reflect"            # 노트
+# "reor"                    # 노트 # no brew app
 cask "contexts"
 cask "deepl"
-cask "one-switch"
-cask "zed"
-cask "drawio"
-cask "removebg"
-cask "karabiner-elements"
-cask "rocket" # emoji shortcut
-cask "syntax-highlight" # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight
+# cask "one-switch"
+# cask "zed"
+# cask "drawio"
+# cask "removebg"
+# cask "karabiner-elements"
+cask "rocket"               # emoji shortcut
+cask "syntax-highlight"     # 파일 미리보기 # brew install --cask --no-quarantine syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight
 cask "homebrew/cask-fonts/font-jetbrains-mono"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
-# cask "hazeover" # 창 투명도 조절
-# cask "flux" # 화면 색상 조절
-# cask "Upscalyl" # 사진 해상도 조절(upscaling)
-# cask "cleanmymac" # 유료
-# cask "rewind"
+# cask "hazeover"           # 창 투명도 조절
+# cask "flux"               # 화면 색상 조절
+# cask "Upscalyl"           # 사진 해상도 조절(upscaling)
+# cask "cleanmymac"
+# cask "rewind"             # 화면 기록 및 검색
 # cask "steam"
-# cask "msk" # https://github.com/x0054/MKS
+# cask "msk"                # 키보드 단축키 표시 # https://github.com/x0054/MKS
 
 # JETBRAINS
 # cask "goland@2022.3.4"
 # cask "pycharm@2022.3.3"
 # cask "datagrip@2022.3.3"
 # cask "intellij-idea@2022.3.3"
-# cask "intellij-idea" # or intellij-idea-ce
-# cask "pycharm" # or pycharm-ce
+# cask "intellij-idea"
+# cask "pycharm"
 # cask "datagrip"
 
 # KUBERNETES
-# cask "openlens" # or lens
+# cask "openlens"
 # cask "aptakube"
 # cask "kubernetic"
-# cask 'headlamp'
+# cask "headlamp"
 
-# cask "qlmarkdown" # https://github.com/sbarex/QLMarkdown
-# cask "command-x"
+# cask "qlmarkdown"         # 마크다운 파일 미리보기 # https://github.com/sbarex/QLMarkdown
+# cask "command-x"          # 파일 이동 단축키
 # cask "firefox"
 # cask "emacs"
-# cask "keycastr"
+# cask "keycastr"           # 키 입력 표시
 # cask "anydesk"
 # cask "topnotch"
 # cask "tabby"
 # cask "cursor"
-# cask "bartender"
-# cask "hiddenbar"
-# cask "fig"
+# cask "bartender"          # 메뉴바 아이콘 관리
+# cask "hiddenbar"          # 메뉴바 아이콘 숨김
+# cask "fig"                # 터미널 자동완성
 
 # FOR NETWORK
 # cask "burp-suite"
 # cask "wireshark"
-# cask "docker" # colima와 함께 사용하는 거 비추, socket path 이슈
-# cask "cyberduck"
+# cask "docker"
+# cask "cyberduck"          # FTP/SFTP 클라이언트
 # cask "alacritty"
 # cask "kitty"
 # cask "alt-tab"
 # cask "flameshot"
 # cask "dbeaver-community"
-# cask "mate-translate" # -> 유료화
-# cask "forklift" # -> 유료
-# cask "dash" # -> 유료
-# cask "filezilla" # cask는 아니지만 ftp client
+# cask "mate-translate"
+# cask "forklift"
+# cask "dash"
+# cask "filezilla"
 # cask "sidenotes"
 
 # File Sync
@@ -249,22 +242,24 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # FOR KEYBOARD
 # cask "via"
 # cask "vial"
-# cask "linearmouse" #mouse accelerator
+# cask "linearmouse"
 
-mas "KakaoTalk", id: 869223134
-mas "RunCat", id: 1429033973
-# mas "zest" # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능
-# mas "DropOver", id: 1355679052 # 유료
-# mas "Xmenu", id: 419332741
-# mas "Amphetamine", id: 937984704
-# mas "Notability", id: 360593530
-# mas "Goodnotes", id: 1444383602
-# mas "Microsoft Remote Desktop", id: 1295203466
-# mas "Translation Tooltip", id: 1591769658
+# APP STORE APPS
+mas "KakaoTalk", id: 869223134      
+mas "RunCat", id: 1429033973        
+# mas "zest"                        # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능
+# mas "DropOver", id: 1355679052    # 유료
+# mas "Xmenu", id: 419332741        
+# mas "Amphetamine", id: 937984704  
+# mas "Notability", id: 360593530   
+# mas "Goodnotes", id: 1444383602  
+# mas "Microsoft Remote Desktop", id: 1295203466 
+# mas "Translation Tooltip", id: 1591769658 
 # mas "Tip", id: 1495732622
 # mas "Xcode", id: 497799835
 # mas "One Thing", id: 1604176982
 # mas "Spaced", id: 1666327168
-# mas "Card Diary", id: 1536247273
+# mas "1Password", id: 1333542190
+mas "Card Diary", id: 1536247273
 # VSCODE
 # vscode "vscodevim.vim"
