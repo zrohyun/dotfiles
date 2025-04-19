@@ -43,6 +43,30 @@ log_error() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - ❌ $1"
 }
 
+# sudo 권한 확인 (선택 사항)
+check_sudo() {
+    machine=$(detect_os)
+    
+    # sudo 명령어가 있는지 확인
+    if command -v sudo &>/dev/null; then
+        log "sudo 권한 확인 중..."
+        
+        # sudo 권한이 있는지 확인
+        if sudo -n true 2>/dev/null; then
+            # sudo 타임아웃 연장
+            sudo -v
+            log_success "sudo 권한 확인 완료"
+            export HAS_SUDO=1
+        else
+            log "sudo 권한이 없습니다. sudo 없이 계속 진행합니다."
+            export HAS_SUDO=0
+        fi
+    else
+        log "sudo 명령어를 찾을 수 없습니다. sudo 없이 계속 진행합니다."
+        export HAS_SUDO=0
+    fi
+}
+
 # 운영체제 감지
 detect_os() {
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -163,7 +187,20 @@ install_git() {
     elif [[ $machine == "Linux" ]]; then
         log "Git 설치 중 (Linux)..."
         if command -v apt-get &>/dev/null; then
-            sudo apt-get update && sudo apt-get install -y git
+            # 먼저 sudo 없이 시도
+            if [[ "${HAS_SUDO:-0}" == "0" ]]; then
+                log "sudo 없이 apt-get으로 Git 설치 시도 중..."
+                if apt-get update && apt-get install -y git; then
+                    log_success "sudo 없이 Git 설치 성공"
+                else
+                    log_error "sudo 없이 apt-get 실행 실패. sudo 권한이 필요할 수 있습니다."
+                    exit 1
+                fi
+            else
+                # sudo 권한이 있으면 sudo로 설치
+                log "sudo로 apt-get을 사용하여 Git 설치 중..."
+                sudo apt-get update && sudo apt-get install -y git
+            fi
         else
             log_error "지원되지 않는 Linux 배포판입니다."
             exit 1
@@ -185,6 +222,9 @@ install_git() {
 main() {
     # 로깅 초기화
     init_logging
+    
+    # sudo 권한 확인
+    check_sudo
     
     # 스크립트가 curl로 실행되었는지 확인
     if [[ "${BASH_SOURCE[0]}" != "${0}" && -z "${DOTFILES_INTERNAL_SOURCE}" ]]; then
@@ -237,7 +277,7 @@ main() {
     
     # 공통 설정
     source ./config/functions/backup.sh
-    backup # backup dotfiles to /tmp/dotfiles.bak
+    backup # 기존 dotfiles 백업 (HOME/.dotfiles_backups에 저장)
     symlink_dotfiles
     
     # Oh-My-Zsh 설치

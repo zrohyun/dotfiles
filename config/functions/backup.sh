@@ -5,34 +5,97 @@ backup_file_to_bak() {
     echo "backup_file_bak $1 to $2"
     if [[ -e "$1" ]]; then
         mkdir -p "${2:-$HOME/.bak.$(date +%Y%m%d)}" # make the directory if it doesn't exist
-        mv "$1" "${2:-$HOME/.bak.$(date +%Y%m%d)/}" # copy the file to the backup directory 
+        
+        # 파일인지 디렉토리인지 확인하여 적절한 복사 명령 사용
+        if [[ -d "$1" && ! -L "$1" ]]; then
+            # 디렉토리인 경우 (심볼릭 링크가 아닌 경우만)
+            cp -R "$1" "${2:-$HOME/.bak.$(date +%Y%m%d)/}"
+            echo "Backed up directory: $1"
+        elif [[ -f "$1" && ! -L "$1" ]]; then
+            # 일반 파일인 경우 (심볼릭 링크가 아닌 경우만)
+            cp "$1" "${2:-$HOME/.bak.$(date +%Y%m%d)/}"
+            echo "Backed up file: $1"
+        elif [[ -L "$1" ]]; then
+            # 심볼릭 링크인 경우 링크 정보 저장
+            target=$(readlink "$1")
+            echo "$1 -> $target" >> "${2:-$HOME/.bak.$(date +%Y%m%d)/symlinks.log}"
+            echo "Logged symlink: $1 -> $target"
+        fi
     fi 
 } 
 
 backup() {
-    # Create backup directory with today's date
-    backup_dir="/tmp/dotfiles.bak/.bak.$(date +%Y%m%d.%H%M%S)/"
+    # 1. 고정 백업 루트 디렉토리 생성 (HOME 내에 위치하여 지속성 보장)
+    backup_root="$HOME/.dotfiles_backups"
+    mkdir -p "$backup_root"
+    
+    # 2. 이번 백업의 타임스탬프 디렉토리 생성
+    timestamp=$(date +%Y%m%d.%H%M%S)
+    backup_dir="$backup_root/$timestamp"
     mkdir -p "$backup_dir"
-
-    # # Create symlink to backup directory in home
-    ln -snfbS .bak /tmp/dotfiles.bak $HOME/.bak
-
-    # Move .config, .local, .cache to backup directory
-    # files=(.config .local .cache .zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc)
-    files=(.zshenv .zshrc .bashrc .gitignore .vimrc .ideavimrc) # .gitconfig
+    
+    # 3. 타임스탬프로 구분된 백업 디렉토리를 생성하고 최신 링크 업데이트
+    ln -sfn "$backup_dir" "$backup_root/latest"
+    
+    # 4. 백업할 파일 목록
+    files=(
+        .zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc
+        .oh-my-zsh .bash_history .zsh_history .zsh_sessions 
+        .zcompdump .zcompdump-$HOSTNAME .zcompdump-$HOSTNAME.zwc
+    )
+    
+    # 5. 파일 복사 (이동이 아님!)
     for file in "${files[@]}"; do
-        backup_file_to_bak $HOME/$file "$backup_dir"
+        if [[ -e "$HOME/$file" ]]; then
+            # 기존 파일이 있으면 디렉토리 구조 유지하며 복사
+            if [[ -d "$HOME/$file" && ! -L "$HOME/$file" ]]; then
+                # 디렉토리인 경우 (심볼릭 링크가 아닌 경우만)
+                cp -R "$HOME/$file" "$backup_dir/"
+                echo "Backed up directory: $file"
+            elif [[ -f "$HOME/$file" && ! -L "$HOME/$file" ]]; then
+                # 일반 파일인 경우 (심볼릭 링크가 아닌 경우만)
+                cp "$HOME/$file" "$backup_dir/"
+                echo "Backed up file: $file"
+            elif [[ -L "$HOME/$file" ]]; then
+                # 심볼릭 링크인 경우 링크 정보 저장
+                target=$(readlink "$HOME/$file")
+                echo "$file -> $target" >> "$backup_dir/symlinks.log"
+                echo "Logged symlink: $file -> $target"
+            fi
+        fi
     done
-
-    # backup default files
-    #TODO: zcompdump를 prefix로 갖는 모든 파일 옮기기.
-    files=(.oh-my-zsh .bash_history .zsh_history .zsh_sessions .zcompdump .zcompdump-$HOSTNAME .zcompdump-$HOSTNAME.zwc )
-    for file in "${files[@]}"; do
-        backup_file_to_bak "$HOME/$file" "$backup_dir"
+    
+    # 6. .config, .local, .cache 디렉토리의 선택적 백업
+    config_dirs=(.config .local .cache)
+    for dir in "${config_dirs[@]}"; do
+        if [[ -d "$HOME/$dir" && ! -L "$HOME/$dir" ]]; then
+            # 심볼릭 링크가 아닌 실제 디렉토리인 경우만 백업
+            mkdir -p "$backup_dir/$dir"
+            
+            # 전체를 복사하는 대신 중요 설정 파일만 선택적으로 복사
+            # 에러 메시지 무시 (일부 파일 접근 권한 문제 등)
+            cp -R "$HOME/$dir/"* "$backup_dir/$dir/" 2>/dev/null || true
+            echo "Backed up directory: $dir"
+        elif [[ -L "$HOME/$dir" ]]; then
+            # 심볼릭 링크인 경우 링크 정보 저장
+            target=$(readlink "$HOME/$dir")
+            echo "$dir -> $target" >> "$backup_dir/symlinks.log"
+            echo "Logged symlink: $dir -> $target"
+        fi
     done
-
-    # TODO: backup 후에 zip하기
-    # zip -r $backup_dir.zip $backup_dir
+    
+    echo "Backup completed: $backup_dir"
+    echo "Latest backup linked: $backup_root/latest"
+    
+    # 7. 옵션: 오래된 백업 정리 (예: 5개 이상 백업 시 가장 오래된 것 삭제)
+    backup_count=$(find "$backup_root" -maxdepth 1 -type d -not -name "latest" -not -name "$(basename "$backup_root")" | wc -l)
+    if [ "$backup_count" -gt 5 ]; then
+        oldest_backup=$(find "$backup_root" -maxdepth 1 -type d -not -name "latest" -not -name "$(basename "$backup_root")" | sort | head -1)
+        if [ -n "$oldest_backup" ]; then
+            rm -rf "$oldest_backup"
+            echo "Removed old backup: $oldest_backup"
+        fi
+    fi
 }
 
 backup_and_symlink() {
