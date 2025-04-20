@@ -23,8 +23,8 @@ if [[ ! -d $ZSH_STATE_DIR ]]; then
     \mkdir -vp $ZSH_STATE_DIR
 fi
 
-export PATH=$PATHL:/usr/sbin
 # nerdfetch
 if command -v nerdfetch &> /dev/null; then
+    PATH=$PATH:/usr/sbin:/usr/bin:/usr/local/bin:/bin:$HOME/bin
     nerdfetch
 fi
