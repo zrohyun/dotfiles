@@ -152,6 +152,10 @@ backup_and_symlink() {
         echo "Destination already exists as a symlink: $dest -> $(readlink "$dest")"
     fi
 
+    # 대상 디렉토리가 존재하는지 확인하고 없으면 생성
+    local dest_dir=$(dirname "$dest")
+    mkdir -p "$dest_dir"
+    
     # Create the symlink (only if it doesn't exist or points to a different location)
     if [[ ! -L "$dest" ]] || [[ "$(readlink "$dest")" != "$src" ]]; then
         ln -snf "$src" "$dest"
@@ -162,6 +166,9 @@ backup_and_symlink() {
 }
 
 symlink_dotfiles() {
+    # 필요한 디렉토리가 존재하는지 확인하고 없으면 생성
+    mkdir -p "$HOME/.config" "$HOME/.local" "$HOME/.cache"
+    
     # Create symlinks for .config, .local, .cache
     # backup_and_symlink "$DOTFILES/config" "$HOME/.config"
     # backup_and_symlink "$DOTFILES/local" "$HOME/.local"
@@ -169,12 +176,12 @@ symlink_dotfiles() {
 
     app_dirs=(zsh bash git helix tmux vim aliases functions)
     for app in "${app_dirs[@]}"; do
-        backup_and_symlink "$DOTFILES/config/$app" "$HOME/.config/"
+        backup_and_symlink "$DOTFILES/config/$app" "$HOME/.config/$app"
     done
 
     dot_configs=(.aliases .env .export .path .secrets)
     for configs in "${dot_configs[@]}"; do
-        backup_and_symlink "$DOTFILES/config/$configs" "$HOME/.config/"
+        backup_and_symlink "$DOTFILES/config/$configs" "$HOME/.config/$configs"
     done
 
     backup_and_symlink "$DOTFILES/config/zsh/.zshenv" "$HOME/.zshenv"
