@@ -1,32 +1,44 @@
 #!/bin/bash
 
 backup_file_to_bak() {
-    # Usage: backup_file_to_home $HOME/.aliases [backup_target_directory]
+    # Usage: backup_file_to_bak $HOME/.aliases [backup_target_directory]
     echo "backup_file_bak $1 to $2"
+    
+    # 현재 스크립트의 디렉토리 확인
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local dotfiles_dir="$(cd "$script_dir/../.." && pwd)"
+    
+    # 기본 백업 디렉토리를 dotfiles 저장소 내의 .bak 디렉토리로 설정
+    local default_backup_dir="${dotfiles_dir}/.bak/$(date +%Y%m%d)"
+    
     if [[ -e "$1" ]]; then
-        mkdir -p "${2:-$HOME/.bak.$(date +%Y%m%d)}" # make the directory if it doesn't exist
+        mkdir -p "${2:-$default_backup_dir}" # make the directory if it doesn't exist
         
         # 파일인지 디렉토리인지 확인하여 적절한 복사 명령 사용
         if [[ -d "$1" && ! -L "$1" ]]; then
             # 디렉토리인 경우 (심볼릭 링크가 아닌 경우만)
-            cp -R "$1" "${2:-$HOME/.bak.$(date +%Y%m%d)/}"
+            cp -R "$1" "${2:-$default_backup_dir/}"
             echo "Backed up directory: $1"
         elif [[ -f "$1" && ! -L "$1" ]]; then
             # 일반 파일인 경우 (심볼릭 링크가 아닌 경우만)
-            cp "$1" "${2:-$HOME/.bak.$(date +%Y%m%d)/}"
+            cp "$1" "${2:-$default_backup_dir/}"
             echo "Backed up file: $1"
         elif [[ -L "$1" ]]; then
             # 심볼릭 링크인 경우 링크 정보 저장
             target=$(readlink "$1")
-            echo "$1 -> $target" >> "${2:-$HOME/.bak.$(date +%Y%m%d)/symlinks.log}"
+            echo "$1 -> $target" >> "${2:-$default_backup_dir/symlinks.log}"
             echo "Logged symlink: $1 -> $target"
         fi
     fi 
 } 
 
 backup() {
-    # 1. 고정 백업 루트 디렉토리 생성 (HOME 내에 위치하여 지속성 보장)
-    backup_root="$HOME/.dotfiles_backups"
+    # 현재 스크립트의 디렉토리 확인
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local dotfiles_dir="$(cd "$script_dir/../.." && pwd)"
+    
+    # 1. dotfiles 저장소 내의 .bak 디렉토리 사용
+    backup_root="${dotfiles_dir}/.bak"
     mkdir -p "$backup_root"
     
     # 2. 이번 백업의 타임스탬프 디렉토리 생성
@@ -101,80 +113,93 @@ backup() {
 backup_and_symlink() {
     local src=$1
     local dest=$2
-    local backup_suffix=${3:-"~"}
+    local timestamp=$(date +%Y%m%d%H%M%S)
+    local backup_suffix=".bak.${timestamp}"
+    
+    # 현재 스크립트의 디렉토리 확인
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local dotfiles_dir="$(cd "$script_dir/../.." && pwd)"
+    
+    # 백업 디렉토리 설정
+    local backup_dir="${dotfiles_dir}/.bak/symlinks.$(date +%Y%m%d)"
+    mkdir -p "$backup_dir"
 
     # Check if the destination exists and is not a symlink
     if [[ -e "$dest" && ! -L "$dest" ]]; then
-        mv "$dest" "$dest$backup_suffix"
+        # 파일 또는 디렉토리를 .bak 디렉토리로 백업
+        local dest_basename=$(basename "$dest")
+        local dest_dirname=$(dirname "$dest")
+        local backup_path="${backup_dir}/${dest_basename}.${timestamp}"
+        
+        # 백업 수행
+        if [[ -d "$dest" ]]; then
+            cp -R "$dest" "$backup_path"
+            echo "Backed up directory to: $backup_path"
+        else
+            cp "$dest" "$backup_path"
+            echo "Backed up file to: $backup_path"
+        fi
+        
+        # 원래 위치에서 파일 이동 (타임스탬프 사용)
+        if [[ "$dest" == */ ]]; then
+            # 끝의 /를 제거하고 백업 접미사 추가
+            mv "${dest%/}" "${dest%/}$backup_suffix"
+        else
+            mv "$dest" "$dest$backup_suffix"
+        fi
+    elif [[ -L "$dest" ]]; then
+        # 이미 심볼릭 링크인 경우 로그만 남기고 넘어감
+        echo "Destination already exists as a symlink: $dest -> $(readlink "$dest")"
     fi
 
-    # Create the symlink
-    ln -snf "$src" "$dest"
+    # Create the symlink (only if it doesn't exist or points to a different location)
+    if [[ ! -L "$dest" ]] || [[ "$(readlink "$dest")" != "$src" ]]; then
+        ln -snf "$src" "$dest"
+        echo "Created/Updated symlink: $dest -> $src"
+    else
+        echo "Symlink already correctly set: $dest -> $src"
+    fi
 }
 
 symlink_dotfiles() {
-    local backup_suffix=".bak"
-
     # Create symlinks for .config, .local, .cache
-    # backup_and_symlink "$DOTFILES/config" "$HOME/.config" "$backup_suffix"
-    # backup_and_symlink "$DOTFILES/local" "$HOME/.local" "$backup_suffix"
-    # backup_and_symlink "$DOTFILES/cache" "$HOME/.cache" "$backup_suffix"
+    # backup_and_symlink "$DOTFILES/config" "$HOME/.config"
+    # backup_and_symlink "$DOTFILES/local" "$HOME/.local"
+    # backup_and_symlink "$DOTFILES/cache" "$HOME/.cache"
 
     app_dirs=(zsh bash git helix tmux vim aliases functions)
     for app in "${app_dirs[@]}"; do
-        backup_and_symlink "$DOTFILES/config/$app" "$HOME/.config/" "$backup_suffix"
+        backup_and_symlink "$DOTFILES/config/$app" "$HOME/.config/"
     done
 
     dot_configs=(.aliases .env .export .path .secrets)
     for configs in "${dot_configs[@]}"; do
-        backup_and_symlink "$DOTFILES/config/$configs" "$HOME/.config/" "$backup_suffix"
+        backup_and_symlink "$DOTFILES/config/$configs" "$HOME/.config/"
     done
 
-    backup_and_symlink "$DOTFILES/config/zsh/.zshenv" "$HOME/.zshenv" "$backup_suffix"
-    backup_and_symlink "$DOTFILES/config/zsh/.zshrc" "$HOME/.zshrc" "$backup_suffix"
+    backup_and_symlink "$DOTFILES/config/zsh/.zshenv" "$HOME/.zshenv"
+    backup_and_symlink "$DOTFILES/config/zsh/.zshrc" "$HOME/.zshrc"
 
-    backup_and_symlink "$DOTFILES/config/bash/.bashrc" "$HOME/.bashrc" "$backup_suffix"
+    backup_and_symlink "$DOTFILES/config/bash/.bashrc" "$HOME/.bashrc"
 
-    # backup_and_symlink "$DOTFILES/config/git/.gitconfig" "$HOME/.gitconfig" "$backup_suffix"
-    backup_and_symlink "$DOTFILES/config/git/.gitignore" "$HOME/.gitignore" "$backup_suffix"
+    # backup_and_symlink "$DOTFILES/config/git/.gitconfig" "$HOME/.gitconfig"
+    backup_and_symlink "$DOTFILES/config/git/.gitignore" "$HOME/.gitignore"
 
     # Uncomment if needed
-    # backup_and_symlink "$DOTFILES/config/ideavim/.ideavimrc" "$HOME/.ideavimrc" "$backup_suffix"
-    # backup_and_symlink "$DOTFILES/config/vim/.vimrc" "$HOME/.vimrc" "$backup_suffix"
+    # backup_and_symlink "$DOTFILES/config/ideavim/.ideavimrc" "$HOME/.ideavimrc"
+    # backup_and_symlink "$DOTFILES/config/vim/.vimrc" "$HOME/.vimrc"
 
     # 폴더 모니터링 용 symlink
     # !NOTE: or config에 있는 사용하는 app config만 symlink를 걸까..?
-    backup_and_symlink "$HOME/.config" "$DOTFILES/monitoring/config"
-    backup_and_symlink "$HOME/.local" "$DOTFILES/monitoring/local"
-    backup_and_symlink "$HOME/.cache" "$DOTFILES/monitoring/cache"
+    # 이 부분은 문제가 될 수 있으므로 주석 처리하고 대신 디렉토리 생성만 함
+    # 이미 $HOME/.config가 심볼릭 링크인 경우 순환 참조가 발생할 수 있음
+    mkdir -p "$DOTFILES/monitoring/config" "$DOTFILES/monitoring/local" "$DOTFILES/monitoring/cache"
+    echo "Created monitoring directories. Manual monitoring setup may be required."
 }
 
+# Legacy symlink function - replaced by improved symlink_dotfiles
+# This function is kept for reference but should not be used
 symlink_dotfiles_v1() {
-    # Create symlinks for .config, .local, .cache
-    # TODO: 기존에 .config .local .cache에 있던 파일 처리 및 backup directory 코드 분리
-    if [[ -d "$HOME/.config" && ! -L "$HOME/.config" ]]; then
-        mv "$HOME/.config" "$HOME/.config.origin.bak"
-    fi
-    ln -snfbS "$DOTFILES/config" "$HOME/.config"
-    
-    if [[ -d "$HOME/.local" && ! -L "$HOME/.local" ]]; then
-        mv "$HOME/.local" "$HOME/.local.origin.bak"
-    fi
-    ln -snfbS .bak $DOTFILES/local $HOME/.local
-
-    if [[ -d "$HOME/.cache" && ! -L "$HOME/.cache" ]]; then
-        mv "$HOME/.cache" "$HOME/.cache.origin.bak"
-    fi
-    ln -snfbS .bak $DOTFILES/cache $HOME/.cache
-
-    ln -snfbS .bak $DOTFILES/config/zsh/.zshenv $HOME/
-    ln -snfbS .bak $DOTFILES/config/zsh/.zshrc $HOME/
-
-    ln -snfbS .bak $DOTFILES/config/bash/.bashrc $HOME/
-
-    ln -snfbS .bak $DOTFILES/config/git/.gitconfig $HOME/
-    ln -snfbS .bak $DOTFILES/config/git/.gitignore $HOME/
-
-    # ln -snfbS .bak $DOTFILES/config/ideavim/.ideavimrc $HOME/
-    # ln -snfbS .bak $DOTFILES/config/vim/.vimrc $HOME
+    echo "Warning: symlink_dotfiles_v1 is deprecated. Using symlink_dotfiles instead."
+    symlink_dotfiles
 }

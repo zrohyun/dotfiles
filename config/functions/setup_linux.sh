@@ -25,7 +25,7 @@ setup_linux(){
     tools=(tzdata curl wget vim tmux trash-cli tldr jq fd-find ripgrep neofetch btop git lsd bsdmainutils)
     # additional tools
     # tools+=(termshark sshs gh)
-    install_cli_tools ${tools[@]}
+    install_cli_tools "${tools[@]}"
 
     # LSP
     install_cli_tools gopls 
@@ -34,12 +34,22 @@ setup_linux(){
 
     # ZSH
     install_cli_tools zsh
-    echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+    
+    # ASDF - Check if directory exists before cloning
+    if [ ! -d "$HOME/.asdf" ]; then
+        echo "git clone https://github.com/asdf-vm/asdf.git ~/.asdf" && git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+    else
+        echo "ASDF already installed at ~/.asdf, skipping clone"
+    fi
 
     # FZF
     # NOTE: apt install로 하지 않음 (fzf-에러,git install)
     # TODO: fzf 다운로드 위치에 대해 고민해보기
-    git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+    if [ ! -d "$HOME/.fzf" ]; then
+        git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+    else
+        echo "FZF already installed at ~/.fzf, skipping clone"
+    fi
     # TODO: input(yes) 받지 않아도 설정할 수 있도록 설정
     # yes | $HOME/.fzf/install --key-bindings --completion --xdg --bin --all
 
