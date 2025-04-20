@@ -200,6 +200,7 @@ symlink_dotfiles() {
     # !NOTE: or config에 있는 사용하는 app config만 symlink를 걸까..?
     # 이 부분은 문제가 될 수 있으므로 주석 처리하고 대신 디렉토리 생성만 함
     # 이미 $HOME/.config가 심볼릭 링크인 경우 순환 참조가 발생할 수 있음
+    # TODO:
     mkdir -p "$DOTFILES/monitoring/config" "$DOTFILES/monitoring/local" "$DOTFILES/monitoring/cache"
     echo "Created monitoring directories. Manual monitoring setup may be required."
 }
