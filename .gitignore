@@ -1,6 +1,16 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos
 
+# Ignore all .bak, .tmp, and .log files
+.bak/*
+.tmp/*
+.log/*
+
+# Exclude specific files in .bak, .tmp, and .log directories
+!.bak/README.md
+!.tmp/README.md
+!.log/README.md
+
 ### macOS ###
 # General
 .DS_Store

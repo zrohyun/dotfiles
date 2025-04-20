@@ -17,8 +17,19 @@
 LOGFILE=""
 
 init_logging() {
-    # 로그 디렉토리 설정 - 항상 홈 디렉토리에 저장
-    local log_dir="$HOME/.dotfiles_logs"
+    # 현재 스크립트의 디렉토리 확인
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local log_dir=""
+    
+    # curl로 실행된 경우 (저장소가 아직 클론되지 않은 경우)를 위한 임시 로그 디렉토리
+    if [[ "${BASH_SOURCE[0]}" != "${0}" && -z "${DOTFILES_INTERNAL_SOURCE}" ]]; then
+        # curl로 실행된 경우 임시 로그 디렉토리 사용 (타임스탬프 적용)
+        timestamp=$(date +%Y%m%d_%H%M%S)
+        log_dir="$HOME/.dotfiles_temp_logs_${timestamp}"
+    else
+        # 로컬에서 실행된 경우 dotfiles 저장소 내의 .log 디렉토리 사용
+        log_dir="${script_dir}/.log"
+    fi
     
     # 로그 디렉토리가 없으면 생성
     mkdir -p "$log_dir"
@@ -131,6 +142,18 @@ curl_install_dotfiles() {
     log "dotfiles 저장소를 클론합니다..."
     git clone --depth=1 -b main https://github.com/zrohyun/dotfiles.git "$dotfiles_dir"
     cd "$dotfiles_dir" || exit 1
+
+    # .log, .bak, .tmp 디렉토리는 이미 git에 커밋되어 있음
+    
+    # 임시 로그 파일이 있으면 .log 디렉토리로 복사 후 정리
+    # 타임스탬프가 적용된 임시 로그 디렉토리 찾기
+    temp_logs_dir=$(find "$HOME" -maxdepth 1 -type d -name ".dotfiles_temp_logs_*" 2>/dev/null | sort -r | head -n 1)
+    if [[ -n "$temp_logs_dir" && -d "$temp_logs_dir" ]]; then
+        cp -R "$temp_logs_dir/"* "$dotfiles_dir/.log/" 2>/dev/null || true
+        log "임시 로그 파일을 .log 디렉토리로 복사했습니다."
+        rm -rf "$temp_logs_dir"
+        log "임시 로그 디렉토리를 정리했습니다."
+    fi
 
     log_success "dotfiles 저장소 클론 완료"
     
@@ -283,6 +306,13 @@ main() {
     # Oh-My-Zsh 설치
     source ./config/functions/install_omz.sh
     install_omz
+    
+    # 임시 로그 디렉토리 정리 (타임스탬프가 적용된 디렉토리)
+    temp_logs_dir=$(find "$HOME" -maxdepth 1 -type d -name ".dotfiles_temp_logs_*" 2>/dev/null | sort -r | head -n 1)
+    if [[ -n "$temp_logs_dir" && -d "$temp_logs_dir" ]]; then
+        rm -rf "$temp_logs_dir"
+        log "임시 로그 디렉토리를 정리했습니다."
+    fi
     
     log_success "설치 완료!"
 }
