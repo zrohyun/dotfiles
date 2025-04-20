@@ -160,3 +160,31 @@ brew_update(){
         fi
     fi
 }
+
+# brew bundle dump로 현재 설치된 앱 목록을 Brewfile로 생성하고 .bak 폴더에 백업하는 함수
+dump_brewfile() {
+    # dotfiles 경로 확인
+    local dotfiles_dir="${DOTFILES:-$HOME/.dotfiles}"
+    
+    # 백업 디렉토리 설정 (.bak 폴더 사용)
+    local backup_dir="$dotfiles_dir/.bak"
+    local timestamp=$(date +"%Y%m%d_%H%M%S")
+    local backup_file="$backup_dir/Brewfile_$timestamp"
+    
+    # 백업 디렉토리가 없으면 생성
+    if [[ ! -d "$backup_dir" ]]; then
+        mkdir -p "$backup_dir"
+        echo "백업 디렉토리 생성: $backup_dir"
+    fi
+    
+    # brew bundle dump로 현재 설치된 앱 목록 Brewfile 생성
+    echo "현재 설치된 앱 목록을 덤프하여 Brewfile 백업 생성 중..."
+    brew bundle dump --force --file="$backup_file"
+    
+    if [[ $? -eq 0 ]]; then
+        echo "✅ Brewfile 백업 완료: $backup_file"
+    else
+        echo "❌ Brewfile 백업 실패"
+        return 1
+    fi
+}
