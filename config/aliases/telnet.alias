@@ -1,13 +1,15 @@
 #!/bin/bash
 
 # nc, telnet
-if command -v nc &>/dev/null; then
+if type -p nc &>/dev/null; then
+    # nc binary check
     alias nc='echo -ne "99||\x00" | nc -v'
     alias telnet=nc
     #?
     # alias conn=nc
     # alias acl=nc
-elif command -v telnet &>/dev/null; then
+elif type -p telnet &>/dev/null; then
+    # telnet binary check
     conn() {
         # Usage Example
         # $ conn localhost 80
@@ -16,7 +18,8 @@ elif command -v telnet &>/dev/null; then
     }
     alias nc=conn
     alias telnet=nc
-elif command -v $(which bash) &>/dev/null; then
+elif type -p bash &>/dev/null; then
+    # bash binary check
     conn() {
         verbose=0
         while getopts ":v" opt; do
@@ -44,8 +47,8 @@ elif command -v $(which bash) &>/dev/null; then
             echo "Usage: nc [-v verbose] [host] [port]"
             return 1
         fi
-        echo "$(which bash) -c echo > '/dev/tcp/$host/$port' 2>/dev/null"
-        $(which bash) -c "echo > /dev/tcp/$host/$port" 2>/dev/null
+        echo "$(type -p bash) -c echo > '/dev/tcp/$host/$port' 2>/dev/null"
+        $(type -p bash) -c "echo > /dev/tcp/$host/$port" 2>/dev/null
         if [ $? -eq 0 ]; then
             echo "Connection to $host port $port succeeded!"
         else
@@ -54,7 +57,8 @@ elif command -v $(which bash) &>/dev/null; then
     }
     alias nc=conn
     alias telnet=nc
-elif command -v curl &>/dev/null; then
+elif type -p curl &>/dev/null; then
+    # curl binary check
     conn() {
         verbose=0
         while getopts ":v" opt; do

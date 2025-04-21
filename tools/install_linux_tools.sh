@@ -9,6 +9,7 @@ cli_tools=(
     "telnet"
     "wget"
     "bat"
+    "netcat-openbsd"
 
     # ESSENTIAL
     # "tmux"

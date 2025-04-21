@@ -22,7 +22,7 @@ setup_linux(){
     exec_with_auto_privilege ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     
 
-    tools=(tzdata curl wget vim tmux trash-cli tldr jq fd-find ripgrep neofetch btop git lsd bsdmainutils)
+    tools=(tzdata curl wget vim tmux trash-cli tldr jq fd-find ripgrep neofetch btop git lsd bsdmainutils netcat-openbsd)
     # additional tools
     # tools+=(termshark sshs gh)
     install_cli_tools "${tools[@]}"
