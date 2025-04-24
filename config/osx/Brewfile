@@ -165,6 +165,7 @@ cask "maccy"
 cask "cheatsheet"
 cask "dropzone"
 cask "obsidian"
+# cask "jump-desktop-connect"
 # cask "reflect"            # 노트
 # "reor"                    # 노트 # no brew app
 cask "contexts"
@@ -260,6 +261,8 @@ mas "RunCat", id: 1429033973
 # mas "One Thing", id: 1604176982
 # mas "Spaced", id: 1666327168
 # mas "1Password", id: 1333542190
+# mas "Parallels Desktop", id: 1085114709
+# mas "Screens 5: VNC 원격 데스크톱", id: 1663047912
 mas "Card Diary", id: 1536247273
 # VSCODE
 # vscode "vscodevim.vim"
