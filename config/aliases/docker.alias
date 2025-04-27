@@ -5,3 +5,4 @@
 # docker run -it -d --restart unless-stopped ubuntu sleep infinity
 alias docker_ubuntu='f() { echo "RUN: docker run -it --rm ubuntu:${1:-24.04} bash"; docker run -it --rm ubuntu:${1:-24.04} bash; }; f'
 alias dubuntu=docker_ubuntu
+alias docker_stop_rm='docker rm -f'
