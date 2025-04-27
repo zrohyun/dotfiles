@@ -118,6 +118,7 @@ brew "pyright"              # python lsp
 # brew "tcptrace"
 # brew "whireshark"
 # brew "aircrack-ng"        # 네트워크 보안
+# brew "tailscale"
 
 # CLOUD
 # brew "terraform"
@@ -230,6 +231,8 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "dash"
 # cask "filezilla"
 # cask "sidenotes"
+# cask "murus"             # pf 방화벽 gui
+# cask "tailscale"         # vpn  
 
 # File Sync
 # brew "unison"
