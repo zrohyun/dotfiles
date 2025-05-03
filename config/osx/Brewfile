@@ -166,6 +166,7 @@ cask "maccy"
 cask "cheatsheet"
 cask "dropzone"
 cask "obsidian"
+cask "google-drive"
 # cask "jump-desktop-connect"
 # cask "reflect"            # 노트
 # "reor"                    # 노트 # no brew app
@@ -251,6 +252,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # APP STORE APPS
 mas "KakaoTalk", id: 869223134      
 mas "RunCat", id: 1429033973        
+mas "Tailscale", id: 1475387142
 # mas "zest"                        # 한국에서 다운로드 불가능한 듯 -> https://zestdocs.github.io/ 에서 다운 가능
 # mas "DropOver", id: 1355679052    # 유료
 # mas "Xmenu", id: 419332741        
