@@ -1,5 +1,65 @@
 #!/bin/bash
 
+create_original_backup() {
+    # 현재 스크립트의 디렉토리 확인
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local dotfiles_dir="$(cd "$script_dir/../.." && pwd)"
+    
+    # Original backup 디렉토리 설정
+    local original_backup_dir="${dotfiles_dir}/.bak/original"
+    
+    # Original backup이 이미 존재하는지 확인
+    if [[ -d "$original_backup_dir" ]]; then
+        echo "Original backup already exists: $original_backup_dir"
+        return 0
+    fi
+    
+    echo "Creating original backup..."
+    mkdir -p "$original_backup_dir"
+    
+    # 백업할 파일 목록 (기존 backup() 함수와 동일)
+    files=(
+        .zshenv .zshrc .bashrc .gitconfig .gitignore .vimrc .ideavimrc
+        .oh-my-zsh .bash_history .zsh_history .zsh_sessions 
+        .zcompdump .zcompdump-$HOSTNAME .zcompdump-$HOSTNAME.zwc
+    )
+    
+    # 파일 복사
+    for file in "${files[@]}"; do
+        if [[ -e "$HOME/$file" ]]; then
+            if [[ -d "$HOME/$file" && ! -L "$HOME/$file" ]]; then
+                cp -R "$HOME/$file" "$original_backup_dir/"
+                echo "Original backup - directory: $file"
+            elif [[ -f "$HOME/$file" && ! -L "$HOME/$file" ]]; then
+                cp "$HOME/$file" "$original_backup_dir/"
+                echo "Original backup - file: $file"
+            elif [[ -L "$HOME/$file" ]]; then
+                target=$(readlink "$HOME/$file")
+                echo "$file -> $target" >> "$original_backup_dir/symlinks.log"
+                echo "Original backup - symlink: $file -> $target"
+            fi
+        fi
+    done
+    
+    # .config, .local, .cache 디렉토리의 선택적 백업
+    config_dirs=(.config .local .cache)
+    for dir in "${config_dirs[@]}"; do
+        if [[ -d "$HOME/$dir" && ! -L "$HOME/$dir" ]]; then
+            mkdir -p "$original_backup_dir/$dir"
+            cp -R "$HOME/$dir/"* "$original_backup_dir/$dir/" 2>/dev/null || true
+            echo "Original backup - directory: $dir"
+        elif [[ -L "$HOME/$dir" ]]; then
+            target=$(readlink "$HOME/$dir")
+            echo "$dir -> $target" >> "$original_backup_dir/symlinks.log"
+            echo "Original backup - symlink: $dir -> $target"
+        fi
+    done
+    
+    # Original backup 완료 마커 파일 생성
+    echo "$(date)" > "$original_backup_dir/.original_backup_created"
+    echo "Original backup completed: $original_backup_dir"
+}
+
 backup_file_to_bak() {
     # Usage: backup_file_to_bak $HOME/.aliases [backup_target_directory]
     echo "backup_file_bak $1 to $2"
@@ -99,10 +159,10 @@ backup() {
     echo "Backup completed: $backup_dir"
     echo "Latest backup linked: $backup_root/latest"
     
-    # 7. 옵션: 오래된 백업 정리 (예: 5개 이상 백업 시 가장 오래된 것 삭제)
-    backup_count=$(find "$backup_root" -maxdepth 1 -type d -not -name "latest" -not -name "$(basename "$backup_root")" | wc -l)
+    # 7. 옵션: 오래된 백업 정리 (original 백업 제외, 5개 이상 백업 시 가장 오래된 것 삭제)
+    backup_count=$(find "$backup_root" -maxdepth 1 -type d -not -name "latest" -not -name "original" -not -name "$(basename "$backup_root")" | wc -l)
     if [ "$backup_count" -gt 5 ]; then
-        oldest_backup=$(find "$backup_root" -maxdepth 1 -type d -not -name "latest" -not -name "$(basename "$backup_root")" | sort | head -1)
+        oldest_backup=$(find "$backup_root" -maxdepth 1 -type d -not -name "latest" -not -name "original" -not -name "$(basename "$backup_root")" | sort | head -1)
         if [ -n "$oldest_backup" ]; then
             rm -rf "$oldest_backup"
             echo "Removed old backup: $oldest_backup"

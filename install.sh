@@ -300,6 +300,11 @@ main() {
     
     # 공통 설정
     source ./config/functions/backup.sh
+    
+    # Original backup 생성 (최초 설치 시에만)
+    create_original_backup
+    
+    # 일반 백업 수행
     backup # 기존 dotfiles 백업 (HOME/.dotfiles_backups에 저장)
     symlink_dotfiles
     
