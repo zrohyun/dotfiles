@@ -646,3 +646,19 @@
 [2024-07-13 16:06:43.474]	 Invoking /root/.config/tmux/plugins/tpm/bin/clean_plugins all
 [2024-07-13 16:06:43.498]	 Done.
 
+[2025-04-27 02:07:27.812]	 List of discovered tpm plugins: tmux-plugins/tmux-copycat tmux-plugins/tmux-cpu tmux-plugins/tmux-resurrect tmux-plugins/tmux-continuum Ctrl-hjkl theme
+[2025-04-27 02:07:27.820]	 Invoking /Users/zrohyun/.config/tmux/plugins/tpm/bin/install_plugins
+[2025-04-27 02:07:28.336]	 Installing "tmux-copycat"
+[2025-04-27 02:07:28.336]	 Installing "tmux-cpu"
+[2025-04-27 02:07:28.338]	 Installing "tmux-resurrect"
+[2025-04-27 02:07:28.338]	 Installing "tmux-continuum"
+[2025-04-27 02:07:28.338]	 Installing "Ctrl-hjkl"
+[2025-04-27 02:07:28.339]	 Installing "theme"
+[2025-04-27 02:07:28.605]	   "Ctrl-hjkl" download fail
+[2025-04-27 02:07:28.607]	   "theme" download fail
+[2025-04-27 02:07:29.476]	   "tmux-cpu" download success
+[2025-04-27 02:07:29.476]	   "tmux-continuum" download success
+[2025-04-27 02:07:29.478]	   "tmux-copycat" download success
+[2025-04-27 02:07:30.211]	   "tmux-resurrect" download success
+[2025-04-27 02:07:30.222]	 Done.
+

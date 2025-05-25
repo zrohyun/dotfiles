@@ -45,6 +45,7 @@ fi
 #TODO: Refactor with this clause
 # if [ $UID -ne 0 ]; then
 #     alias reboot='sudo reboot'
+#     alias upgrade='sudo apt-get upgrade'
 #     alias update='sudo apt-get upgrade'
 # fi
 
@@ -86,6 +87,18 @@ fi
 
 # Pretty print the path
 alias hi='tmux new -As main'
+
+# vi aliases
+
+if type -p hx &>/dev/null; then
+    alias vi="hx"
+    alias vii="vi"
+    alias vvi="vi"
+elif type -p nvim &>/dev/null; then
+    alias vi="nvim"
+    alias vii="vi"
+    alias vvi="vi"
+fi
 
 load_functions(){
     # source ${XDG_CONFIG_HOME:-$HOME}/functions/functions.sh

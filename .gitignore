@@ -56,6 +56,9 @@ local/state/**/*
 
 # app ignore
 config/.oh-my-zsh/**/*
+config/zsh/.zsh_sessions/**/*
+config/tmux/tmp_log.txt
+
 config/raycast/**/*
 config/docker/**/*
 config/thefuck/**/*
