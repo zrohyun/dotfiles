@@ -64,46 +64,78 @@ is_pkg_installed() {
 }
 
 install_cli_tools() {
-    # Usage: install_cli_tools [-u] [-g] [tools...]
+    # Usage: install_cli_tools [-u] [-g] [-p package_manager] [tools...]
     # install_cli_tools tmux zsh
     # install_cli_tools -u -g
-    #? TODO: answer_yes, package_manager get option
+    # install_cli_tools -p brew tmux zsh
+    # install_cli_tools -p apt-get tmux zsh
 
     # option parsing
     update_flag=false
     upgrade_flag=false
-    package_manager=""
+    package_manager="auto"
     answer_yes=true
 
     unset OPTIND
-    while getopts ":ugy:" opt; do
+    while getopts ":ugp:y:" opt; do
         case $opt in
             u) update_flag=true ;;  # -u option set update_flag true
             g) upgrade_flag=true ;;  # -g option set upgrade_flag true
+            p) package_manager="$OPTARG" ;;  # -p option set package_manager
             y) answer_yes=true ;; #TODO: -y option set answer_yes true/false
-            *) echo "Usage: $0 [-u] [-g] [tools...]" >&2
-            return 1 ;;
+            *) echo "Usage: install_cli_tools [-u] [-g] [-p package_manager] [tools...]" >&2
+               echo "  -u: update package list"
+               echo "  -g: upgrade packages"
+               echo "  -p: specify package manager (brew, apt-get, auto)"
+               echo "  -y: answer yes to prompts"
+               return 1 ;;
         esac
     done
     shift $((OPTIND -1))
 
     # set package manager
-    # TODO: not yet supported linux package manager(centos, fedora, pacman)
-    # if is_pkg_installed apt; then
-    #     pm="apt"
-    #     install_pkg="install"
-    if is_pkg_installed apt-get; then
-        #! apt는 interative에서만 쓰는 게 좋을 것.
-        #! Deprecated apt로 apt-get 완전 대체 가능 : https://aws.amazon.com/ko/compare/the-difference-between-apt-and-apt-get/
-        pm="apt-get"
-        install_pkg="install"
-    elif is_pkg_installed brew; then
-        pm="brew"
-        install_pkg="install"
+    if [[ "$package_manager" == "auto" ]]; then
+
+        # TODO: not yet supported linux package manager(centos, fedora, pacman)
+        # if is_pkg_installed apt; then
+        #     pm="apt"
+        #     install_pkg="install"
+
+        # Auto-detect package manager (prefer apt-get over brew)
+        if is_pkg_installed apt-get; then
+            #! apt는 interative에서만 쓰는 게 좋을 것.
+            #! Deprecated apt로 apt-get 완전 대체 가능 : https://aws.amazon.com/ko/compare/the-difference-between-apt-and-apt-get/
+            pm="apt-get"
+            install_pkg="install"
+        elif is_pkg_installed brew; then
+            pm="brew"
+            install_pkg="install"
+        else
+            echo "Error: No package manager found (brew, apt-get)."
+            return 1
+        fi
+    elif [[ "$package_manager" == "brew" ]]; then
+        if is_pkg_installed brew; then
+            pm="brew"
+            install_pkg="install"
+        else
+            echo "Error: brew is not installed or not available."
+            return 1
+        fi
+    elif [[ "$package_manager" == "apt-get" ]]; then
+        if is_pkg_installed apt-get; then
+            pm="apt-get"
+            install_pkg="install"
+        else
+            echo "Error: apt-get is not installed or not available."
+            return 1
+        fi
     else
-        echo "Error: Package manager not found."
-        exit 1
+        echo "Error: Unsupported package manager '$package_manager'. Supported: brew, apt-get, auto"
+        return 1
     fi
+
+    echo "Using package manager: $pm"
 
     tools=("$@")
     echo "tools: ${tools[@]}"
@@ -142,6 +174,81 @@ install_cli_tools() {
     fi
     if [ ${#tools_not_exist[@]} -gt 0 ]; then
         exec_with_auto_privilege $install_cmd ${tools_not_exist[@]}
+    fi
+}
+
+# Homebrew 설치 확인/설치 (Mac 및 Linux)
+install_homebrew() {
+    if command -v brew &>/dev/null; then
+        echo "Homebrew 이미 설치됨"
+    else
+        # 운영체제 감지
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            machine="Linux"
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            machine="Mac"
+        else
+            machine="Unknown"
+        fi
+        
+        echo "Homebrew 설치 중 ($machine)..."
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        # 플랫폼별 Homebrew 환경변수 설정
+        if [[ $machine == "Mac" ]]; then
+            # Mac용 환경변수 설정
+            if [[ -f /opt/homebrew/bin/brew ]]; then
+                eval "$(/opt/homebrew/bin/brew shellenv)"
+            elif [[ -f /usr/local/bin/brew ]]; then
+                eval "$(/usr/local/bin/brew shellenv)"
+            fi
+        elif [[ $machine == "Linux" ]]; then
+            # Linux용 환경변수 설정
+            if [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+                eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            fi
+        fi
+        
+        if command -v brew &>/dev/null; then
+            echo "✅ Homebrew 설치 완료 ($machine)"
+        else
+            echo "❌ Homebrew 설치 실패 ($machine)"
+            return 1
+        fi
+    fi
+}
+
+# brew install function - install multiple packages efficiently
+brew_install() {
+    # Usage: brew_install [tools...]
+    # brew_install helix pyright vscode-langservers-extracted
+    
+    if ! command -v brew &>/dev/null; then
+        echo "Error: brew is not installed."
+        return 1
+    fi
+    
+    local tools=("$@")
+    local tools_to_install=()
+    
+    echo "Checking brew packages: ${tools[@]}"
+    
+    # 설치되지 않은 도구들만 수집
+    for tool in "${tools[@]}"; do
+        if ! brew list "$tool" &>/dev/null; then
+            echo "$tool is not installed"
+            tools_to_install+=("$tool")
+        else
+            echo "$tool is already installed"
+        fi
+    done
+    
+    # 설치할 도구가 있으면 한 번에 설치
+    if [ ${#tools_to_install[@]} -gt 0 ]; then
+        echo "Installing with brew: ${tools_to_install[@]}"
+        brew install "${tools_to_install[@]}"
+    else
+        echo "All tools are already installed."
     fi
 }
 
@@ -187,4 +294,41 @@ dump_brewfile() {
         echo "❌ Brewfile 백업 실패"
         return 1
     fi
+}
+
+# 시스템 locale 설치 (시간대 변경 없음)
+install_system_locales() {
+    echo "Installing system locales..."
+    
+    exec_with_auto_privilege apt update
+    exec_with_auto_privilege apt install -y locales
+    
+    # 한국어, 영어 locale 생성
+    exec_with_auto_privilege locale-gen ko_KR.UTF-8
+    exec_with_auto_privilege locale-gen en_US.UTF-8
+    
+    echo "✅ System locales 설치 완료!"
+}
+
+# locale 전환 함수 (사용자가 필요시 사용)
+switch_locale() {
+    local target_locale="$1"
+    case "$target_locale" in
+        "ko"|"korean")
+            export LANG=ko_KR.UTF-8
+            export LANGUAGE=ko_KR:ko
+            export LC_ALL=ko_KR.UTF-8
+            echo "✅ Locale을 한국어로 전환"
+            ;;
+        "en"|"english")
+            export LANG=en_US.UTF-8
+            export LANGUAGE=en_US:en
+            export LC_ALL=en_US.UTF-8
+            echo "✅ Locale을 영어로 전환"
+            ;;
+        *)
+            echo "Usage: switch_locale [ko|korean|en|english]"
+            return 1
+            ;;
+    esac
 }

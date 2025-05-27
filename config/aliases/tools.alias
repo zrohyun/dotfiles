@@ -68,14 +68,33 @@ if command -v dust &>/dev/null; then
     alias du='dust'
 fi
 
-# exa
+# Modern ls alternatives with enhanced features
 if command -v exa &>/dev/null; then
-    alias ls='exa --icons'
-    alias la='ls -lah'
+    alias ls='exa --icons --group-directories-first'
+    alias l='exa --icons --long --all --group-directories-first'           # -lah equivalent
+    alias la='exa --icons --long --all --group-directories-first'          # -lAh equivalent (exa doesn't show . and .. by default)
+    alias ll='exa --icons --long --group-directories-first'                # -lh equivalent
+    alias lsa='exa --icons --long --all --group-directories-first'         # same as l
+    alias tree='exa --tree --icons'
 elif command -v lsd &>/dev/null; then
-    alias ls='lsd'
-    alias la='lsd -lah'
-    alias ll='lsd -lh'
+    alias ls='lsd --group-dirs=first'
+    # alias l='lsd --long --all --group-dirs=first'                          # -lah equivalent
+    alias l='lsd --long --almost-all --group-dirs=first'                          # -lah equivalent
+    alias la='lsd --long --almost-all --group-dirs=first'                  # -lAh equivalent
+    alias ll='lsd --long --group-dirs=first'                               # -lh equivalent  
+    alias lsa='lsd --long --all --group-dirs=first'                        # same as l
+    alias tree='lsd --tree'
+else
+    # # Fallback to regular ls with colors
+    # if [[ "$OSTYPE" == "darwin"* ]]; then
+    #     alias ls='ls -G'
+    # elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    #     alias ls='ls --color=auto'
+    # fi
+    # alias l='ls -lah'
+    # alias la='ls -lAh' 
+    # alias ll='ls -lh'
+    # alias lsa='ls -lah'
 fi
 
 # thefuck command
@@ -125,3 +144,4 @@ function remote_exec() {
 
     ssh "${ssh_option}" "${user}@${remote_host}" "${command}"
 }
+
