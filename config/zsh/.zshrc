@@ -108,6 +108,7 @@ plugins=(
     colorize 
     docker 
     kubectl
+	kn
     docker-compose
     ubuntu
     command-not-found
@@ -180,3 +181,6 @@ source $ZSH/oh-my-zsh.sh
 load_aliases
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/config/zsh/.p10k.zsh.
+[[ ! -f ~/.dotfiles/config/zsh/.p10k.zsh ]] || source ~/.dotfiles/config/zsh/.p10k.zsh
