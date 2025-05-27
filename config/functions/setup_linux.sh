@@ -21,19 +21,18 @@ setup_linux(){
     # INSTALL MUST HAVE TOOLS
     exec_with_auto_privilege ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
     
-
-    tools=(tzdata curl wget vim tmux trash-cli tldr jq fd-find ripgrep neofetch btop git lsd bsdmainutils netcat-openbsd)
-    # additional tools
-    # tools+=(termshark sshs gh)
-    install_cli_tools "${tools[@]}"
-
-    # LSP
-    install_cli_tools gopls 
-    #! (NOT WORKING) 
-    #TODO: install_cli_tools bash-language-server pyright
-
-    # ZSH
-    install_cli_tools zsh
+    # 기본 필수 도구들만 설치 (빠른 설치)
+    echo "Installing essential tools with apt-get..."
+    essential_tools=(tzdata git curl wget vim zsh tmux neofetch bsdmainutils netcat-openbsd)
+    install_cli_tools "${essential_tools[@]}"
+    
+    echo "✅ 기본 설치 완료!"
+    echo ""
+    echo "추가 도구 설치 (선택사항):"
+    echo "  ./config/functions/tools.sh --brew             # Homebrew만 설치"
+    echo "  ./config/functions/tools.sh --dev-tools        # 개발 도구들"
+    echo "  ./config/functions/tools.sh --brew-tools       # brew 도구들 (Homebrew 자동 설치)"
+    echo "  ./config/functions/tools.sh --all              # 모든 추가 도구"
     
     # ASDF - Check if directory exists before cloning
     if [ ! -d "$HOME/.asdf" ]; then
@@ -53,22 +52,10 @@ setup_linux(){
     # TODO: input(yes) 받지 않아도 설정할 수 있도록 설정
     # yes | $HOME/.fzf/install --key-bindings --completion --xdg --bin --all
 
-    # INSTALL NEOVIM
-    # TODO: (2024.07 기준 neovim v0.9 확인 - lazyvim 사용 가능) ~~apt-get은 nvim 버전이 낮아서 lazyvim을 쓸 수가 없음.~~
-    # (일단 nvim 설치는 apt-get으로만. ppa는 보류) 
-    # exec_with_auto_privilege add-apt-repository -y ppa:neovim-ppa/unstable
-    install_cli_tools neovim
-
-    # neovim config
-    #! 낮은 버전 nvim(apt-get)은 lazyvim을 사용할 수 없음
-    # source ./nvim/lazyvim_starter_setup.sh
-    
-    # INSTALL HELIX
-    # exec_with_auto_privilege add-apt-repository -y ppa:maveonair/helix-editor
-    # install_cli_tools helix
 
     # INSTALL DEVBOX
     # curl -fsSL https://get.jetify.com/devbox | bash
 
     # set_default_shell_zsh
 }
+

@@ -164,36 +164,6 @@ curl_install_dotfiles() {
     exit 0
 }
 
-# Mac 전용: Homebrew 설치 확인/설치
-install_homebrew() {
-    if command -v brew &>/dev/null; then
-        log_success "Homebrew 이미 설치됨"
-    else
-        log "Homebrew 설치 중..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        
-        # Homebrew 환경변수 설정
-        if [[ -f /opt/homebrew/bin/brew ]]; then
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-            
-            # 쉘 프로필에 Homebrew 환경변수 추가
-            if [[ -f "$HOME/.zprofile" ]]; then
-                echo >> "$HOME/.zprofile"
-                echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
-            elif [[ -f "$HOME/.bash_profile" ]]; then
-                echo >> "$HOME/.bash_profile"
-                echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.bash_profile"
-            fi
-        fi
-        
-        if command -v brew &>/dev/null; then
-            log_success "Homebrew 설치 완료"
-        else
-            log_error "Homebrew 설치 실패"
-            exit 1
-        fi
-    fi
-}
 
 # Git 설치 확인/설치 (Mac 및 Linux)
 install_git() {
@@ -292,6 +262,9 @@ main() {
     if [[ $machine == "Linux" ]]; then
         source ./config/functions/setup_linux.sh
         setup_linux
+        
+        # locale 설정 추가 (초기 설치 시에만)
+        install_system_locales
     elif [[ $machine == "Mac" ]]; then
         # source ./config/functions/setup_mac.sh
         # setup_mac

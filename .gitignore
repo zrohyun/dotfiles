@@ -57,7 +57,9 @@ local/state/**/*
 # app ignore
 config/.oh-my-zsh/**/*
 config/zsh/.zsh_sessions/**/*
+config/zsh/.zcompdump*
 config/tmux/tmp_log.txt
+config/tmux/plugins/**/*
 
 config/raycast/**/*
 config/docker/**/*
