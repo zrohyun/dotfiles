@@ -25,6 +25,7 @@ set_workspace() {
     alias workspace="cd $WORKSPACE"
     alias works=workspace
     alias wsp=workspace
+    alias ws=workspace
 }
 set_workspace
 

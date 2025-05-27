@@ -26,7 +26,7 @@ install_brew_only() {
 # 개발 도구들 설치 (apt-get 사용)
 install_dev_tools() {
     echo "Installing development tools with apt-get..."
-    dev_tools=(trash-cli tldr jq fd-find ripgrep)
+    dev_tools=(trash-cli tldr jq fd-find ripgrep unison)
     install_cli_tools "${dev_tools[@]}"
     echo "✅ 개발 도구 설치 완료!"
 }
