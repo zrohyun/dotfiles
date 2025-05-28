@@ -55,7 +55,7 @@ install_brew_tools() {
     
     # brew로 설치할 도구들
 	# TODO: linux brewfile?
-    brew_tools=(btop lsd helix neovim pyright gopls vscode-langservers-extracted yaml-language-server 
+    brew_tools=(btop bpython lsd helix neovim pyright gopls vscode-langservers-extracted yaml-language-server 
                 bash-language-server dockerfile-language-server marksman
                 typescript-language-server kotlin-language-server jdtls taplo)
     

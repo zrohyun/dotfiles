@@ -74,6 +74,7 @@ brew "dust"
 # brew "thefuck"
 brew "mackup"
 brew "im-select"
+brew "bpython"
 # brew "stow"
 
 #LSP
