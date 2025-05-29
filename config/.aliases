@@ -87,7 +87,7 @@ fi
 
 # Pretty print the path
 alias hi='tmux new -As main'
-alias tmux=tmx
+alias tmx=tmux
 
 # vi aliases
 
