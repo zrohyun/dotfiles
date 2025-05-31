@@ -76,6 +76,8 @@ brew "mackup"
 brew "im-select"
 brew "bpython"
 # brew "stow"
+# brew "ranger"
+brew "superfile"
 
 #LSP
 brew "bash-language-server"
