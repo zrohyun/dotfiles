@@ -1,0 +1,41 @@
+#compdef dpc
+
+# Docker context ps completion for dpc command
+# Author: zrohyun
+# Created: 2025-01-19
+
+_dpc() {
+    local context state line
+    typeset -A opt_args
+
+    _arguments -C \
+        '1: :_dpc_contexts' \
+        '*:: :->args' \
+        '(-j --json)'{-j,--json}'[Output in JSON format]' \
+        '(-h --help)'{-h,--help}'[Show help message]'
+
+    case $state in
+        args)
+            case $line[1] in
+                *)
+                    _arguments \
+                        '(-j --json)'{-j,--json}'[Output in JSON format]' \
+                        '(-h --help)'{-h,--help}'[Show help message]'
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+_dpc_contexts() {
+    local contexts
+    contexts=($(docker context ls --format '{{.Name}}' 2>/dev/null))
+    
+    if [[ ${#contexts[@]} -gt 0 ]]; then
+        _describe 'docker contexts' contexts
+    else
+        _message 'no docker contexts available'
+    fi
+}
+
+_dpc "$@"
