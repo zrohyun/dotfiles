@@ -332,3 +332,64 @@ switch_locale() {
             ;;
     esac
 }
+
+# 개인 스크립트 환경 설정
+setup_personal_scripts() {
+    echo "개인 스크립트 환경 설정 중..."
+    
+    # 스크립트 관리 함수 로드
+    if [[ -f "$HOME/.dotfiles/config/functions/script_manager.sh" ]]; then
+        source "$HOME/.dotfiles/config/functions/script_manager.sh"
+        
+        # 개인 bin 디렉토리 설정
+        setup_personal_bin
+        
+        # 기존 bin/ 디렉토리의 스크립트들을 새 구조로 마이그레이션
+        migrate_existing_bin_scripts
+        
+        echo "✅ 개인 스크립트 환경 설정 완료"
+    else
+        echo "❌ 스크립트 관리 함수를 찾을 수 없습니다"
+        return 1
+    fi
+}
+
+# 기존 bin/ 디렉토리 스크립트 마이그레이션
+migrate_existing_bin_scripts() {
+    local old_bin="$HOME/.dotfiles/bin"
+    local new_scripts="$HOME/.dotfiles/scripts/migrated"
+    local new_bin="$HOME/.dotfiles/local/bin"
+    
+    if [[ -d "$old_bin" ]]; then
+        echo "기존 bin/ 디렉토리 스크립트들을 마이그레이션 중..."
+        
+        mkdir -p "$new_scripts"
+        local migrated_count=0
+        
+        for script in "$old_bin"/*; do
+            if [[ -f "$script" && -x "$script" ]]; then
+                local name=$(basename "$script")
+                local script_name="${name%.sh}"
+                
+                # scripts/migrated 디렉토리로 복사
+                cp "$script" "$new_scripts/"
+                echo "  복사: $name -> scripts/migrated/$name"
+                
+                # local/bin에 심볼릭 링크 생성 (확장자 제거)
+                ln -sf "$new_scripts/$name" "$new_bin/$script_name"
+                echo "  등록: $script_name 명령어"
+                
+                ((migrated_count++))
+            fi
+        done
+        
+        if [[ $migrated_count -gt 0 ]]; then
+            echo "✅ $migrated_count개의 스크립트를 마이그레이션했습니다"
+            echo "  원본 위치: $old_bin (보존됨)"
+            echo "  새 위치: $new_scripts"
+            echo "  명령어: ~/.bin/ (심볼릭 링크)"
+        else
+            echo "마이그레이션할 실행 가능한 스크립트가 없습니다"
+        fi
+    fi
+}

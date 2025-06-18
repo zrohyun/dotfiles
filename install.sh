@@ -285,6 +285,10 @@ main() {
     source ./config/functions/install_omz.sh
     install_omz
     
+    # 개인 스크립트 환경 설정
+    log "개인 스크립트 환경 설정 중..."
+    setup_personal_scripts
+    
     # 임시 로그 디렉토리 정리 (타임스탬프가 적용된 디렉토리)
     temp_logs_dir=$(find "$HOME" -maxdepth 1 -type d -name ".dotfiles_temp_logs_*" 2>/dev/null | sort -r | head -n 1)
     if [[ -n "$temp_logs_dir" && -d "$temp_logs_dir" ]]; then
@@ -293,6 +297,11 @@ main() {
     fi
     
     log_success "설치 완료!"
+    log "개인 스크립트 관리 명령어:"
+    log "  create_script <이름> [카테고리]  - 새 스크립트 생성"
+    log "  add_script <경로> [명령어]       - 기존 스크립트 등록"
+    log "  list_scripts                    - 등록된 스크립트 목록"
+    log "  script_manager_help             - 전체 도움말"
 }
 
 # 스크립트 실행

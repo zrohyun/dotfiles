@@ -16,6 +16,11 @@
 
 alias path='echo $PATH | tr -s ":" "\n"'
 
+# Personal scripts
+if [[ -d $HOME/.bin ]]; then
+    export PATH="$HOME/.bin:$PATH"
+fi
+
 if [[ -d $HOME/.local/bin ]]; then
     export PATH="$PATH:$HOME/.local/bin"
 fi
