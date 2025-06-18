@@ -225,6 +225,11 @@ backup_and_symlink() {
     fi
 }
 
+symlink_personal_bin() {
+    # 개인 스크립트 bin 폴더 심볼릭 링크
+    backup_and_symlink "$DOTFILES/bin" "$HOME/.bin"
+}
+
 symlink_dotfiles() {
     # 필요한 디렉토리가 존재하는지 확인하고 없으면 생성
     mkdir -p "$HOME/.config" "$HOME/.local" "$HOME/.cache"
@@ -255,6 +260,9 @@ symlink_dotfiles() {
     # Uncomment if needed
     # backup_and_symlink "$DOTFILES/config/ideavim/.ideavimrc" "$HOME/.ideavimrc"
     # backup_and_symlink "$DOTFILES/config/vim/.vimrc" "$HOME/.vimrc"
+
+    # 개인 스크립트 bin 폴더 심볼릭 링크
+    symlink_personal_bin
 
     # 폴더 모니터링 용 symlink
     # !NOTE: or config에 있는 사용하는 app config만 symlink를 걸까..?
