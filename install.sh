@@ -165,6 +165,69 @@ curl_install_dotfiles() {
 }
 
 
+# Homebrew 설치 함수 (Mac용)
+install_homebrew() {
+    if [[ "$(detect_os)" != "Mac" ]]; then
+        return 0
+    fi
+    
+    # Homebrew가 이미 설치되어 있는지 확인
+    if command -v brew &>/dev/null; then
+        log_success "Homebrew가 이미 설치되어 있습니다"
+        return 0
+    fi
+    
+    log "Homebrew 설치 중..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Homebrew PATH 설정
+    if [[ -f "/opt/homebrew/bin/brew" ]]; then
+        # Apple Silicon Mac
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -f "/usr/local/bin/brew" ]]; then
+        # Intel Mac
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+    
+    if command -v brew &>/dev/null; then
+        log_success "Homebrew 설치 완료"
+    else
+        log_error "Homebrew 설치 실패"
+        exit 1
+    fi
+}
+
+# .secrets.local 파일 생성 함수
+create_secrets_local() {
+    local secrets_template="$DOTFILES/config/.secrets"
+    local secrets_local="$HOME/.config/.secrets.local"
+    
+    # .config 디렉토리가 없으면 생성
+    mkdir -p "$HOME/.config"
+    
+    # .secrets.local 파일이 이미 존재하는지 확인
+    if [[ -f "$secrets_local" ]]; then
+        log_success ".secrets.local 파일이 이미 존재합니다: $secrets_local"
+        return 0
+    fi
+    
+    # 템플릿 파일이 존재하는지 확인
+    if [[ ! -f "$secrets_template" ]]; then
+        log_error ".secrets 템플릿 파일을 찾을 수 없습니다: $secrets_template"
+        return 1
+    fi
+    
+    # 템플릿을 .secrets.local로 복사
+    cp "$secrets_template" "$secrets_local"
+    
+    # 파일 권한 설정 (600 - 소유자만 읽기/쓰기)
+    chmod 600 "$secrets_local"
+    
+    log_success ".secrets.local 파일을 생성했습니다: $secrets_local"
+    log "이제 $secrets_local 파일을 편집하여 실제 환경변수 값을 입력하세요."
+    log "예: export OPENAI_API_KEY=your_actual_api_key_here"
+}
+
 # Git 설치 확인/설치 (Mac 및 Linux)
 install_git() {
     machine=$(detect_os)
@@ -279,6 +342,10 @@ main() {
     
     # 일반 백업 수행
     backup # 기존 dotfiles 백업 (HOME/.dotfiles_backups에 저장)
+    
+    # .secrets.local 파일 생성 (존재하지 않는 경우)
+    create_secrets_local
+    
     symlink_dotfiles
     
     # Oh-My-Zsh 설치

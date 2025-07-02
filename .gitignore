@@ -54,6 +54,9 @@ cache/**/*
 local/share/**/*
 local/state/**/*
 
+# Local configuration files (contains sensitive information)
+*.local
+
 # app ignore
 config/.oh-my-zsh/**/*
 config/zsh/.zsh_sessions/**/*
