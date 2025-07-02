@@ -10,6 +10,8 @@ cli_tools=(
     "wget"
     "bat"
     "netcat-openbsd"
+    "nodejs"
+    "npm"
 
     # ESSENTIAL
     # "tmux"
@@ -131,3 +133,7 @@ install_krew() {
     tar zxvf "${KREW}.tar.gz" &&
     ./"${KREW}" install krew
 }
+
+# NODE.JS BASIC INSTALLATION
+# Basic nodejs and npm are installed via cli_tools array above
+# For advanced Node.js ecosystem setup, see scripts/bak/install_node_packages.sh

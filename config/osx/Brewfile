@@ -84,7 +84,8 @@ brew "bash-language-server"
 brew "pyright"              # python lsp
 # brew "golang"
 brew "gopls"
-# brew "nvm"
+brew "node"          # Node.js + npm + npx
+brew "nvm"           # Node Version Manager
 # brew "bat"
 # brew "grpc"
 # brew "grpcui"
