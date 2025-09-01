@@ -180,3 +180,12 @@ source $ZSH/oh-my-zsh.sh
 
 # load custom aliases(alias overwrite)
 load_aliases
+
+# load local configuration (tracked via examples, actual files ignored)
+if [[ -f "$HOME/.dotlocal/.local.env" ]]; then
+    source "$HOME/.dotlocal/.local.env"
+fi
+
+if [[ -f "$HOME/.dotlocal/.local.sh" ]]; then
+    source "$HOME/.dotlocal/.local.sh"
+fi

@@ -274,6 +274,48 @@ install_git() {
     fi
 }
 
+# 로컬 설정 파일 설정
+setup_local_config() {
+    log "로컬 설정 파일 설정 중..."
+    
+    local local_dir="$HOME/.dotlocal"
+    local dotfiles_local_dir="$DOTFILES/local"
+    
+    # .dotlocal 디렉토리 생성
+    mkdir -p "$local_dir"
+    
+    # dotfiles/local/.local.env 생성 (example에서 복사, 없을 때만)
+    if [[ ! -f "$dotfiles_local_dir/.local.env" ]]; then
+        if [[ -f "$dotfiles_local_dir/.local.env.example" ]]; then
+            cp "$dotfiles_local_dir/.local.env.example" "$dotfiles_local_dir/.local.env"
+            log "Created dotfiles .local.env from example"
+        fi
+    fi
+    
+    # dotfiles/local/.local.sh 생성 (example에서 복사, 없을 때만)
+    if [[ ! -f "$dotfiles_local_dir/.local.sh" ]]; then
+        if [[ -f "$dotfiles_local_dir/.local.sh.example" ]]; then
+            cp "$dotfiles_local_dir/.local.sh.example" "$dotfiles_local_dir/.local.sh"
+            log "Created dotfiles .local.sh from example"
+        fi
+    fi
+    
+    # 기존 로컬 파일 백업 (심볼릭 링크가 아닌 경우)
+    if [[ -f "$local_dir/.local.env" && ! -L "$local_dir/.local.env" ]]; then
+        backup_file_to_bak "$local_dir/.local.env"
+    fi
+    
+    if [[ -f "$local_dir/.local.sh" && ! -L "$local_dir/.local.sh" ]]; then
+        backup_file_to_bak "$local_dir/.local.sh"
+    fi
+    
+    # 심볼릭 링크 생성 (dotfiles의 .local.* 파일로)
+    ln -sf "$dotfiles_local_dir/.local.env" "$local_dir/.local.env"
+    ln -sf "$dotfiles_local_dir/.local.sh" "$local_dir/.local.sh"
+    
+    log_success "로컬 설정 파일 설정 완료"
+}
+
 # 메인 함수
 main() {
     # 로깅 초기화
@@ -345,6 +387,9 @@ main() {
     
     # .secrets.local 파일 생성 (존재하지 않는 경우)
     create_secrets_local
+    
+    # 로컬 설정 파일 설정
+    setup_local_config
     
     symlink_dotfiles
     
