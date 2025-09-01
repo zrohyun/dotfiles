@@ -4,7 +4,9 @@
 if [[ -d $HOME/.dotfiles ]]; then
     alias dotfiles="cd $HOME/.dotfiles"
     alias dotfile=dotfiles
+    alias dots=dotfiles
     alias dot=dotfiles
+    alias ds=dotfiles
 fi
 
 # Create and enter directory
@@ -24,6 +26,7 @@ set_workspace() {
     fi
     alias workspace="cd $WORKSPACE"
     alias works=workspace
+    # alias work=workspace
     alias wsp=workspace
     alias ws=workspace
 }
@@ -49,3 +52,4 @@ if [[ $machine == 'Mac' ]]; then
 fi
 
 alias cdssh="cd $HOME/.ssh"
+alias visshconf="cd $HOME/.config"
