@@ -1,0 +1,32 @@
+# 로컬 전용 설정 및 스크립트
+# 이 파일을 수정하면 .local.sh 파일도 자동으로 변경됩니다
+
+# 로컬 전용 alias
+alias llocal="ls -la ~/local"
+alias vlocal="vi ~/local/.local.sh"
+alias elocal="vi ~/local/.local.env"
+
+# 로컬 전용 함수
+local_info() {
+    echo "=== 로컬 환경 정보 ==="
+    echo "Hostname: $(hostname)"
+    echo "User: $(whoami)"
+    echo "Shell: $SHELL"
+    echo "Home: $HOME"
+    echo "===================="
+}
+
+# 로컬 전용 PATH 추가
+if [[ -d "$HOME/local/bin" ]]; then
+    export PATH="$HOME/local/bin:$PATH"
+fi
+
+# 로컬 전용 도구들
+if command -v local_tool &>/dev/null; then
+    eval "$(local_tool init)"
+fi
+
+# 로컬 전용 완성 기능
+if [[ -f "$HOME/local/completions/_local" ]]; then
+    source "$HOME/local/completions/_local"
+fi
