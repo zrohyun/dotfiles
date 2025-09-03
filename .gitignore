@@ -56,6 +56,10 @@ local/state/**/*
 
 # Local configuration files (contains sensitive information)
 *.local
+local/.local.env
+local/.local.sh
+local/env/
+local/scripts/
 
 # app ignore
 config/.oh-my-zsh/**/*
