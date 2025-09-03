@@ -36,15 +36,9 @@ Mac 사용자는 dotfiles 설치 후 `init_setup_mac_apps.sh` 스크립트로 �
 
 `init_setup_mac_apps.sh`: config/osx/Brewfile의 앱 설치
 
-#### 내장 함수
-
-설치 후 사용 가능한 함수:
-
-1. **앱 목록 백업**:
-   ```bash
-   dump_brewfile
-   ```
-   현재 앱 목록을 `.bak` 디렉토리에 타임스탬프와 함께 백업
+# TODO
+- [ ] downlaod나 특정 폴더를 주기적으로 정리해주는 cronjob
 
 # Reference
 Inspired and Forked From [thoughtbot/dotfiles](https://github.com/thoughtbot/dotfiles)
+
