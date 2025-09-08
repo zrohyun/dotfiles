@@ -4,3 +4,9 @@ alias _check_functions='f() { compgen -A function }; f'
 check_functions() {
     _check_functions
 }
+
+# List environment variables that end with API_KEY (print names only)
+alias ls_api_key_keys='env | grep -E "^[A-Za-z_][A-Za-z0-9_]*API_KEY=" | sed "s/=.*//" | sort'
+alias ls_api_key='env | grep -E "^[A-Za-z_][A-Za-z0-9_]*API_KEY=" | sort'
+alias lak=ls_api_key
+alias lakk=ls_api_key_keys
