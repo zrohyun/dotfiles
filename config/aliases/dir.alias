@@ -26,7 +26,7 @@ set_workspace() {
     fi
     alias workspace="cd $WORKSPACE"
     alias works=workspace
-    # alias work=workspace
+    alias work=workspace
     alias wsp=workspace
     alias ws=workspace
 }
@@ -39,17 +39,25 @@ if [[ $machine == 'Mac' ]]; then
     fi
 
     if [[ -d $HOME/Desktop ]]; then
-        alias desk="cd $HOME/Desktop"
+        alias desktop="cd $HOME/Desktop"
+        alias desk=desktop
+        alias dt=desktop
     fi
 
     if [[ -d $HOME/Downloads ]]; then
-        alias download="cd $HOME/Downloads"
+        alias downloads="cd $HOME/Downloads"
+        alias download=downloads
+        alias down=downloads
+        alias dl=downloads
+        alias dls=downloads
     fi
 
     if [[ -d $HOME/obsidian-zro ]]; then
         alias obsidian="cd $HOME/obsidian-zro"
+        alias obs=obsidian
     fi
 fi
+
 
 alias cdssh="cd $HOME/.ssh"
 alias visshconf="cd $HOME/.config"
