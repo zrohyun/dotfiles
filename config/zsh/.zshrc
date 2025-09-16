@@ -34,6 +34,19 @@ export ZSHZ_DATA=${ZSH_CACHE_DIR:-$HOME}/.z
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
+# 메모리와 파일 모두 200k로 확장
+HISTSIZE=200000
+SAVEHIST=500000
+
+# 추가 옵션
+setopt APPEND_HISTORY         # 세션 종료 시 히스토리를 append
+setopt INC_APPEND_HISTORY     # 명령 실행 시 바로 기록
+setopt SHARE_HISTORY          # 여러 세션 간 실시간 공유
+setopt HIST_IGNORE_DUPS       # 연속 중복 제거
+# setopt HIST_IGNORE_SPACE      # 공백으로 시작한 명령은 저장 안 함
+setopt HIST_REDUCE_BLANKS     # 불필요한 공백 제거
+
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/

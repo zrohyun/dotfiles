@@ -92,6 +92,7 @@ detect_os() {
 # curl로 실행된 경우 dotfiles 저장소 클론 후 로컬 스크립트 실행
 curl_install_dotfiles() {
     dotfiles_dir="$HOME/.dotfiles" # $HOME/dotfiles
+    log "curl_install_dotfiles"
 
     # 현재 디렉토리가 이미 dotfiles 디렉토리인지 확인
     if [[ "$PWD" == "$dotfiles_dir" ]]; then
@@ -301,6 +302,10 @@ setup_local_config() {
     # 기존 .dotlocal 디렉토리 백업 (심볼릭 링크가 아닌 경우)
     if [[ -d "$local_dir" && ! -L "$local_dir" ]]; then
         backup_file_to_bak "$local_dir"
+        rm -rf "$local_dir"  # 기존 디렉토리 제거
+    elif [[ -L "$local_dir" ]]; then
+        # 이미 심볼릭 링크인 경우 제거
+        rm -f "$local_dir"
     fi
     
     # dotlocal 폴더 전체를 .dotlocal로 심볼릭 링크
@@ -342,7 +347,7 @@ main() {
         # Mac 초기 설정 확인
         install_homebrew
         # Homebrew로 Git 설치 여부 확인
-        if ! brew list git &>/dev/null; then
+        if ! command -v git &>/dev/null || ! brew list git &>/dev/null; then
             install_git
         fi
     elif [[ $machine == "Linux" ]]; then
