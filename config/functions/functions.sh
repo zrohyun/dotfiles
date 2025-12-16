@@ -177,46 +177,8 @@ install_cli_tools() {
     fi
 }
 
-# Homebrew 설치 확인/설치 (Mac 및 Linux)
-install_homebrew() {
-    if command -v brew &>/dev/null; then
-        echo "Homebrew 이미 설치됨"
-    else
-        # 운영체제 감지
-        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            machine="Linux"
-        elif [[ "$OSTYPE" == "darwin"* ]]; then
-            machine="Mac"
-        else
-            machine="Unknown"
-        fi
-        
-        echo "Homebrew 설치 중 ($machine)..."
-        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        
-        # 플랫폼별 Homebrew 환경변수 설정
-        if [[ $machine == "Mac" ]]; then
-            # Mac용 환경변수 설정
-            if [[ -f /opt/homebrew/bin/brew ]]; then
-                eval "$(/opt/homebrew/bin/brew shellenv)"
-            elif [[ -f /usr/local/bin/brew ]]; then
-                eval "$(/usr/local/bin/brew shellenv)"
-            fi
-        elif [[ $machine == "Linux" ]]; then
-            # Linux용 환경변수 설정
-            if [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-                eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-            fi
-        fi
-        
-        if command -v brew &>/dev/null; then
-            echo "✅ Homebrew 설치 완료 ($machine)"
-        else
-            echo "❌ Homebrew 설치 실패 ($machine)"
-            return 1
-        fi
-    fi
-}
+# NOTE: install_homebrew()는 install_dependencies.sh로 이동됨
+# 사용: source ./config/functions/install_dependencies.sh
 
 # brew install function - install multiple packages efficiently
 brew_install() {

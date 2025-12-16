@@ -327,13 +327,6 @@ symlink_dotfiles() {
     echo "Created monitoring directories. Manual monitoring setup may be required."
 }
 
-# Legacy symlink function - replaced by improved symlink_dotfiles
-# This function is kept for reference but should not be used
-symlink_dotfiles_v1() {
-    echo "Warning: symlink_dotfiles_v1 is deprecated. Using symlink_dotfiles instead."
-    symlink_dotfiles
-}
-
 # Create reference symlinks in .dotfiles for IDE convenience
 # This allows viewing $HOME/.local, .cache, .config directly from .dotfiles directory
 create_dotfiles_references() {

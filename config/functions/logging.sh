@@ -130,6 +130,26 @@ ensure_sudo_session() {
 }
 
 # ============================================
+# 안전한 source 헬퍼 함수
+# ============================================
+# 파일 존재 여부를 확인하고 source
+# Usage: safe_source <file_path> [required=true]
+safe_source() {
+    local file=$1
+    local required=${2:-true}  # 기본값: 필수 파일
+    
+    if [[ -f "$file" ]]; then
+        source "$file"
+        log_debug "Loaded: $file"
+    elif [[ "$required" == "true" ]]; then
+        log_error "필수 파일을 찾을 수 없습니다: $file"
+        exit 1
+    else
+        log_warning "선택 파일을 찾을 수 없습니다 (스킵): $file"
+    fi
+}
+
+# ============================================
 # 로그 마이그레이션
 # ============================================
 # curl 모드의 임시 로그를 로컬 모드 로그로 이동
