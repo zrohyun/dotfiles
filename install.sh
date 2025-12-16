@@ -84,90 +84,16 @@ if [[ "$INSTALL_MODE" == "curl" ]]; then
     init_logging_fallback
     ensure_sudo_session
     
-    # curl 모드 전용: Homebrew 설치 함수
-    # (로컬 모드의 install_dependencies.sh의 install_homebrew와 동일한 로직)
-    install_homebrew() {
-        local machine
-        machine=$(detect_os)
-        
-        if [[ "$machine" != "Mac" ]]; then
-            return 0
-        fi
-        
-        if command -v brew &>/dev/null; then
-            log_success "Homebrew가 이미 설치되어 있습니다"
-            return 0
-        fi
-        
-        log "Homebrew 설치 중..."
-        if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
-            log_error "Homebrew 설치 실패"
-            exit 1
-        fi
-        
-        if [[ -f "/opt/homebrew/bin/brew" ]]; then
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-        elif [[ -f "/usr/local/bin/brew" ]]; then
-            eval "$(/usr/local/bin/brew shellenv)"
-        fi
-        
-        if command -v brew &>/dev/null; then
-            log_success "Homebrew 설치 완료"
-        else
-            log_error "Homebrew 설치 후 PATH 설정 실패"
-            exit 1
-        fi
-    }
-    
-    # curl 모드 전용: Git 설치 함수
-    # (로컬 모드의 install_dependencies.sh의 install_git와 동일 로직)
-    install_git() {
-        local machine
-        machine=$(detect_os)
-        
-        if [[ $machine == "Mac" ]]; then
-            if command -v brew &>/dev/null && brew list git &>/dev/null 2>&1; then
-                log_success "Git 이미 설치됨"
-                return 0
-            fi
-            
-            log "Git 설치 중 (Mac)..."
-            if ! brew install git; then
-                log_error "Git 설치 실패 (Mac)"
-                exit 1
-            fi
-        elif [[ $machine == "Linux" ]]; then
-            log "Git 설치 중 (Linux)..."
-            if command -v apt-get &>/dev/null; then
-                if [[ "${HAS_SUDO:-0}" == "1" ]]; then
-                    log "sudo로 apt-get을 사용하여 Git 설치 중..."
-                    if ! sudo apt-get update || ! sudo apt-get install -y git; then
-                        log_error "sudo로 Git 설치 실패"
-                        exit 1
-                    fi
-                else
-                    log "sudo 없이 apt-get으로 Git 설치 시도 중..."
-                    if ! apt-get update || ! apt-get install -y git; then
-                        log_error "sudo 없이 apt-get 실행 실패. sudo 권한이 필요할 수 있습니다."
-                        exit 1
-                    fi
-                fi
-            else
-                log_error "지원되지 않는 Linux 배포판입니다. (apt-get을 찾을 수 없음)"
-                exit 1
-            fi
-        else
-            log_error "지원되지 않는 운영체제입니다: $machine"
-            exit 1
-        fi
-        
-        if command -v git &>/dev/null; then
-            log_success "Git 설치 완료"
-        else
-            log_error "Git 설치 후 검증 실패"
-            exit 1
-        fi
-    }
+    # curl 모드: install_dependencies.sh를 원격에서 가져와 source
+    # (중복 코드 제거 - install_homebrew, install_git 함수 재사용)
+    log "의존성 설치 함수 로드 중..."
+    DEPS_SCRIPT=$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/main/config/functions/install_dependencies.sh)
+    if [[ -z "$DEPS_SCRIPT" ]]; then
+        log_error "install_dependencies.sh 다운로드 실패"
+        exit 1
+    fi
+    eval "$DEPS_SCRIPT"
+    log_success "의존성 설치 함수 로드 완료 (install_homebrew, install_git, ensure_dependencies)"
     
     # curl 모드 전용: dotfiles 저장소 클론 함수
     curl_install_dotfiles() {
