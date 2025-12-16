@@ -45,43 +45,25 @@ export INSTALL_MODE
 # 2. curl 모드 처리 (조기 종료)
 # ============================================
 if [[ "$INSTALL_MODE" == "curl" ]]; then
-    # curl 모드 전용: 최소 fallback 로깅 시스템
-    # (로컬 모드의 logging.sh를 사용할 수 없으므로 인라인으로 정의)
+    # curl 모드: logging.sh를 원격에서 가져와 source
+    # (중복 코드 제거 - log, log_success, log_error, ensure_sudo_session 함수 재사용)
+    echo "로깅 함수 로드 중..."
+    LOGGING_SCRIPT=$(curl -fsSL https://raw.githubusercontent.com/zrohyun/dotfiles/main/config/functions/logging.sh)
+    if [[ -z "$LOGGING_SCRIPT" ]]; then
+        echo "❌ logging.sh 다운로드 실패"
+        exit 1
+    fi
+    eval "$LOGGING_SCRIPT"
+    
+    # curl 모드 로깅 초기화 (logging.sh의 init_logging은 BASH_SOURCE 문제로 curl 모드에서 직접 초기화)
     export TZ=${TZ:-Asia/Seoul}
+    _curl_log_dir="$HOME/.dotfiles_temp_logs_$(date +%Y%m%d_%H%M%S)"
+    mkdir -p "$_curl_log_dir"
+    LOGFILE="${_curl_log_dir}/install_log_$(date +%Y%m%d_%H%M%S).log"
+    echo "로그 파일: $LOGFILE"
+    exec > >(tee -a "$LOGFILE") 2>&1
     
-    # curl 모드 전용 로깅 함수들
-    init_logging_fallback() {
-        local log_dir="$HOME/.dotfiles_temp_logs_$(date +%Y%m%d_%H%M%S)"
-        mkdir -p "$log_dir"
-        LOGFILE="${log_dir}/install_log_$(date +%Y%m%d_%H%M%S).log"
-        echo "로그 파일: $LOGFILE"
-        exec > >(tee -a "$LOGFILE") 2>&1
-    }
-    log() { echo "$(date +"%Y-%m-%d %H:%M:%S") - $1"; }
-    log_success() { echo "$(date +"%Y-%m-%d %H:%M:%S") - ✅ $1"; }
-    log_error() { echo "$(date +"%Y-%m-%d %H:%M:%S") - ❌ $1"; }
-    
-    # curl 모드 전용: sudo 세션 확인 함수
-    # (로컬 모드의 logging.sh의 ensure_sudo_session과 동일한 로직)
-    ensure_sudo_session() {
-        if command -v sudo &>/dev/null; then
-            log "sudo 권한 확인 중..."
-            if sudo -n true 2>/dev/null; then
-                sudo -v
-                log_success "sudo 권한 확인 완료"
-                export HAS_SUDO=1
-            else
-                log "sudo 권한이 없습니다. sudo 없이 계속 진행합니다."
-                export HAS_SUDO=0
-            fi
-        else
-            log "sudo 명령어를 찾을 수 없습니다. sudo 없이 계속 진행합니다."
-            export HAS_SUDO=0
-        fi
-    }
-    
-    # curl 모드 초기화
-    init_logging_fallback
+    log_success "로깅 함수 로드 완료"
     ensure_sudo_session
     
     # curl 모드: install_dependencies.sh를 원격에서 가져와 source
@@ -244,35 +226,8 @@ fi
 # ============================================
 # 4. 로컬 모드 - 함수 로드
 # ============================================
-
-# 기본 함수 로드
-source ./config/functions/entry.sh
-source ./config/functions/install_mode.sh
-
-# 의존성 설치 함수
-source ./config/functions/install_dependencies.sh
-
-# 설정 함수
-source ./config/functions/setup_config.sh
-
-# 백업 함수
-source ./config/functions/backup.sh
-
-# 스냅샷 함수 (Phase 4: 에러 처리 개선)
-source ./config/functions/snapshot.sh
-
-# 기타 함수들
-source ./config/functions/functions.sh
-
-# OS별 설정
-machine=$(detect_os)
-if [[ $machine == "Linux" ]]; then
-    source ./config/functions/setup_linux.sh
-elif [[ $machine == "Mac" ]]; then
-    if [[ -f "./config/functions/setup_mac.sh" ]]; then
-        source ./config/functions/setup_mac.sh
-    fi
-fi
+# 로드 순서: logging.sh (위에서 완료) → init.sh
+safe_source ./config/functions/init.sh
 
 # ============================================
 # 5. 유틸리티 함수
@@ -357,7 +312,7 @@ main() {
     
     # Oh-My-Zsh 설치 (옵션)
     if [[ "${INSTALL_OMZ}" -eq 1 ]]; then
-        source ./config/functions/install_omz.sh
+        safe_source ./config/functions/install_omz.sh
         install_omz
     else
         log "Skipping Oh-My-Zsh install (INSTALL_OMZ=0)"
