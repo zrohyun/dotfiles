@@ -311,9 +311,10 @@ symlink_dotfiles() {
     # backup_and_symlink "$DOTFILES/config/git/.gitconfig" "$HOME/.gitconfig"
     backup_and_symlink "$DOTFILES/config/git/.gitignore" "$HOME/.gitignore"
 
-    # Uncomment if needed
+    # Uncomment if needed (또는 XDG 방식 사용: .env의 VIMINIT 참조)
     # backup_and_symlink "$DOTFILES/config/ideavim/.ideavimrc" "$HOME/.ideavimrc"
     # backup_and_symlink "$DOTFILES/config/vim/.vimrc" "$HOME/.vimrc"
+    # NOTE: vim은 XDG 방식 권장 - VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc" (.env에서 설정)
 
     # 개인 스크립트 bin 폴더 심볼릭 링크
     symlink_personal_bin
