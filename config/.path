@@ -24,6 +24,8 @@ fi
 if [[ -d $HOME/.local/bin ]]; then
     export PATH="$PATH:$HOME/.local/bin"
 fi
-#TODO: autocompletion fpath 추가
-# XDG_CONFIG_HOME/zsh/completions fpath 추가
-fpath=("$XDG_CONFIG_HOME/zsh/completions" $fpath)
+# TODO: autocompletion fpath 추가 (zsh 전용)
+# bash에서는 fpath가 없으므로 zsh일 때만 설정
+if [[ -n ${ZSH_VERSION:-} ]]; then
+    fpath=("$XDG_CONFIG_HOME/zsh/completions" "${fpath[@]:-}")
+fi

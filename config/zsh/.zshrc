@@ -144,7 +144,7 @@ if command -v fzf &>/dev/null; then
     # echo "fzf command not found. Skipping fzf plugin."
 fi
 
-source $ZSH/oh-my-zsh.sh
+[[ -d $ZSH && -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -201,4 +201,14 @@ fi
 
 if [[ -f "$HOME/.dotlocal/.local.sh" ]]; then
     source "$HOME/.dotlocal/.local.sh"
+fi
+
+# 사용자별 추가 설정 (선택적)
+if [[ -f "$HOME/.local/bin/env" ]]; then
+    source "$HOME/.local/bin/env"
+fi
+
+# Added by Antigravity (Mac only)
+if [[ "$OSTYPE" == "darwin"* ]] && [[ -d "/Users/ncai/.antigravity/antigravity/bin" ]]; then
+    export PATH="/Users/ncai/.antigravity/antigravity/bin:$PATH"
 fi

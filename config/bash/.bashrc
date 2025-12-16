@@ -81,6 +81,16 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Directory navigation aliases (zsh의 oh-my-zsh aliases plugin과 동일)
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias -- -='cd -'  # 이전 디렉토리로 이동
+
+# Command location aliases
+alias w='which'  # which 단축
+alias t='type'   # type 단축
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -93,8 +103,40 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /opt/etc/bash_completion ] && ! shopt -oq posix; then
-    . /opt/etc/bash_completion
+if ! shopt -oq posix; then
+    # System bash_completion
+    if [ -f /opt/etc/bash_completion ]; then
+        . /opt/etc/bash_completion
+    elif [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+    
+    # Homebrew bash completion (Mac)
+    if [[ "$OSTYPE" == "darwin"* ]] && command -v brew &>/dev/null; then
+        brew_prefix=$(brew --prefix 2>/dev/null)
+        if [ -n "$brew_prefix" ] && [ -f "$brew_prefix/etc/bash_completion" ]; then
+            . "$brew_prefix/etc/bash_completion"
+        fi
+    fi
+    
+    # Custom completions
+    if [ -d "${XDG_CONFIG_HOME:-$HOME/.config}/bash/completions" ]; then
+        for completion_file in "${XDG_CONFIG_HOME:-$HOME/.config}/bash/completions"/*; do
+            [ -f "$completion_file" ] && . "$completion_file"
+        done
+    fi
+fi
+
+# Enhanced completion settings
+if [[ ${BASH_VERSION%%.*} -ge 4 ]]; then
+    # Case-insensitive completion
+    bind "set completion-ignore-case on" 2>/dev/null
+    # Show all completions immediately
+    bind "set show-all-if-ambiguous on" 2>/dev/null
+    # Menu completion
+    bind "set menu-complete-display-prefix on" 2>/dev/null
 fi
 
 # bash users - add the following line to your ~/.bashrc
@@ -102,11 +144,16 @@ fi
 [[ -f ${XDG_CONFIG_HOME:-$HOME}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME}/.env
 [[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/.env
 
-export BASH_CACHE_DIR=$XDG_CACHE_HOME/bash
+export BASH_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/bash
 if [[ ! -d $BASH_CACHE_DIR ]]; then
-    mkdir -p $BASH_CACHE_DIR
+    mkdir -p $BASH_CACHE_DIR 2>/dev/null || true
 fi
 export HISTFILE=$BASH_CACHE_DIR/.bash_history
 # export HISTFILE="$XDG_STATE_HOME"/bash/history
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# 사용자별 추가 설정 (선택적)
+if [[ -f "$HOME/.local/bin/env" ]]; then
+    source "$HOME/.local/bin/env"
+fi

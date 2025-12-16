@@ -32,9 +32,10 @@ setup_mac() {
 
     # copy Brewfile
     backup_file_to_bak "$HOME/Brewfile"
-    ln -snfbS .bak "$DOTFILES/osx/Brewfile" "$HOME/"
+    # BSD ln은 -b, -S 옵션 미지원 → ln -snf 사용 (백업은 backup_file_to_bak에서 처리)
+    ln -snf "$DOTFILES/osx/Brewfile" "$HOME/Brewfile"
     BREW_BUNDLE=$HOME/Brewfile
-    # ln -snfbS .bak $DOTFILES/osx/Brewfile{,.lock.json} $HOME/
+    # Note: 이전에는 ln -snfbS를 사용했으나 BSD 호환을 위해 변경
 
     # Update Homebrew recipes
     brew update && brew upgrade

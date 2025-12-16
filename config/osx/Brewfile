@@ -31,7 +31,7 @@ brew "httpie"
 brew "docker"
 # brew "docker-compose"
 # brew "devcontainer"
-brew "colima" #, restart_service: true # macOS용 컨테이너 런타임 (Docker 대체) 
+# brew "colima" #, restart_service: true # macOS용 컨테이너 런타임 (Docker 대체) -> 좋은 mac을 쓸 때는 그냥 docker-desktop을 사용하는게 낫겠다.
 # brew "ollama"
 brew "gh"
 # gh copilot
@@ -42,7 +42,7 @@ brew "gh"
 # brew "orbstack"
 # curl -fsSL https://get.jetify.com/devbox | bash
 brew "tmux"
-brew "tree"
+# brew "tree" # lsd --tree로 대체 가능
 brew "telnet"
 brew "trash-cli"
 brew "neovim"
@@ -60,6 +60,7 @@ brew "fzf"
 brew "jq"                 # JSON
 brew "fx"                 # JSON
 brew "sshs"
+# brew "Adembc/homebrew-tap/lazyssh"
 # brew "newman"
 # brew "otree"
 # brew "noahgorstein/tap/jqp"
@@ -80,6 +81,12 @@ brew "bpython"
 # brew "stow"
 # brew "ranger"
 brew "superfile"
+# brew "macfuse" # cask?
+# brew "gromgit/fuse/sshfs-mac" #"sshfs"
+brew "duck"
+# brew "rclone" # brew rclone을 쓰면 안된다고 함 공식 binary로 설치하라 함.
+# curl -fsSL https://rclone.org/install.sh | sudo bash
+# macfuse를 설치해서 rclone으로 filesystem 마운트를 하면 보안정책 낮추는 설정을 해줘야하는데 회사 system에서 해줘도 되는지 모르겠음. 보류.
 
 #LSP
 brew "bash-language-server"
@@ -168,6 +175,7 @@ cask "iterm2"
 cask "warp"
 # cask "wave"
 cask "itsycal"
+# cask "topnotch"
 # cask "ghostty"
 # cask "keka"
 # cask "github"
@@ -222,6 +230,7 @@ cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 # cask "kubernetic"
 # cask "headlamp"
 # cask "kubewall/tap/kubewall"
+cask "docker-desktop"
 
 # cask "qlmarkdown"         # 마크다운 파일 미리보기 # https://github.com/sbarex/QLMarkdown
 # cask "command-x"          # 파일 이동 단축키
@@ -291,5 +300,6 @@ mas "Tailscale", id: 1475387142
 # mas "Parallels Desktop", id: 1085114709
 # mas "Screens 5: VNC 원격 데스크톱", id: 1663047912
 mas "Card Diary", id: 1536247273
+mas "Hidden Bar", id: 1452453066 # 메뉴바 아이콘 숨김
 # VSCODE
 # vscode "vscodevim.vim"

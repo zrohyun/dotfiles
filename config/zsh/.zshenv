@@ -8,8 +8,8 @@
 
 # FIRST INITIATED CONFIG FILE WHEN ZSH STARTS
 export DOTFILES=$HOME/.dotfiles
-# [[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/.env
-[[ -f $DOTFILES/config/.env ]] && source $DOTFILES/config/.env
+[[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/.env ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/.env
+# [[ -f $DOTFILES/config/.env ]] && source $DOTFILES/config/.env
 
 
 export ZSH_CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/zsh
@@ -21,6 +21,11 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 if [[ ! -d $ZSH_STATE_DIR ]]; then
     \mkdir -vp $ZSH_STATE_DIR
+fi
+
+# $HOME/.local/bin을 PATH에 추가 (UV 등 로컬 설치 도구용)
+if [[ -d "$HOME/.local/bin" ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # nerdfetch

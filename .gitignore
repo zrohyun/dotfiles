@@ -3,6 +3,7 @@
 
 # Ignore all .bak, .tmp, and .log files
 .bak/*
+.bak.*
 .tmp/*
 .log/*
 
@@ -48,6 +49,11 @@ Temporary Items
 
 
 # custom ignore
+# IDE convenience: reference symlinks to $HOME directories
+.local
+.cache
+.config
+
 # dotfiles symlink
 *log.*
 cache/**/*
